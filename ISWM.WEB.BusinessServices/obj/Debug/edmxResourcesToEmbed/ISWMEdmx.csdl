@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ISWM_BASE_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ISWM_BASE_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="actions_master" EntityType="ISWM_BASE_DBModel.actions_master" />
+    <EntitySet Name="module_master" EntityType="ISWM_BASE_DBModel.module_master" />
+    <EntitySet Name="sysdiagrams" EntityType="ISWM_BASE_DBModel.sysdiagram" />
+    <EntitySet Name="user_master" EntityType="ISWM_BASE_DBModel.user_master" />
+    <EntitySet Name="user_security_access_details" EntityType="ISWM_BASE_DBModel.user_security_access_details" />
+    <EntitySet Name="userType_master" EntityType="ISWM_BASE_DBModel.userType_master" />
+    <EntitySet Name="userType_modules" EntityType="ISWM_BASE_DBModel.userType_modules" />
+    <AssociationSet Name="FK_user_security_access_details_actions_master" Association="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master">
+      <End Role="actions_master" EntitySet="actions_master" />
+      <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_security_access_details_module_master" Association="ISWM_BASE_DBModel.FK_user_security_access_details_module_master">
+      <End Role="module_master" EntitySet="module_master" />
+      <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userType_modules_module_master" Association="ISWM_BASE_DBModel.FK_userType_modules_module_master">
+      <End Role="module_master" EntitySet="module_master" />
+      <End Role="userType_modules" EntitySet="userType_modules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_master_userType_master" Association="ISWM_BASE_DBModel.FK_user_master_userType_master">
+      <End Role="userType_master" EntitySet="userType_master" />
+      <End Role="user_master" EntitySet="user_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_security_access_details_user_master" Association="ISWM_BASE_DBModel.FK_user_security_access_details_user_master">
+      <End Role="user_master" EntitySet="user_master" />
+      <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userType_modules_userType_master" Association="ISWM_BASE_DBModel.FK_userType_modules_userType_master">
+      <End Role="userType_master" EntitySet="userType_master" />
+      <End Role="userType_modules" EntitySet="userType_modules" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="actions_master">
+    <Key>
+      <PropertyRef Name="module_action_id" />
+    </Key>
+    <Property Name="module_action_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="module_action_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="module_action_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="isActivie" Type="Boolean" Nullable="false" />
+    <Property Name="created_by" Type="Int32" Nullable="false" />
+    <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modified_by" Type="Int32" Nullable="false" />
+    <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" FromRole="actions_master" ToRole="user_security_access_details" />
+  </EntityType>
+  <EntityType Name="module_master">
+    <Key>
+      <PropertyRef Name="module_id" />
+    </Key>
+    <Property Name="module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="module_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="created_by" Type="Int32" Nullable="false" />
+    <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modified_by" Type="Int32" Nullable="false" />
+    <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_module_master" FromRole="module_master" ToRole="user_security_access_details" />
+    <NavigationProperty Name="userType_modules" Relationship="ISWM_BASE_DBModel.FK_userType_modules_module_master" FromRole="module_master" ToRole="userType_modules" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="user_master">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="user_type" Type="Int32" Nullable="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="created_by" Type="Int32" Nullable="false" />
+    <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modified_by" Type="Int32" Nullable="false" />
+    <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master" FromRole="user_master" ToRole="userType_master" />
+    <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_master" ToRole="user_security_access_details" />
+  </EntityType>
+  <EntityType Name="user_security_access_details">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="module_id" Type="Int32" Nullable="false" />
+    <Property Name="action_id" Type="Int32" Nullable="false" />
+    <Property Name="hasAccess" Type="Boolean" Nullable="false" />
+    <Property Name="created_by" Type="Int32" Nullable="false" />
+    <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modified_by" Type="Int32" Nullable="false" />
+    <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="actions_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" FromRole="user_security_access_details" ToRole="actions_master" />
+    <NavigationProperty Name="module_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_module_master" FromRole="user_security_access_details" ToRole="module_master" />
+    <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_security_access_details" ToRole="user_master" />
+  </EntityType>
+  <EntityType Name="userType_master">
+    <Key>
+      <PropertyRef Name="user_type_id" />
+    </Key>
+    <Property Name="user_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="user_type_desc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="created_by" Type="Int32" Nullable="false" />
+    <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modified_by" Type="Int32" Nullable="false" />
+    <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master" FromRole="userType_master" ToRole="user_master" />
+    <NavigationProperty Name="userType_modules" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_master" ToRole="userType_modules" />
+  </EntityType>
+  <EntityType Name="userType_modules">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_type_id" Type="Int32" Nullable="false" />
+    <Property Name="module_id" Type="Int32" Nullable="false" />
+    <Property Name="created_by" Type="Int32" Nullable="false" />
+    <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modified_by" Type="Int32" Nullable="false" />
+    <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="module_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_module_master" FromRole="userType_modules" ToRole="module_master" />
+    <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_modules" ToRole="userType_master" />
+  </EntityType>
+  <Association Name="FK_user_security_access_details_actions_master">
+    <End Type="ISWM_BASE_DBModel.actions_master" Role="actions_master" Multiplicity="1" />
+    <End Type="ISWM_BASE_DBModel.user_security_access_details" Role="user_security_access_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="actions_master">
+        <PropertyRef Name="module_action_id" />
+      </Principal>
+      <Dependent Role="user_security_access_details">
+        <PropertyRef Name="action_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_security_access_details_module_master">
+    <End Type="ISWM_BASE_DBModel.module_master" Role="module_master" Multiplicity="1" />
+    <End Type="ISWM_BASE_DBModel.user_security_access_details" Role="user_security_access_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module_master">
+        <PropertyRef Name="module_id" />
+      </Principal>
+      <Dependent Role="user_security_access_details">
+        <PropertyRef Name="module_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userType_modules_module_master">
+    <End Type="ISWM_BASE_DBModel.module_master" Role="module_master" Multiplicity="1" />
+    <End Type="ISWM_BASE_DBModel.userType_modules" Role="userType_modules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module_master">
+        <PropertyRef Name="module_id" />
+      </Principal>
+      <Dependent Role="userType_modules">
+        <PropertyRef Name="module_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_master_userType_master">
+    <End Type="ISWM_BASE_DBModel.userType_master" Role="userType_master" Multiplicity="1" />
+    <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userType_master">
+        <PropertyRef Name="user_type_id" />
+      </Principal>
+      <Dependent Role="user_master">
+        <PropertyRef Name="user_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_security_access_details_user_master">
+    <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="1" />
+    <End Type="ISWM_BASE_DBModel.user_security_access_details" Role="user_security_access_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_master">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="user_security_access_details">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userType_modules_userType_master">
+    <End Type="ISWM_BASE_DBModel.userType_master" Role="userType_master" Multiplicity="1" />
+    <End Type="ISWM_BASE_DBModel.userType_modules" Role="userType_modules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userType_master">
+        <PropertyRef Name="user_type_id" />
+      </Principal>
+      <Dependent Role="userType_modules">
+        <PropertyRef Name="user_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

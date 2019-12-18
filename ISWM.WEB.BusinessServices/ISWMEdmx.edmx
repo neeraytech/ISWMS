@@ -1,0 +1,1438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ISWM_BASE_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="actions_master">
+          <Key>
+            <PropertyRef Name="module_action_id" />
+          </Key>
+          <Property Name="module_action_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_action_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="module_action_desc" Type="nvarchar" MaxLength="200" />
+          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="driver_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="contact_no" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GPS_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GPS_id" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="api_url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GPS_tracking_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="GPS_id" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="latitude" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="longitude" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="household_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="area" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="pin_code" Type="int" Nullable="false" />
+          <Property Name="city" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="state" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="latitude" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="longitude" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="household_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="contact_no" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ward_id" Type="int" Nullable="false" />
+          <Property Name="valid_from" Type="datetime" Nullable="false" />
+          <Property Name="valid_to" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ISWMS_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="RFID" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ISWMS_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="route_id" Type="int" Nullable="false" />
+          <Property Name="driver_id" Type="int" Nullable="false" />
+          <Property Name="truck_id" Type="int" Nullable="false" />
+          <Property Name="scanner_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="module_master">
+          <Key>
+            <PropertyRef Name="module_id" />
+          </Key>
+          <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RFID_household_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RFID" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RFID_description" Type="nvarchar(max)" />
+          <Property Name="household_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RFID_scanner_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="scanner_id" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar(max)" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="route_household_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="route_id" Type="int" Nullable="false" />
+          <Property Name="household_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="route_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="route_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="truck_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="truck_no" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="GPS_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_master">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="user_type" Type="int" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email_id" Type="nvarchar(max)" />
+          <Property Name="contact_no" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="photo" Type="nvarchar(max)" />
+          <Property Name="address1" Type="nvarchar(max)" />
+          <Property Name="address2" Type="nvarchar(max)" />
+          <Property Name="city" Type="nvarchar(max)" />
+          <Property Name="state" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="user_security_access_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="module_id" Type="int" Nullable="false" />
+          <Property Name="action_id" Type="int" Nullable="false" />
+          <Property Name="hasAccess" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userType_master">
+          <Key>
+            <PropertyRef Name="user_type_id" />
+          </Key>
+          <Property Name="user_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_type_desc" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userType_modules">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_type_id" Type="int" Nullable="false" />
+          <Property Name="module_id" Type="int" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ward_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ward_number" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ward_description" Type="nvarchar(max)" />
+          <Property Name="karyakarta_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_household_master_ward_master">
+          <End Role="ward_master" Type="Self.ward_master" Multiplicity="1" />
+          <End Role="household_master" Type="Self.household_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ward_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="household_master">
+              <PropertyRef Name="ward_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_driver_master">
+          <End Role="driver_master" Type="Self.driver_master" Multiplicity="1" />
+          <End Role="ISWMS_master" Type="Self.ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="driver_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="driver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_RFID_scanner_master">
+          <End Role="RFID_scanner_master" Type="Self.RFID_scanner_master" Multiplicity="1" />
+          <End Role="ISWMS_master" Type="Self.ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFID_scanner_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="scanner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_route_master">
+          <End Role="route_master" Type="Self.route_master" Multiplicity="1" />
+          <End Role="ISWMS_master" Type="Self.ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="route_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_truck_master">
+          <End Role="truck_master" Type="Self.truck_master" Multiplicity="1" />
+          <End Role="ISWMS_master" Type="Self.ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="truck_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="truck_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RFID_household_details_household_master">
+          <End Role="household_master" Type="Self.household_master" Multiplicity="1" />
+          <End Role="RFID_household_details" Type="Self.RFID_household_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="household_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RFID_household_details">
+              <PropertyRef Name="household_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_route_household_details_household_master">
+          <End Role="household_master" Type="Self.household_master" Multiplicity="1" />
+          <End Role="route_household_details" Type="Self.route_household_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="household_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route_household_details">
+              <PropertyRef Name="household_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_route_household_details_route_master">
+          <End Role="route_master" Type="Self.route_master" Multiplicity="1" />
+          <End Role="route_household_details" Type="Self.route_household_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="route_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route_household_details">
+              <PropertyRef Name="route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_truck_master_GPS_master">
+          <End Role="GPS_master" Type="Self.GPS_master" Multiplicity="1" />
+          <End Role="truck_master" Type="Self.truck_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPS_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="truck_master">
+              <PropertyRef Name="GPS_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_master_userType_master">
+          <End Role="userType_master" Type="Self.userType_master" Multiplicity="1" />
+          <End Role="user_master" Type="Self.user_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userType_master">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="user_master">
+              <PropertyRef Name="user_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_security_access_details_actions_master">
+          <End Role="actions_master" Type="Self.actions_master" Multiplicity="1" />
+          <End Role="user_security_access_details" Type="Self.user_security_access_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="actions_master">
+              <PropertyRef Name="module_action_id" />
+            </Principal>
+            <Dependent Role="user_security_access_details">
+              <PropertyRef Name="action_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_security_access_details_module_master">
+          <End Role="module_master" Type="Self.module_master" Multiplicity="1" />
+          <End Role="user_security_access_details" Type="Self.user_security_access_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module_master">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="user_security_access_details">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_security_access_details_user_master">
+          <End Role="user_master" Type="Self.user_master" Multiplicity="1" />
+          <End Role="user_security_access_details" Type="Self.user_security_access_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_master">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_security_access_details">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userType_modules_module_master">
+          <End Role="module_master" Type="Self.module_master" Multiplicity="1" />
+          <End Role="userType_modules" Type="Self.userType_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module_master">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="userType_modules">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userType_modules_userType_master">
+          <End Role="userType_master" Type="Self.userType_master" Multiplicity="1" />
+          <End Role="userType_modules" Type="Self.userType_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userType_master">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="userType_modules">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ward_master_user_master">
+          <End Role="user_master" Type="Self.user_master" Multiplicity="1" />
+          <End Role="ward_master" Type="Self.ward_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_master">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ward_master">
+              <PropertyRef Name="karyakarta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ISWM_BASE_DBModelStoreContainer">
+          <EntitySet Name="actions_master" EntityType="Self.actions_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_master" EntityType="Self.driver_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GPS_master" EntityType="Self.GPS_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GPS_tracking_history" EntityType="Self.GPS_tracking_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="household_master" EntityType="Self.household_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ISWMS_details" EntityType="Self.ISWMS_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ISWMS_master" EntityType="Self.ISWMS_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="module_master" EntityType="Self.module_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFID_household_details" EntityType="Self.RFID_household_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFID_scanner_master" EntityType="Self.RFID_scanner_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="route_household_details" EntityType="Self.route_household_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="route_master" EntityType="Self.route_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="truck_master" EntityType="Self.truck_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_master" EntityType="Self.user_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_security_access_details" EntityType="Self.user_security_access_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userType_master" EntityType="Self.userType_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userType_modules" EntityType="Self.userType_modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ward_master" EntityType="Self.ward_master" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_household_master_ward_master" Association="Self.FK_household_master_ward_master">
+            <End Role="ward_master" EntitySet="ward_master" />
+            <End Role="household_master" EntitySet="household_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_driver_master" Association="Self.FK_ISWMS_master_driver_master">
+            <End Role="driver_master" EntitySet="driver_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_RFID_scanner_master" Association="Self.FK_ISWMS_master_RFID_scanner_master">
+            <End Role="RFID_scanner_master" EntitySet="RFID_scanner_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_route_master" Association="Self.FK_ISWMS_master_route_master">
+            <End Role="route_master" EntitySet="route_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_truck_master" Association="Self.FK_ISWMS_master_truck_master">
+            <End Role="truck_master" EntitySet="truck_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RFID_household_details_household_master" Association="Self.FK_RFID_household_details_household_master">
+            <End Role="household_master" EntitySet="household_master" />
+            <End Role="RFID_household_details" EntitySet="RFID_household_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_route_household_details_household_master" Association="Self.FK_route_household_details_household_master">
+            <End Role="household_master" EntitySet="household_master" />
+            <End Role="route_household_details" EntitySet="route_household_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_route_household_details_route_master" Association="Self.FK_route_household_details_route_master">
+            <End Role="route_master" EntitySet="route_master" />
+            <End Role="route_household_details" EntitySet="route_household_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_truck_master_GPS_master" Association="Self.FK_truck_master_GPS_master">
+            <End Role="GPS_master" EntitySet="GPS_master" />
+            <End Role="truck_master" EntitySet="truck_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_master_userType_master" Association="Self.FK_user_master_userType_master">
+            <End Role="userType_master" EntitySet="userType_master" />
+            <End Role="user_master" EntitySet="user_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_security_access_details_actions_master" Association="Self.FK_user_security_access_details_actions_master">
+            <End Role="actions_master" EntitySet="actions_master" />
+            <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_security_access_details_module_master" Association="Self.FK_user_security_access_details_module_master">
+            <End Role="module_master" EntitySet="module_master" />
+            <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_security_access_details_user_master" Association="Self.FK_user_security_access_details_user_master">
+            <End Role="user_master" EntitySet="user_master" />
+            <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userType_modules_module_master" Association="Self.FK_userType_modules_module_master">
+            <End Role="module_master" EntitySet="module_master" />
+            <End Role="userType_modules" EntitySet="userType_modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userType_modules_userType_master" Association="Self.FK_userType_modules_userType_master">
+            <End Role="userType_master" EntitySet="userType_master" />
+            <End Role="userType_modules" EntitySet="userType_modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ward_master_user_master" Association="Self.FK_ward_master_user_master">
+            <End Role="user_master" EntitySet="user_master" />
+            <End Role="ward_master" EntitySet="ward_master" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ISWM_BASE_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ISWM_BASE_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="actions_master" EntityType="ISWM_BASE_DBModel.actions_master" />
+          <EntitySet Name="driver_master" EntityType="ISWM_BASE_DBModel.driver_master" />
+          <EntitySet Name="GPS_master" EntityType="ISWM_BASE_DBModel.GPS_master" />
+          <EntitySet Name="GPS_tracking_history" EntityType="ISWM_BASE_DBModel.GPS_tracking_history" />
+          <EntitySet Name="household_master" EntityType="ISWM_BASE_DBModel.household_master" />
+          <EntitySet Name="ISWMS_details" EntityType="ISWM_BASE_DBModel.ISWMS_details" />
+          <EntitySet Name="ISWMS_master" EntityType="ISWM_BASE_DBModel.ISWMS_master" />
+          <EntitySet Name="module_master" EntityType="ISWM_BASE_DBModel.module_master" />
+          <EntitySet Name="RFID_household_details" EntityType="ISWM_BASE_DBModel.RFID_household_details" />
+          <EntitySet Name="RFID_scanner_master" EntityType="ISWM_BASE_DBModel.RFID_scanner_master" />
+          <EntitySet Name="route_household_details" EntityType="ISWM_BASE_DBModel.route_household_details" />
+          <EntitySet Name="route_master" EntityType="ISWM_BASE_DBModel.route_master" />
+          <EntitySet Name="sysdiagrams" EntityType="ISWM_BASE_DBModel.sysdiagram" />
+          <EntitySet Name="truck_master" EntityType="ISWM_BASE_DBModel.truck_master" />
+          <EntitySet Name="user_master" EntityType="ISWM_BASE_DBModel.user_master" />
+          <EntitySet Name="user_security_access_details" EntityType="ISWM_BASE_DBModel.user_security_access_details" />
+          <EntitySet Name="userType_master" EntityType="ISWM_BASE_DBModel.userType_master" />
+          <EntitySet Name="userType_modules" EntityType="ISWM_BASE_DBModel.userType_modules" />
+          <EntitySet Name="ward_master" EntityType="ISWM_BASE_DBModel.ward_master" />
+          <AssociationSet Name="FK_user_security_access_details_actions_master" Association="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master">
+            <End Role="actions_master" EntitySet="actions_master" />
+            <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_driver_master" Association="ISWM_BASE_DBModel.FK_ISWMS_master_driver_master">
+            <End Role="driver_master" EntitySet="driver_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_truck_master_GPS_master" Association="ISWM_BASE_DBModel.FK_truck_master_GPS_master">
+            <End Role="GPS_master" EntitySet="GPS_master" />
+            <End Role="truck_master" EntitySet="truck_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_household_master_ward_master" Association="ISWM_BASE_DBModel.FK_household_master_ward_master">
+            <End Role="ward_master" EntitySet="ward_master" />
+            <End Role="household_master" EntitySet="household_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RFID_household_details_household_master" Association="ISWM_BASE_DBModel.FK_RFID_household_details_household_master">
+            <End Role="household_master" EntitySet="household_master" />
+            <End Role="RFID_household_details" EntitySet="RFID_household_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_route_household_details_household_master" Association="ISWM_BASE_DBModel.FK_route_household_details_household_master">
+            <End Role="household_master" EntitySet="household_master" />
+            <End Role="route_household_details" EntitySet="route_household_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_RFID_scanner_master" Association="ISWM_BASE_DBModel.FK_ISWMS_master_RFID_scanner_master">
+            <End Role="RFID_scanner_master" EntitySet="RFID_scanner_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_route_master" Association="ISWM_BASE_DBModel.FK_ISWMS_master_route_master">
+            <End Role="route_master" EntitySet="route_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ISWMS_master_truck_master" Association="ISWM_BASE_DBModel.FK_ISWMS_master_truck_master">
+            <End Role="truck_master" EntitySet="truck_master" />
+            <End Role="ISWMS_master" EntitySet="ISWMS_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_security_access_details_module_master" Association="ISWM_BASE_DBModel.FK_user_security_access_details_module_master">
+            <End Role="module_master" EntitySet="module_master" />
+            <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userType_modules_module_master" Association="ISWM_BASE_DBModel.FK_userType_modules_module_master">
+            <End Role="module_master" EntitySet="module_master" />
+            <End Role="userType_modules" EntitySet="userType_modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_route_household_details_route_master" Association="ISWM_BASE_DBModel.FK_route_household_details_route_master">
+            <End Role="route_master" EntitySet="route_master" />
+            <End Role="route_household_details" EntitySet="route_household_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_master_userType_master" Association="ISWM_BASE_DBModel.FK_user_master_userType_master">
+            <End Role="userType_master" EntitySet="userType_master" />
+            <End Role="user_master" EntitySet="user_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_security_access_details_user_master" Association="ISWM_BASE_DBModel.FK_user_security_access_details_user_master">
+            <End Role="user_master" EntitySet="user_master" />
+            <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ward_master_user_master" Association="ISWM_BASE_DBModel.FK_ward_master_user_master">
+            <End Role="user_master" EntitySet="user_master" />
+            <End Role="ward_master" EntitySet="ward_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userType_modules_userType_master" Association="ISWM_BASE_DBModel.FK_userType_modules_userType_master">
+            <End Role="userType_master" EntitySet="userType_master" />
+            <End Role="userType_modules" EntitySet="userType_modules" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="actions_master">
+          <Key>
+            <PropertyRef Name="module_action_id" />
+          </Key>
+          <Property Name="module_action_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_action_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="module_action_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" FromRole="actions_master" ToRole="user_security_access_details" />
+        </EntityType>
+        <EntityType Name="driver_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ISWMS_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_driver_master" FromRole="driver_master" ToRole="ISWMS_master" />
+        </EntityType>
+        <EntityType Name="GPS_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GPS_id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="api_url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="truck_master" Relationship="ISWM_BASE_DBModel.FK_truck_master_GPS_master" FromRole="GPS_master" ToRole="truck_master" />
+        </EntityType>
+        <EntityType Name="GPS_tracking_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="GPS_id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="latitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="longitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="household_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="address1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pin_code" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="longitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="household_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+          <Property Name="ward_id" Type="Int32" Nullable="false" />
+          <Property Name="valid_from" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="valid_to" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ward_master" Relationship="ISWM_BASE_DBModel.FK_household_master_ward_master" FromRole="household_master" ToRole="ward_master" />
+          <NavigationProperty Name="RFID_household_details" Relationship="ISWM_BASE_DBModel.FK_RFID_household_details_household_master" FromRole="household_master" ToRole="RFID_household_details" />
+          <NavigationProperty Name="route_household_details" Relationship="ISWM_BASE_DBModel.FK_route_household_details_household_master" FromRole="household_master" ToRole="route_household_details" />
+        </EntityType>
+        <EntityType Name="ISWMS_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RFID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ISWMS_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="route_id" Type="Int32" Nullable="false" />
+          <Property Name="driver_id" Type="Int32" Nullable="false" />
+          <Property Name="truck_id" Type="Int32" Nullable="false" />
+          <Property Name="scanner_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="driver_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_driver_master" FromRole="ISWMS_master" ToRole="driver_master" />
+          <NavigationProperty Name="RFID_scanner_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_RFID_scanner_master" FromRole="ISWMS_master" ToRole="RFID_scanner_master" />
+          <NavigationProperty Name="route_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_route_master" FromRole="ISWMS_master" ToRole="route_master" />
+          <NavigationProperty Name="truck_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_truck_master" FromRole="ISWMS_master" ToRole="truck_master" />
+        </EntityType>
+        <EntityType Name="module_master">
+          <Key>
+            <PropertyRef Name="module_id" />
+          </Key>
+          <Property Name="module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_module_master" FromRole="module_master" ToRole="user_security_access_details" />
+          <NavigationProperty Name="userType_modules" Relationship="ISWM_BASE_DBModel.FK_userType_modules_module_master" FromRole="module_master" ToRole="userType_modules" />
+        </EntityType>
+        <EntityType Name="RFID_household_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RFID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RFID_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="household_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_RFID_household_details_household_master" FromRole="RFID_household_details" ToRole="household_master" />
+        </EntityType>
+        <EntityType Name="RFID_scanner_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="scanner_id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ISWMS_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_RFID_scanner_master" FromRole="RFID_scanner_master" ToRole="ISWMS_master" />
+        </EntityType>
+        <EntityType Name="route_household_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="route_id" Type="Int32" Nullable="false" />
+          <Property Name="household_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_route_household_details_household_master" FromRole="route_household_details" ToRole="household_master" />
+          <NavigationProperty Name="route_master" Relationship="ISWM_BASE_DBModel.FK_route_household_details_route_master" FromRole="route_household_details" ToRole="route_master" />
+        </EntityType>
+        <EntityType Name="route_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="route_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ISWMS_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_route_master" FromRole="route_master" ToRole="ISWMS_master" />
+          <NavigationProperty Name="route_household_details" Relationship="ISWM_BASE_DBModel.FK_route_household_details_route_master" FromRole="route_master" ToRole="route_household_details" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="truck_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="truck_no" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GPS_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="GPS_master" Relationship="ISWM_BASE_DBModel.FK_truck_master_GPS_master" FromRole="truck_master" ToRole="GPS_master" />
+          <NavigationProperty Name="ISWMS_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_truck_master" FromRole="truck_master" ToRole="ISWMS_master" />
+        </EntityType>
+        <EntityType Name="user_master">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="user_type" Type="Int32" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master" FromRole="user_master" ToRole="userType_master" />
+          <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_master" ToRole="user_security_access_details" />
+          <NavigationProperty Name="ward_master" Relationship="ISWM_BASE_DBModel.FK_ward_master_user_master" FromRole="user_master" ToRole="ward_master" />
+        </EntityType>
+        <EntityType Name="user_security_access_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="module_id" Type="Int32" Nullable="false" />
+          <Property Name="action_id" Type="Int32" Nullable="false" />
+          <Property Name="hasAccess" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="actions_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" FromRole="user_security_access_details" ToRole="actions_master" />
+          <NavigationProperty Name="module_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_module_master" FromRole="user_security_access_details" ToRole="module_master" />
+          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_security_access_details" ToRole="user_master" />
+        </EntityType>
+        <EntityType Name="userType_master">
+          <Key>
+            <PropertyRef Name="user_type_id" />
+          </Key>
+          <Property Name="user_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_type_desc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master" FromRole="userType_master" ToRole="user_master" />
+          <NavigationProperty Name="userType_modules" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_master" ToRole="userType_modules" />
+        </EntityType>
+        <EntityType Name="userType_modules">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_type_id" Type="Int32" Nullable="false" />
+          <Property Name="module_id" Type="Int32" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="module_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_module_master" FromRole="userType_modules" ToRole="module_master" />
+          <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_modules" ToRole="userType_master" />
+        </EntityType>
+        <EntityType Name="ward_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ward_number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ward_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="karyakarta_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_household_master_ward_master" FromRole="ward_master" ToRole="household_master" />
+          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_ward_master_user_master" FromRole="ward_master" ToRole="user_master" />
+        </EntityType>
+        <Association Name="FK_user_security_access_details_actions_master">
+          <End Type="ISWM_BASE_DBModel.actions_master" Role="actions_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.user_security_access_details" Role="user_security_access_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="actions_master">
+              <PropertyRef Name="module_action_id" />
+            </Principal>
+            <Dependent Role="user_security_access_details">
+              <PropertyRef Name="action_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_driver_master">
+          <End Type="ISWM_BASE_DBModel.driver_master" Role="driver_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.ISWMS_master" Role="ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="driver_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="driver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_truck_master_GPS_master">
+          <End Type="ISWM_BASE_DBModel.GPS_master" Role="GPS_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.truck_master" Role="truck_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPS_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="truck_master">
+              <PropertyRef Name="GPS_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_household_master_ward_master">
+          <End Type="ISWM_BASE_DBModel.ward_master" Role="ward_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.household_master" Role="household_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ward_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="household_master">
+              <PropertyRef Name="ward_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RFID_household_details_household_master">
+          <End Type="ISWM_BASE_DBModel.household_master" Role="household_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.RFID_household_details" Role="RFID_household_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="household_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RFID_household_details">
+              <PropertyRef Name="household_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_route_household_details_household_master">
+          <End Type="ISWM_BASE_DBModel.household_master" Role="household_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.route_household_details" Role="route_household_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="household_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route_household_details">
+              <PropertyRef Name="household_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_RFID_scanner_master">
+          <End Type="ISWM_BASE_DBModel.RFID_scanner_master" Role="RFID_scanner_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.ISWMS_master" Role="ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFID_scanner_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="scanner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_route_master">
+          <End Type="ISWM_BASE_DBModel.route_master" Role="route_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.ISWMS_master" Role="ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="route_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ISWMS_master_truck_master">
+          <End Type="ISWM_BASE_DBModel.truck_master" Role="truck_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.ISWMS_master" Role="ISWMS_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="truck_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ISWMS_master">
+              <PropertyRef Name="truck_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_security_access_details_module_master">
+          <End Type="ISWM_BASE_DBModel.module_master" Role="module_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.user_security_access_details" Role="user_security_access_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module_master">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="user_security_access_details">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userType_modules_module_master">
+          <End Type="ISWM_BASE_DBModel.module_master" Role="module_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.userType_modules" Role="userType_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="module_master">
+              <PropertyRef Name="module_id" />
+            </Principal>
+            <Dependent Role="userType_modules">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_route_household_details_route_master">
+          <End Type="ISWM_BASE_DBModel.route_master" Role="route_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.route_household_details" Role="route_household_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="route_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route_household_details">
+              <PropertyRef Name="route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_master_userType_master">
+          <End Type="ISWM_BASE_DBModel.userType_master" Role="userType_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userType_master">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="user_master">
+              <PropertyRef Name="user_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_security_access_details_user_master">
+          <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.user_security_access_details" Role="user_security_access_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_master">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_security_access_details">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ward_master_user_master">
+          <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.ward_master" Role="ward_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_master">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="ward_master">
+              <PropertyRef Name="karyakarta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userType_modules_userType_master">
+          <End Type="ISWM_BASE_DBModel.userType_master" Role="userType_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.userType_modules" Role="userType_modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userType_master">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="userType_modules">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ISWM_BASE_DBModelStoreContainer" CdmEntityContainer="ISWM_BASE_DBEntities">
+          <EntitySetMapping Name="actions_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.actions_master">
+              <MappingFragment StoreEntitySet="actions_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="isActivie" ColumnName="isActivie" />
+                <ScalarProperty Name="module_action_desc" ColumnName="module_action_desc" />
+                <ScalarProperty Name="module_action_name" ColumnName="module_action_name" />
+                <ScalarProperty Name="module_action_id" ColumnName="module_action_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.driver_master">
+              <MappingFragment StoreEntitySet="driver_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GPS_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.GPS_master">
+              <MappingFragment StoreEntitySet="GPS_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="api_url" ColumnName="api_url" />
+                <ScalarProperty Name="GPS_id" ColumnName="GPS_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GPS_tracking_history">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.GPS_tracking_history">
+              <MappingFragment StoreEntitySet="GPS_tracking_history">
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="GPS_id" ColumnName="GPS_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="household_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.household_master">
+              <MappingFragment StoreEntitySet="household_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="valid_to" ColumnName="valid_to" />
+                <ScalarProperty Name="valid_from" ColumnName="valid_from" />
+                <ScalarProperty Name="ward_id" ColumnName="ward_id" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="household_name" ColumnName="household_name" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="pin_code" ColumnName="pin_code" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ISWMS_details">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ISWMS_details">
+              <MappingFragment StoreEntitySet="ISWMS_details">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="RFID" ColumnName="RFID" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ISWMS_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ISWMS_master">
+              <MappingFragment StoreEntitySet="ISWMS_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="scanner_id" ColumnName="scanner_id" />
+                <ScalarProperty Name="truck_id" ColumnName="truck_id" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="route_id" ColumnName="route_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="module_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.module_master">
+              <MappingFragment StoreEntitySet="module_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFID_household_details">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.RFID_household_details">
+              <MappingFragment StoreEntitySet="RFID_household_details">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="household_id" ColumnName="household_id" />
+                <ScalarProperty Name="RFID_description" ColumnName="RFID_description" />
+                <ScalarProperty Name="RFID" ColumnName="RFID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFID_scanner_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.RFID_scanner_master">
+              <MappingFragment StoreEntitySet="RFID_scanner_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="scanner_id" ColumnName="scanner_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="route_household_details">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.route_household_details">
+              <MappingFragment StoreEntitySet="route_household_details">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="household_id" ColumnName="household_id" />
+                <ScalarProperty Name="route_id" ColumnName="route_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="route_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.route_master">
+              <MappingFragment StoreEntitySet="route_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="route_name" ColumnName="route_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="truck_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.truck_master">
+              <MappingFragment StoreEntitySet="truck_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="GPS_id" ColumnName="GPS_id" />
+                <ScalarProperty Name="truck_no" ColumnName="truck_no" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_master">
+              <MappingFragment StoreEntitySet="user_master">
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="email_id" ColumnName="email_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_security_access_details">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_security_access_details">
+              <MappingFragment StoreEntitySet="user_security_access_details">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="hasAccess" ColumnName="hasAccess" />
+                <ScalarProperty Name="action_id" ColumnName="action_id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userType_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.userType_master">
+              <MappingFragment StoreEntitySet="userType_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="user_type_desc" ColumnName="user_type_desc" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userType_modules">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.userType_modules">
+              <MappingFragment StoreEntitySet="userType_modules">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ward_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_master">
+              <MappingFragment StoreEntitySet="ward_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="karyakarta_id" ColumnName="karyakarta_id" />
+                <ScalarProperty Name="ward_description" ColumnName="ward_description" />
+                <ScalarProperty Name="ward_number" ColumnName="ward_number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

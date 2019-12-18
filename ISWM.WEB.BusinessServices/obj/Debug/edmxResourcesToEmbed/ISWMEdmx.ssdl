@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ISWM_BASE_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="actions_master">
+    <Key>
+      <PropertyRef Name="module_action_id" />
+    </Key>
+    <Property Name="module_action_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="module_action_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="module_action_desc" Type="nvarchar" MaxLength="200" />
+    <Property Name="isActivie" Type="bit" Nullable="false" />
+    <Property Name="created_by" Type="int" Nullable="false" />
+    <Property Name="created_datetime" Type="datetime" Nullable="false" />
+    <Property Name="modified_by" Type="int" Nullable="false" />
+    <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="module_master">
+    <Key>
+      <PropertyRef Name="module_id" />
+    </Key>
+    <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="module_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="created_by" Type="int" Nullable="false" />
+    <Property Name="created_datetime" Type="datetime" Nullable="false" />
+    <Property Name="modified_by" Type="int" Nullable="false" />
+    <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="user_master">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="user_type" Type="int" Nullable="false" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="created_by" Type="int" Nullable="false" />
+    <Property Name="created_datetime" Type="datetime" Nullable="false" />
+    <Property Name="modified_by" Type="int" Nullable="false" />
+    <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_security_access_details">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="module_id" Type="int" Nullable="false" />
+    <Property Name="action_id" Type="int" Nullable="false" />
+    <Property Name="hasAccess" Type="bit" Nullable="false" />
+    <Property Name="created_by" Type="int" Nullable="false" />
+    <Property Name="created_datetime" Type="datetime" Nullable="false" />
+    <Property Name="modified_by" Type="int" Nullable="false" />
+    <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userType_master">
+    <Key>
+      <PropertyRef Name="user_type_id" />
+    </Key>
+    <Property Name="user_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="user_type_desc" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="created_by" Type="int" Nullable="false" />
+    <Property Name="created_datetime" Type="datetime" Nullable="false" />
+    <Property Name="modified_by" Type="int" Nullable="false" />
+    <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userType_modules">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_type_id" Type="int" Nullable="false" />
+    <Property Name="module_id" Type="int" Nullable="false" />
+    <Property Name="created_by" Type="int" Nullable="false" />
+    <Property Name="created_datetime" Type="datetime" Nullable="false" />
+    <Property Name="modified_by" Type="int" Nullable="false" />
+    <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_user_master_userType_master">
+    <End Role="userType_master" Type="Self.userType_master" Multiplicity="1" />
+    <End Role="user_master" Type="Self.user_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userType_master">
+        <PropertyRef Name="user_type_id" />
+      </Principal>
+      <Dependent Role="user_master">
+        <PropertyRef Name="user_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_security_access_details_actions_master">
+    <End Role="actions_master" Type="Self.actions_master" Multiplicity="1" />
+    <End Role="user_security_access_details" Type="Self.user_security_access_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="actions_master">
+        <PropertyRef Name="module_action_id" />
+      </Principal>
+      <Dependent Role="user_security_access_details">
+        <PropertyRef Name="action_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_security_access_details_module_master">
+    <End Role="module_master" Type="Self.module_master" Multiplicity="1" />
+    <End Role="user_security_access_details" Type="Self.user_security_access_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module_master">
+        <PropertyRef Name="module_id" />
+      </Principal>
+      <Dependent Role="user_security_access_details">
+        <PropertyRef Name="module_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_user_security_access_details_user_master">
+    <End Role="user_master" Type="Self.user_master" Multiplicity="1" />
+    <End Role="user_security_access_details" Type="Self.user_security_access_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_master">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="user_security_access_details">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userType_modules_module_master">
+    <End Role="module_master" Type="Self.module_master" Multiplicity="1" />
+    <End Role="userType_modules" Type="Self.userType_modules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="module_master">
+        <PropertyRef Name="module_id" />
+      </Principal>
+      <Dependent Role="userType_modules">
+        <PropertyRef Name="module_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userType_modules_userType_master">
+    <End Role="userType_master" Type="Self.userType_master" Multiplicity="1" />
+    <End Role="userType_modules" Type="Self.userType_modules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userType_master">
+        <PropertyRef Name="user_type_id" />
+      </Principal>
+      <Dependent Role="userType_modules">
+        <PropertyRef Name="user_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ISWM_BASE_DBModelStoreContainer">
+    <EntitySet Name="actions_master" EntityType="Self.actions_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="module_master" EntityType="Self.module_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_master" EntityType="Self.user_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_security_access_details" EntityType="Self.user_security_access_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userType_master" EntityType="Self.userType_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userType_modules" EntityType="Self.userType_modules" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_user_master_userType_master" Association="Self.FK_user_master_userType_master">
+      <End Role="userType_master" EntitySet="userType_master" />
+      <End Role="user_master" EntitySet="user_master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_security_access_details_actions_master" Association="Self.FK_user_security_access_details_actions_master">
+      <End Role="actions_master" EntitySet="actions_master" />
+      <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_security_access_details_module_master" Association="Self.FK_user_security_access_details_module_master">
+      <End Role="module_master" EntitySet="module_master" />
+      <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_user_security_access_details_user_master" Association="Self.FK_user_security_access_details_user_master">
+      <End Role="user_master" EntitySet="user_master" />
+      <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userType_modules_module_master" Association="Self.FK_userType_modules_module_master">
+      <End Role="module_master" EntitySet="module_master" />
+      <End Role="userType_modules" EntitySet="userType_modules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userType_modules_userType_master" Association="Self.FK_userType_modules_userType_master">
+      <End Role="userType_master" EntitySet="userType_master" />
+      <End Role="userType_modules" EntitySet="userType_modules" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

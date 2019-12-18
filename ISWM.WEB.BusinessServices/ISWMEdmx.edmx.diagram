@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ce77a685213b4b638474fd48017e6e3e" Name="Diagram1">
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.actions_master" Width="1.5" PointX="1.5" PointY="40" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.driver_master" Width="1.5" PointX="0.75" PointY="16.375" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.GPS_master" Width="1.5" PointX="1.5" PointY="12.75" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.GPS_tracking_history" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.household_master" Width="1.5" PointX="3.75" PointY="24.25" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.ISWMS_details" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.ISWMS_master" Width="1.5" PointX="3" PointY="3" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.module_master" Width="1.5" PointX="1.5" PointY="43.5" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.RFID_household_details" Width="1.5" PointX="6" PointY="25.5" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.RFID_scanner_master" Width="1.5" PointX="0.75" PointY="19.875" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.route_household_details" Width="1.5" PointX="6" PointY="3.5" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.route_master" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.truck_master" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.user_master" Width="1.5" PointX="1.5" PointY="29.625" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.user_security_access_details" Width="1.5" PointX="3.75" PointY="31.375" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.userType_master" Width="1.5" PointX="1.5" PointY="35.625" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.userType_modules" Width="1.5" PointX="3.75" PointY="35.625" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.ward_master" Width="1.5" PointX="1.5" PointY="25.375" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_ISWMS_master_driver_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_truck_master_GPS_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_household_master_ward_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_RFID_household_details_household_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_route_household_details_household_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_ISWMS_master_RFID_scanner_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_ISWMS_master_route_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_ISWMS_master_truck_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_user_security_access_details_module_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_userType_modules_module_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_route_household_details_route_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_user_master_userType_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_ward_master_user_master" />
+        <AssociationConnector Association="ISWM_BASE_DBModel.FK_userType_modules_userType_master" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
