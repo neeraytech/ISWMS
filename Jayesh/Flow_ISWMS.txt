@@ -8,6 +8,7 @@ ISWMS
           a: For that ward there is 1 staff member {karyakarta} is there
           So he give the details of householders 
           b: & For each HouseHolder there will be an RFID generated
+          c: Also RFID Scanner Master is there for storing all the info related RFID
 5-   For that resp HouseHolders , Route is decided.
   5a: & that is stored in Route HouseHold details
      5 b : For each route there is an Route master
@@ -15,5 +16,13 @@ ISWMS
 Also having the info related GPS
     5 d: All the info related Driver is stored in Driver_Master
    6: actions_Master : Module Action 
-
+All data is accessible By Admin
 User data &  all master tables will be stored in ISWMS_Master. 
+
+
+All the DB calculations are stored in actions_Master
+& All Fields are stored in module_master 
+Exa-  all the Menu options
+
+
+User_Security_Access_Details - Contains Which action is performed by which type of User
