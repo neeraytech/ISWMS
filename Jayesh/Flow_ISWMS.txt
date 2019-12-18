@@ -1,0 +1,19 @@
+ISWMS
+
+1-   User Creation
+2-  There will be an different type of modules that are generated as per user creation
+           a:  For that unique Module master is there.
+3-  & For each User Type there is an User_Master table or an Database.
+4-   For User / Location Admin there is an Ward Master
+          a: For that ward there is 1 staff member {karyakarta} is there
+          So he give the details of householders 
+          b: & For each HouseHolder there will be an RFID generated
+5-   For that resp HouseHolders , Route is decided.
+  5a: & that is stored in Route HouseHold details
+     5 b : For each route there is an Route master
+     5 c : Truck Master will save all the records of the vehicle   
+Also having the info related GPS
+    5 d: All the info related Driver is stored in Driver_Master
+   6: actions_Master : Module Action 
+
+User data &  all master tables will be stored in ISWMS_Master. 
