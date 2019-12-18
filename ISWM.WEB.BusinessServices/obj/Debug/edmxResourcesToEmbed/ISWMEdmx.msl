@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ISWM_BASE_DBModelStoreContainer" CdmEntityContainer="ISWM_BASE_DBEntities">
+    <EntitySetMapping Name="actions_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.actions_master">
+        <MappingFragment StoreEntitySet="actions_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="isActivie" ColumnName="isActivie" />
+          <ScalarProperty Name="module_action_desc" ColumnName="module_action_desc" />
+          <ScalarProperty Name="module_action_name" ColumnName="module_action_name" />
+          <ScalarProperty Name="module_action_id" ColumnName="module_action_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="driver_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.driver_master">
+        <MappingFragment StoreEntitySet="driver_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.GPS_master">
+        <MappingFragment StoreEntitySet="GPS_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="api_url" ColumnName="api_url" />
+          <ScalarProperty Name="GPS_id" ColumnName="GPS_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS_tracking_history">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.GPS_tracking_history">
+        <MappingFragment StoreEntitySet="GPS_tracking_history">
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="GPS_id" ColumnName="GPS_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="household_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.household_master">
+        <MappingFragment StoreEntitySet="household_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="valid_to" ColumnName="valid_to" />
+          <ScalarProperty Name="valid_from" ColumnName="valid_from" />
+          <ScalarProperty Name="ward_id" ColumnName="ward_id" />
+          <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="household_name" ColumnName="household_name" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="pin_code" ColumnName="pin_code" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ISWMS_details">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ISWMS_details">
+        <MappingFragment StoreEntitySet="ISWMS_details">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="RFID" ColumnName="RFID" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ISWMS_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ISWMS_master">
+        <MappingFragment StoreEntitySet="ISWMS_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="expected_end_time" ColumnName="expected_end_time" />
+          <ScalarProperty Name="expected_start_time" ColumnName="expected_start_time" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="scanner_id" ColumnName="scanner_id" />
+          <ScalarProperty Name="truck_id" ColumnName="truck_id" />
+          <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+          <ScalarProperty Name="route_id" ColumnName="route_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="module_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.module_master">
+        <MappingFragment StoreEntitySet="module_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="module_name" ColumnName="module_name" />
+          <ScalarProperty Name="module_id" ColumnName="module_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RFID_household_details">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.RFID_household_details">
+        <MappingFragment StoreEntitySet="RFID_household_details">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="household_id" ColumnName="household_id" />
+          <ScalarProperty Name="RFID_description" ColumnName="RFID_description" />
+          <ScalarProperty Name="RFID" ColumnName="RFID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RFID_scanner_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.RFID_scanner_master">
+        <MappingFragment StoreEntitySet="RFID_scanner_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="scanner_id" ColumnName="scanner_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="route_household_details">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.route_household_details">
+        <MappingFragment StoreEntitySet="route_household_details">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="household_id" ColumnName="household_id" />
+          <ScalarProperty Name="route_id" ColumnName="route_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="route_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.route_master">
+        <MappingFragment StoreEntitySet="route_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="route_name" ColumnName="route_name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="truck_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.truck_master">
+        <MappingFragment StoreEntitySet="truck_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="GPS_id" ColumnName="GPS_id" />
+          <ScalarProperty Name="truck_no" ColumnName="truck_no" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_master">
+        <MappingFragment StoreEntitySet="user_master">
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+          <ScalarProperty Name="email_id" ColumnName="email_id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_security_access_details">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_security_access_details">
+        <MappingFragment StoreEntitySet="user_security_access_details">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="hasAccess" ColumnName="hasAccess" />
+          <ScalarProperty Name="action_id" ColumnName="action_id" />
+          <ScalarProperty Name="module_id" ColumnName="module_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userType_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.userType_master">
+        <MappingFragment StoreEntitySet="userType_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="user_type_desc" ColumnName="user_type_desc" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userType_modules">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.userType_modules">
+        <MappingFragment StoreEntitySet="userType_modules">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="module_id" ColumnName="module_id" />
+          <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ward_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_master">
+        <MappingFragment StoreEntitySet="ward_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="karyakarta_id" ColumnName="karyakarta_id" />
+          <ScalarProperty Name="ward_description" ColumnName="ward_description" />
+          <ScalarProperty Name="ward_number" ColumnName="ward_number" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
