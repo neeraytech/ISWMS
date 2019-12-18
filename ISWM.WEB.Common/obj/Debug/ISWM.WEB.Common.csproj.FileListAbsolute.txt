@@ -7,3 +7,12 @@ F:\OfficialMatters\Projects\SWM\Source\Version_0.1\ISWM\ISWM.WEB\ISWM.WEB.Common
 F:\OfficialMatters\Projects\SWM\Source\Version_0.1\ISWM\ISWM.WEB\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csproj.CopyComplete
 F:\OfficialMatters\Projects\SWM\Source\Version_0.1\ISWM\ISWM.WEB\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.dll
 F:\OfficialMatters\Projects\SWM\Source\Version_0.1\ISWM\ISWM.WEB\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Common.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Common.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Models.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Models.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csprojAssemblyReference.cache
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csproj.CoreCompileInputs.cache
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csproj.CopyComplete
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.pdb
