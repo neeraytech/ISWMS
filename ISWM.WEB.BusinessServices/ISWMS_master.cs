@@ -19,7 +19,9 @@ namespace ISWM.WEB.BusinessServices
         public int driver_id { get; set; }
         public int truck_id { get; set; }
         public int scanner_id { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public System.DateTime date { get; set; }
+        public System.TimeSpan expected_start_time { get; set; }
+        public System.TimeSpan expected_end_time { get; set; }
         public string status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
