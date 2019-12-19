@@ -111,6 +111,7 @@
     </Key>
     <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="module_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="isActivie" Type="bit" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -213,6 +214,7 @@
     <Property Name="address2" Type="nvarchar(max)" />
     <Property Name="city" Type="nvarchar(max)" />
     <Property Name="state" Type="nvarchar(max)" />
+    <Property Name="area" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="user_security_access_details">
     <Key>
@@ -235,6 +237,7 @@
     <Property Name="user_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_type" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="user_type_desc" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="isActivie" Type="bit" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -247,6 +250,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_type_id" Type="int" Nullable="false" />
     <Property Name="module_id" Type="int" Nullable="false" />
+    <Property Name="isActivie" Type="bit" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />

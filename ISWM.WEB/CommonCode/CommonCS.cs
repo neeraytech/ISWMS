@@ -33,5 +33,54 @@ namespace ISWM.WEB.CommonCode
 
             return objlist;
         }
+
+        public List<SelectListItem> GetUserDDL(int typeid)
+        {
+
+            List<SelectListItem> objlist = new List<SelectListItem>();
+            try
+            {
+                var obl = ur.GetUserListByType(typeid);
+                foreach (var item in obl)
+                {
+                    SelectListItem ob = new SelectListItem();
+                    ob.Value = item.user_id.ToString();
+                    ob.Text = item.name+"-"+item.area+"-"+item.contact_no;
+                    objlist.Add(ob);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return objlist;
+        }
+
+
+        public List<SelectListItem> GetStatusDDL(int typeid)
+        {
+
+            List<SelectListItem> objlist = new List<SelectListItem>();
+            try
+            {
+                List<string> stringlist = new List<string>() {"Active", "Inactive","Inprogress" };
+                foreach (var item in stringlist)
+                {
+                    SelectListItem ob = new SelectListItem();
+                    ob.Value = item;
+                    ob.Text = item;
+                    objlist.Add(ob);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return objlist;
+        }
     }
 }

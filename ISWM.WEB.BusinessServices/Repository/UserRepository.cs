@@ -158,6 +158,27 @@ namespace ISWM.WEB.BusinessServices.Repository
         }
 
 
+        /// <summary>
+        /// This Method Used Get All User List by type
+        /// </summary>
+        /// <returns></returns>
+        public List<user_master> GetUserListByType(int? UserTypeID)
+        {
+
+            List<user_master> objlist = new List<user_master>();
+            if (UserTypeID == 0)
+            {
+                objlist = db.user_master.Include(u => u.userType_master).ToList();
+            }
+            else
+            {
+                objlist = db.user_master.Include(u => u.userType_master).Where(w => w.user_type == UserTypeID).ToList();
+            }
+            return objlist;
+
+        }
+
+
         public void Dispose(bool disposing)
         {
             if (disposing)

@@ -38,6 +38,7 @@ namespace ISWM.WEB.BusinessServices
         public string address2 { get; set; }
         public string city { get; set; }
         public string state { get; set; }
+        public string area { get; set; }
     
         public virtual userType_master userType_master { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

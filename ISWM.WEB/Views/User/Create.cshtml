@@ -33,7 +33,7 @@
     <div class="form-group">
         @Html.Label("User Type", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.user_type, new SelectList((System.Collections.IEnumerable)ViewBag.DDLUserType, "Value", "Text"), "select", new { @class = "form-control", @onchange = "FillMosqueAddress()" })
+            @Html.DropDownListFor(model => model.user_type, new SelectList((System.Collections.IEnumerable)ViewBag.DDLUserType, "Value", "Text"), "select", new { @class = "form-control"})
             @Html.ValidationMessageFor(model => model.user_type, "", new { @class = "text-danger" })
         </div>
     </div>

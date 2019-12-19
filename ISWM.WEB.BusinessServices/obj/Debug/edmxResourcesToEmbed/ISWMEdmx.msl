@@ -120,6 +120,7 @@
           <ScalarProperty Name="modified_by" ColumnName="modified_by" />
           <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
           <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="isActivie" ColumnName="isActivie" />
           <ScalarProperty Name="module_name" ColumnName="module_name" />
           <ScalarProperty Name="module_id" ColumnName="module_id" />
         </MappingFragment>
@@ -210,6 +211,7 @@
     <EntitySetMapping Name="user_master">
       <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_master">
         <MappingFragment StoreEntitySet="user_master">
+          <ScalarProperty Name="area" ColumnName="area" />
           <ScalarProperty Name="state" ColumnName="state" />
           <ScalarProperty Name="city" ColumnName="city" />
           <ScalarProperty Name="address2" ColumnName="address2" />
@@ -252,6 +254,7 @@
           <ScalarProperty Name="modified_by" ColumnName="modified_by" />
           <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
           <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="isActivie" ColumnName="isActivie" />
           <ScalarProperty Name="user_type_desc" ColumnName="user_type_desc" />
           <ScalarProperty Name="user_type" ColumnName="user_type" />
           <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
@@ -265,6 +268,7 @@
           <ScalarProperty Name="modified_by" ColumnName="modified_by" />
           <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
           <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="isActivie" ColumnName="isActivie" />
           <ScalarProperty Name="module_id" ColumnName="module_id" />
           <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
           <ScalarProperty Name="id" ColumnName="id" />

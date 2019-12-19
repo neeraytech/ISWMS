@@ -116,6 +116,7 @@
           </Key>
           <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="module_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="isActivie" Type="bit" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
@@ -218,6 +219,7 @@
           <Property Name="address2" Type="nvarchar(max)" />
           <Property Name="city" Type="nvarchar(max)" />
           <Property Name="state" Type="nvarchar(max)" />
+          <Property Name="area" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="user_security_access_details">
           <Key>
@@ -240,6 +242,7 @@
           <Property Name="user_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_type" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="user_type_desc" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="isActivie" Type="bit" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
@@ -252,6 +255,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_type_id" Type="int" Nullable="false" />
           <Property Name="module_id" Type="int" Nullable="false" />
+          <Property Name="isActivie" Type="bit" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
@@ -758,6 +762,7 @@
           </Key>
           <Property Name="module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="module_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="isActivie" Type="Boolean" Nullable="false" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -870,6 +875,7 @@
           <Property Name="address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="state" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master" FromRole="user_master" ToRole="userType_master" />
           <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_master" ToRole="user_security_access_details" />
           <NavigationProperty Name="ward_master" Relationship="ISWM_BASE_DBModel.FK_ward_master_user_master" FromRole="user_master" ToRole="ward_master" />
@@ -898,6 +904,7 @@
           <Property Name="user_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="user_type_desc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="isActivie" Type="Boolean" Nullable="false" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -912,6 +919,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_type_id" Type="Int32" Nullable="false" />
           <Property Name="module_id" Type="Int32" Nullable="false" />
+          <Property Name="isActivie" Type="Boolean" Nullable="false" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -1252,6 +1260,7 @@
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="isActivie" ColumnName="isActivie" />
                 <ScalarProperty Name="module_name" ColumnName="module_name" />
                 <ScalarProperty Name="module_id" ColumnName="module_id" />
               </MappingFragment>
@@ -1342,6 +1351,7 @@
           <EntitySetMapping Name="user_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_master">
               <MappingFragment StoreEntitySet="user_master">
+                <ScalarProperty Name="area" ColumnName="area" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="address2" ColumnName="address2" />
@@ -1384,6 +1394,7 @@
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="isActivie" ColumnName="isActivie" />
                 <ScalarProperty Name="user_type_desc" ColumnName="user_type_desc" />
                 <ScalarProperty Name="user_type" ColumnName="user_type" />
                 <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
@@ -1397,6 +1408,7 @@
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="isActivie" ColumnName="isActivie" />
                 <ScalarProperty Name="module_id" ColumnName="module_id" />
                 <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
