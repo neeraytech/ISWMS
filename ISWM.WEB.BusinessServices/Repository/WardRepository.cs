@@ -27,6 +27,7 @@ namespace ISWM.WEB.BusinessServices.Repository
             {
                 db.ward_master.Add(obj);
                 db.SaveChanges();
+                Dispose(true);
                 isadd = 1;
             }
                
@@ -106,7 +107,14 @@ namespace ISWM.WEB.BusinessServices.Repository
             return objlist;
         }
 
-
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            Dispose(disposing);
+        }
 
     }
 }

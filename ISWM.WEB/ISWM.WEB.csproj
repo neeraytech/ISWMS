@@ -132,7 +132,6 @@
     <Compile Include="CommonCode\CommonCS.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\user_masterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1177,11 +1176,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
-    <Content Include="Views\user_master\Create.cshtml" />
-    <Content Include="Views\user_master\Delete.cshtml" />
-    <Content Include="Views\user_master\Details.cshtml" />
-    <Content Include="Views\user_master\Edit.cshtml" />
-    <Content Include="Views\user_master\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />

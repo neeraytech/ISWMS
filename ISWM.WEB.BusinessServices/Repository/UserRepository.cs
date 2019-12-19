@@ -158,6 +158,13 @@ namespace ISWM.WEB.BusinessServices.Repository
         }
 
 
-
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            Dispose(disposing);
+        }
     }
 }
