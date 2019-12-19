@@ -111,6 +111,7 @@
     </Key>
     <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="module_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="isActivie" Type="bit" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -169,16 +170,6 @@
     <Property Name="modified_by" Type="int" Nullable="false" />
     <Property Name="modified_datetime" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="truck_master">
     <Key>
       <PropertyRef Name="id" />
@@ -235,6 +226,7 @@
     <Property Name="user_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_type" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="user_type_desc" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="isActivie" Type="bit" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -247,6 +239,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="user_type_id" Type="int" Nullable="false" />
     <Property Name="module_id" Type="int" Nullable="false" />
+    <Property Name="isActivie" Type="bit" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -471,7 +464,6 @@
     <EntitySet Name="RFID_scanner_master" EntityType="Self.RFID_scanner_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="route_household_details" EntityType="Self.route_household_details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="route_master" EntityType="Self.route_master" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="truck_master" EntityType="Self.truck_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_master" EntityType="Self.user_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_security_access_details" EntityType="Self.user_security_access_details" Schema="dbo" store:Type="Tables" />

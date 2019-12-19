@@ -10,3 +10,9 @@ F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\o
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\obj\Debug\ISWM.WEB.Models.csproj.CoreCompileInputs.cache
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\obj\Debug\ISWM.WEB.Models.dll
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\obj\Debug\ISWM.WEB.Models.pdb
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Models\bin\Debug\ISWM.WEB.Models.dll
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Models\bin\Debug\ISWM.WEB.Models.pdb
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Models\obj\Debug\ISWM.WEB.Models.csprojAssemblyReference.cache
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Models\obj\Debug\ISWM.WEB.Models.csproj.CoreCompileInputs.cache
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Models\obj\Debug\ISWM.WEB.Models.dll
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Models\obj\Debug\ISWM.WEB.Models.pdb

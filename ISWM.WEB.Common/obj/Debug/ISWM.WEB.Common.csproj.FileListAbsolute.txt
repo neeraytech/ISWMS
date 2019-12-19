@@ -16,3 +16,12 @@ F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\o
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csproj.CopyComplete
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.dll
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.pdb
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Common.dll
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Common.pdb
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Models.dll
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\bin\Debug\ISWM.WEB.Models.pdb
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csprojAssemblyReference.cache
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csproj.CoreCompileInputs.cache
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csproj.CopyComplete
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.dll
+D:\smruti\MVC\Wedsite\solidWaste\githubsource\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.pdb

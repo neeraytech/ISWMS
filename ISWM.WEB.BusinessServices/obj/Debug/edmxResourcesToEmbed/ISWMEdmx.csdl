@@ -13,7 +13,6 @@
     <EntitySet Name="RFID_scanner_master" EntityType="ISWM_BASE_DBModel.RFID_scanner_master" />
     <EntitySet Name="route_household_details" EntityType="ISWM_BASE_DBModel.route_household_details" />
     <EntitySet Name="route_master" EntityType="ISWM_BASE_DBModel.route_master" />
-    <EntitySet Name="sysdiagrams" EntityType="ISWM_BASE_DBModel.sysdiagram" />
     <EntitySet Name="truck_master" EntityType="ISWM_BASE_DBModel.truck_master" />
     <EntitySet Name="user_master" EntityType="ISWM_BASE_DBModel.user_master" />
     <EntitySet Name="user_security_access_details" EntityType="ISWM_BASE_DBModel.user_security_access_details" />
@@ -206,6 +205,7 @@
     </Key>
     <Property Name="module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="module_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="isActivie" Type="Boolean" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -272,16 +272,6 @@
     <NavigationProperty Name="ISWMS_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_route_master" FromRole="route_master" ToRole="ISWMS_master" />
     <NavigationProperty Name="route_household_details" Relationship="ISWM_BASE_DBModel.FK_route_household_details_route_master" FromRole="route_master" ToRole="route_household_details" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="truck_master">
     <Key>
       <PropertyRef Name="id" />
@@ -346,6 +336,7 @@
     <Property Name="user_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="user_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="user_type_desc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="isActivie" Type="Boolean" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -360,6 +351,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="user_type_id" Type="Int32" Nullable="false" />
     <Property Name="module_id" Type="Int32" Nullable="false" />
+    <Property Name="isActivie" Type="Boolean" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
