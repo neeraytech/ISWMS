@@ -112,9 +112,6 @@
       <DependentUpon>ISWMEdmx.tt</DependentUpon>
     </Compile>
     <Compile Include="SingletonCS\Singleton.cs" />
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>ISWMEdmx.tt</DependentUpon>
-    </Compile>
     <Compile Include="truck_master.cs">
       <DependentUpon>ISWMEdmx.tt</DependentUpon>
     </Compile>
