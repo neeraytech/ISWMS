@@ -24,7 +24,7 @@ namespace ISWM.WEB.BusinessServices
         public string ward_number { get; set; }
         public string ward_description { get; set; }
         public int karyakarta_id { get; set; }
-        public string status { get; set; }
+        public int status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }

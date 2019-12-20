@@ -24,7 +24,7 @@ namespace ISWM.WEB.BusinessServices
         public string scanner_id { get; set; }
         public string user_id { get; set; }
         public string password { get; set; }
-        public string status { get; set; }
+        public int status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }

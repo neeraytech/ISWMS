@@ -5,24 +5,24 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ce77a685213b4b638474fd48017e6e3e" Name="Diagram1" ZoomLevel="93">
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.actions_master" Width="1.5" PointX="1.5" PointY="39.125" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.driver_master" Width="1.5" PointX="3.75" PointY="19.5" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.GPS_master" Width="1.5" PointX="1.5" PointY="16" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.GPS_tracking_history" Width="1.5" PointX="0.75" PointY="11" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.actions_master" Width="1.5" PointX="1.5" PointY="33.75" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.driver_master" Width="1.5" PointX="3.75" PointY="15.875" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.GPS_master" Width="1.5" PointX="1.5" PointY="19.5" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.GPS_tracking_history" Width="1.5" PointX="8.75" PointY="4" />
         <EntityTypeShape EntityType="ISWM_BASE_DBModel.household_master" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.ISWMS_details" Width="1.5" PointX="8.75" PointY="4" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.ISWMS_details" Width="1.5" PointX="8.75" PointY="7" />
         <EntityTypeShape EntityType="ISWM_BASE_DBModel.ISWMS_master" Width="1.5" PointX="6" PointY="6.375" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.module_master" Width="1.5" PointX="1.5" PointY="35.625" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.module_master" Width="1.5" PointX="1.5" PointY="37.25" />
         <EntityTypeShape EntityType="ISWM_BASE_DBModel.RFID_household_details" Width="1.5" PointX="3" PointY="3.125" />
         <EntityTypeShape EntityType="ISWM_BASE_DBModel.RFID_scanner_master" Width="1.5" PointX="3.75" PointY="12.125" />
         <EntityTypeShape EntityType="ISWM_BASE_DBModel.route_household_details" Width="1.5" PointX="3" PointY="7" />
         <EntityTypeShape EntityType="ISWM_BASE_DBModel.route_master" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.truck_master" Width="1.5" PointX="3.75" PointY="15.875" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.user_master" Width="1.5" PointX="1.5" PointY="25.375" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.user_security_access_details" Width="1.5" PointX="3.75" PointY="26.125" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.userType_master" Width="1.5" PointX="1.5" PointY="31.375" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.userType_modules" Width="1.5" PointX="3.75" PointY="31.375" />
-        <EntityTypeShape EntityType="ISWM_BASE_DBModel.ward_master" Width="1.5" PointX="1.5" PointY="21.25" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.truck_master" Width="1.5" PointX="3.75" PointY="19.375" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.user_master" Width="1.5" PointX="1.5" PointY="23.375" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.user_security_access_details" Width="1.5" PointX="3.75" PointY="24.25" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.userType_master" Width="1.5" PointX="1.5" PointY="29.375" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.userType_modules" Width="1.5" PointX="3.75" PointY="29.375" />
+        <EntityTypeShape EntityType="ISWM_BASE_DBModel.ward_master" Width="1.5" PointX="1.5" PointY="12.375" />
         <AssociationConnector Association="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" />
         <AssociationConnector Association="ISWM_BASE_DBModel.FK_ISWMS_master_driver_master" />
         <AssociationConnector Association="ISWM_BASE_DBModel.FK_truck_master_GPS_master" />

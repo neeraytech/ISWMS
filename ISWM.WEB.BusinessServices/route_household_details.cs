@@ -17,7 +17,7 @@ namespace ISWM.WEB.BusinessServices
         public int id { get; set; }
         public int route_id { get; set; }
         public int household_id { get; set; }
-        public string status { get; set; }
+        public int status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }
