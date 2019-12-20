@@ -106,7 +106,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="contact_no" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -120,7 +120,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="GPS_id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="api_url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -156,7 +156,7 @@
     <Property Name="ward_id" Type="Int32" Nullable="false" />
     <Property Name="valid_from" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="valid_to" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -172,7 +172,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="RFID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -190,7 +190,7 @@
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="expected_start_time" Type="Time" Nullable="false" Precision="7" />
     <Property Name="expected_end_time" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -222,7 +222,7 @@
     <Property Name="RFID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="RFID_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="household_id" Type="Int32" Nullable="false" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -237,7 +237,7 @@
     <Property Name="scanner_id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="user_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -251,7 +251,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="route_id" Type="Int32" Nullable="false" />
     <Property Name="household_id" Type="Int32" Nullable="false" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -265,7 +265,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="route_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -290,7 +290,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="truck_no" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="GPS_id" Type="Int32" Nullable="false" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />
@@ -379,7 +379,7 @@
     <Property Name="ward_number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ward_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="karyakarta_id" Type="Int32" Nullable="false" />
-    <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="created_by" Type="Int32" Nullable="false" />
     <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="modified_by" Type="Int32" Nullable="false" />

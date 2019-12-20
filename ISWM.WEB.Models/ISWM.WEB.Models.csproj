@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\RootObject.cs" />
+    <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Models\UserSecurityAccessModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -23,7 +23,7 @@ namespace ISWM.WEB.BusinessServices
         public int id { get; set; }
         public string truck_no { get; set; }
         public int GPS_id { get; set; }
-        public string status { get; set; }
+        public int status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }

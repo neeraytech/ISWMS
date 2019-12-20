@@ -20,7 +20,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="contact_no" Type="numeric" Precision="10" Scale="0" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -33,7 +33,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="GPS_id" Type="nvarchar(max)" Nullable="false" />
     <Property Name="api_url" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -68,7 +68,7 @@
     <Property Name="ward_id" Type="int" Nullable="false" />
     <Property Name="valid_from" Type="datetime" Nullable="false" />
     <Property Name="valid_to" Type="datetime" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -81,7 +81,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="date" Type="datetime" Nullable="false" />
     <Property Name="RFID" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -99,7 +99,7 @@
     <Property Name="date" Type="datetime" Nullable="false" />
     <Property Name="expected_start_time" Type="time" Precision="7" Nullable="false" />
     <Property Name="expected_end_time" Type="time" Precision="7" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -125,7 +125,7 @@
     <Property Name="RFID" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RFID_description" Type="nvarchar(max)" />
     <Property Name="household_id" Type="int" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -139,7 +139,7 @@
     <Property Name="scanner_id" Type="nvarchar(max)" Nullable="false" />
     <Property Name="user_id" Type="nvarchar(max)" />
     <Property Name="password" Type="nvarchar" MaxLength="50" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -152,7 +152,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="route_id" Type="int" Nullable="false" />
     <Property Name="household_id" Type="int" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -164,7 +164,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="route_name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -187,7 +187,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="truck_no" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="GPS_id" Type="int" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />
@@ -264,7 +264,7 @@
     <Property Name="ward_number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ward_description" Type="nvarchar(max)" />
     <Property Name="karyakarta_id" Type="int" Nullable="false" />
-    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
     <Property Name="created_by" Type="int" Nullable="false" />
     <Property Name="created_datetime" Type="datetime" Nullable="false" />
     <Property Name="modified_by" Type="int" Nullable="false" />

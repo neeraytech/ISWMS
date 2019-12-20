@@ -24,9 +24,9 @@ namespace ISWM.WEB.Controllers
             try
             {
                 ViewBag.PageHeader = "System User List";
-                int userid = Singleton.userobject.user_id;
-                bool module1 = Singleton.userobject.IsModuleAccess(1);
-                bool module1Action1 = Singleton.userobject.IsModuleActionAccess(1,1);
+                //int userid = Singleton.userobject.user_id;
+                //bool module1 = Singleton.userobject.IsModuleAccess(1);
+                //bool module1Action1 = Singleton.userobject.IsModuleActionAccess(1,1);
 
                 return View(ur.GetUserList(true));
             }
@@ -74,9 +74,9 @@ namespace ISWM.WEB.Controllers
                 try
                 {
                     ViewBag.PageHeader = "Add User";
-                    obj.created_by = 1;
+                    obj.created_by = Singleton.userobject.user_id; 
                     obj.created_datetime = DateTime.Now;
-                    obj.modified_by = 1;
+                    obj.modified_by = Singleton.userobject.user_id;
                     obj.modified_datetime = DateTime.Now;
                     obj.password = gcm.ComputeSha256Hash(obj.password);
                     int isAdd = ur.AddUser(obj);

@@ -1,6 +1,9 @@
 ﻿using ISWM.WEB.BusinessServices.Repository;
+using ISWM.WEB.Models.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -59,18 +62,20 @@ namespace ISWM.WEB.CommonCode
         }
 
 
-        public List<SelectListItem> GetStatusDDL(int typeid)
+        public List<SelectListItem> GetStatusDDL()
         {
 
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                List<string> stringlist = new List<string>() {"Active", "Inactive","Inprogress" };
-                foreach (var item in stringlist)
+
+                string statusJson = ConfigurationManager.AppSettings["Status"];
+                var result = JsonConvert.DeserializeObject<RootObject>(statusJson);        
+                foreach (var item in result.status)
                 {
                     SelectListItem ob = new SelectListItem();
-                    ob.Value = item;
-                    ob.Text = item;
+                    ob.Value = item.id.ToString();
+                    ob.Text = item.statusVal;
                     objlist.Add(ob);
                 }
             }

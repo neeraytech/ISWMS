@@ -1182,6 +1182,8 @@
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Ward\Create.cshtml" />
+    <Content Include="Views\Ward\Index.cshtml" />
+    <Content Include="Views\Ward\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

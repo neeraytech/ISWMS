@@ -27,10 +27,10 @@ namespace ISWM.WEB.BusinessServices.Repository
             {
                 db.ward_master.Add(obj);
                 db.SaveChanges();
-                Dispose(true);
+                
                 isadd = 1;
             }
-               
+            Dispose(true);
             return isadd;
 
         }
@@ -57,6 +57,7 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
@@ -81,6 +82,7 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
@@ -112,8 +114,7 @@ namespace ISWM.WEB.BusinessServices.Repository
             if (disposing)
             {
                 db.Dispose();
-            }
-            Dispose(disposing);
+            }           
         }
 
     }

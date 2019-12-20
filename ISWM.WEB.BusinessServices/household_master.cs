@@ -36,7 +36,7 @@ namespace ISWM.WEB.BusinessServices
         public int ward_id { get; set; }
         public System.DateTime valid_from { get; set; }
         public System.DateTime valid_to { get; set; }
-        public string status { get; set; }
+        public int status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }

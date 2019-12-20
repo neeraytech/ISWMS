@@ -18,7 +18,7 @@ namespace ISWM.WEB.BusinessServices
         public string RFID { get; set; }
         public string RFID_description { get; set; }
         public int household_id { get; set; }
-        public string status { get; set; }
+        public int status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }

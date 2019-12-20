@@ -31,6 +31,11 @@ namespace ISWM.WEB.BusinessServices.SingletonCS
         public string user_type { get; set; }
         public List<UserSecurityAccessModel> User_Security_Access_List { get; set; }
 
+        /// <summary>
+        /// This method used to check model access,if have access return true else return false
+        /// </summary>
+        /// <param name="moduleid"></param>
+        /// <returns></returns>
         public bool IsModuleAccess(int moduleid )
         {
             bool isFind = false;
@@ -50,6 +55,13 @@ namespace ISWM.WEB.BusinessServices.SingletonCS
             return isFind;
         }
 
+        /// <summary>
+        ///  This method used to check model action access,if have access return true else return false
+        ///  
+        /// </summary>
+        /// <param name="moduleid"></param>
+        /// <param name="actionid"></param>
+        /// <returns></returns>
         public bool IsModuleActionAccess( int moduleid,int actionid)
         {
             bool isFind = false;
