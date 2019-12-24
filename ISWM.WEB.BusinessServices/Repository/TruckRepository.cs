@@ -11,14 +11,15 @@ namespace ISWM.WEB.BusinessServices.Repository
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
-        /// This Method used to add Truck         
+        /// This Method used to add Truck
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public int AddTruck(truck_master obj)
         {
             int isadd = 0;
-            truck_master updateObj = db.truck_master.Where(w => w.truck_no.ToLower() == obj.truck_no.ToLower() && w.GPS_id==obj.GPS_id).FirstOrDefault();
+            truck_master updateObj = db.truck_master.Where(w => w.truck_no.ToLower() == obj.truck_no.ToLower() || w.GPS_id==obj.GPS_id).FirstOrDefault();
             if (updateObj != null)
             {
                 isadd = -1;
@@ -29,13 +30,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            Dispose(true);
             return isadd;
 
         }
 
         /// <summary>
         /// This method used for update Truck details
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -55,13 +57,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used for delete Truck (only status we change)
-        /// 
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -79,12 +82,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used to get Truck details by using Truck id
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -97,12 +102,21 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get Truck list
+        /// coder : Pranali Patil
         /// </summary>
         /// <returns></returns>
         public List<truck_master> GetTruckList()
         {
             List<truck_master> objlist = db.truck_master.ToList();
             return objlist;
+        }
+
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
         }
     }
 }

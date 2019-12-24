@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace ISWM.WEB.BusinessServices.Repository
 {
-  public class RFIDhouseholdDetailsRepository
+    /// <summary>
+    /// Repository is for RFID Household Details
+    /// coder: Smruti Wagh
+    /// </summary>
+    public class RFIDhouseholdDetailsRepository
     {
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
-        /// This Method used to add RFID household details         
+        /// This Method used to add RFID household details      
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -29,13 +34,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            db.Dispose();
             return isadd;
 
         }
 
         /// <summary>
         /// This method used for update RFID household details 
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -56,13 +62,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used for delete RFID household details  (only status we change)
-        /// 
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -80,12 +87,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used to get RFID household details  details by using RFID id
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -98,6 +107,7 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get RFID household details  list
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <returns></returns>
         public List<RFID_household_details> GetRHDList()
@@ -105,6 +115,17 @@ namespace ISWM.WEB.BusinessServices.Repository
             List<RFID_household_details> objlist = db.RFID_household_details.ToList();
             return objlist;
         }
-
+        /// <summary>
+        /// this method is used to deallocate used memory
+        /// coder: Smruti Wagh
+        /// </summary>
+        /// <param name="disposing"></param>
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+        }
     }
 }

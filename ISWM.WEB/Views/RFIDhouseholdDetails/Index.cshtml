@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ISWM.WEB.BusinessServices.RFID_household_details>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RFID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RFID_description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.household_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RFID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RFID_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.household_master.household_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+           
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

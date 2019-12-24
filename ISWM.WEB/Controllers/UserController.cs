@@ -23,12 +23,9 @@ namespace ISWM.WEB.Controllers
         {
             try
             {
-                ViewBag.PageHeader = "System User List";
-                //int userid = Singleton.userobject.user_id;
-                //bool module1 = Singleton.userobject.IsModuleAccess(1);
-                //bool module1Action1 = Singleton.userobject.IsModuleActionAccess(1,1);
-
-                return View(ur.GetUserList(true));
+                ViewBag.PageHeader = "System User List";               
+                var list = ur.GetUserList(true);
+                return View(list);                
             }
             catch (Exception ex)
             {

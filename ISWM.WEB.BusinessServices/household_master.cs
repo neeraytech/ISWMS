@@ -32,7 +32,7 @@ namespace ISWM.WEB.BusinessServices
         public string longitude { get; set; }
         public string household_name { get; set; }
         public string email { get; set; }
-        public decimal contact_no { get; set; }
+        public string contact_no { get; set; }
         public int ward_id { get; set; }
         public System.DateTime valid_from { get; set; }
         public System.DateTime valid_to { get; set; }

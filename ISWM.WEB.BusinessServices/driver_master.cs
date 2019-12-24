@@ -22,7 +22,7 @@ namespace ISWM.WEB.BusinessServices
     
         public int id { get; set; }
         public string name { get; set; }
-        public decimal contact_no { get; set; }
+        public string contact_no { get; set; }
         public int status { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }

@@ -11,7 +11,8 @@ namespace ISWM.WEB.BusinessServices.Repository
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
-        /// This Method used to add Route Household Details         
+        /// This Method used to add Route Household Details 
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -29,13 +30,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            Dispose(true);
             return isadd;
 
         }
 
         /// <summary>
         /// This method used for update Route Household Details
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -55,13 +57,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used for delete Route Household Details (only status we change)
-        /// 
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -79,12 +82,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used to get Route Household Details by using Route Household id
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -97,6 +102,7 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get Route Household Details list
+        /// coder : Pranali Patil
         /// </summary>
         /// <returns></returns>
         public List<route_household_details> GetRouteHouseholdDetailsList()
@@ -104,6 +110,12 @@ namespace ISWM.WEB.BusinessServices.Repository
             List<route_household_details> objlist = db.route_household_details.ToList();
             return objlist;
         }
-
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+        }
     }
 }

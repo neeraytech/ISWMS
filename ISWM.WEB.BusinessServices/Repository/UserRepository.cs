@@ -122,16 +122,18 @@ namespace ISWM.WEB.BusinessServices.Repository
         public List<user_master> GetUserList(bool? isActive)
         {
 
-            List<user_master> objlist = new List<user_master>();
+            
             if(isActive==null)
             {
-                objlist = db.user_master.Include(u => u.userType_master).ToList();
+                List<user_master> objlist = db.user_master.Include(u => u.userType_master).ToList(); //db.user_master.ToList();
+                return objlist;
             }
             else
             {
-                objlist = db.user_master.Include(u => u.userType_master).Where(w=>w.isActive==isActive).ToList();
+                List<user_master> objlist = db.user_master.Include(u => u.userType_master).Where(w=>w.isActive==isActive).ToList();
+                return objlist;
             }
-            return objlist;
+           
            
         }
 

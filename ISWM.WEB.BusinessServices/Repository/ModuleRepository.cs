@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace ISWM.WEB.BusinessServices.Repository
 {
-   public class ModuleRepository
+    /// <summary>
+    /// Repository is for Module Master
+    /// coder: Smruti Wagh
+    /// </summary>
+    public class ModuleRepository
     {
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
         /// This Method used to add module         
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -29,13 +34,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            db.Dispose();
             return isadd;
-
+           
         }
 
         /// <summary>
-        /// This method used for update ward details
+        /// This method used for update module details
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -54,13 +60,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
-
+         
         }
 
         /// <summary>
         /// This Method Used for delete module (only status we change)
-        /// 
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -78,12 +85,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
-
+           
         }
 
         /// <summary>
         /// This Method Used to get module details by using module id
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -91,17 +100,30 @@ namespace ISWM.WEB.BusinessServices.Repository
         {
             module_master updateObj = db.module_master.Find(module_id);
             return updateObj;
-
+         
         }
 
         /// <summary>
         /// This Method used to get module list
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <returns></returns>
         public List<module_master> GetmoduleList()
         {
             List<module_master> objlist = db.module_master.ToList();
             return objlist;
+        }
+        /// <summary>
+        /// this method is used to deallocate used memory
+        /// coder: Smruti Wagh
+        /// </summary>
+        /// <param name="disposing"></param>
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
         }
 
     }

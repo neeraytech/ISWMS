@@ -11,7 +11,8 @@ namespace ISWM.WEB.BusinessServices.Repository
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
-        /// This Method used to add RFIDScanner         
+        /// This Method used to add RFIDScanner
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -29,13 +30,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            Dispose(true);
             return isadd;
 
         }
 
         /// <summary>
         /// This method used for update RFIDScanner details
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -56,13 +58,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used for delete RFIDScanner (only status we change)
-        /// 
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -80,12 +83,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used to get RFIDScanner details by using RFIDScanner id
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -98,12 +103,20 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get RFIDScanner list
+        /// coder : Pranali Patil
         /// </summary>
         /// <returns></returns>
         public List<RFID_scanner_master> GetRFIDScannerList()
         {
             List<RFID_scanner_master> objlist = db.RFID_scanner_master.ToList();
             return objlist;
+        }
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
         }
 
     }

@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace ISWM.WEB.BusinessServices.Repository
 {
-   public class userTypeModuleRepository
+    /// <summary>
+    /// Repository is for User Type Module
+    /// coder: Smruti Wagh
+    /// </summary>
+    public class userTypeModuleRepository
     {
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
-        /// This Method used to add User Type modules         
+        /// This Method used to add User Type modules   
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -29,13 +34,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            db.Dispose();
             return isadd;
 
         }
 
         /// <summary>
         /// This method used for update User Type modules details
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -55,17 +61,18 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
 
         }
 
         /// <summary>
-        /// This Method Used for delete ward (only status we change)
-        /// 
+        /// This Method Used for delete User Type Module (only status we change)
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool DeleteWard(userType_modules obj)
+        public bool DeleteUserTypeModules(userType_modules obj)
         {
             bool isupdate = false;
             userType_modules updateObj = db.userType_modules.Find(obj.id);
@@ -79,12 +86,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
 
         }
 
         /// <summary>
-        /// This Method Used to get User Type modules details by using ward id
+        /// This Method Used to get User Type modules details by using id
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -97,6 +106,7 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get User Type modules list
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <returns></returns>
         public List<userType_modules> GetuserType_modulesList()
@@ -104,6 +114,17 @@ namespace ISWM.WEB.BusinessServices.Repository
             List<userType_modules> objlist = db.userType_modules.ToList();
             return objlist;
         }
-
+        /// <summary>
+        /// this method is used to deallocate used memory
+        /// coder: Smruti Wagh
+        /// </summary>
+        /// <param name="disposing"></param>
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+        }
     }
 }

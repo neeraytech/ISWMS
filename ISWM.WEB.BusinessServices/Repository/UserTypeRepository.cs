@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace ISWM.WEB.BusinessServices.Repository
 {
+    /// <summary>
+    /// Repository is for User Type
+    /// coder: Smruti Wagh
+    /// </summary>
     public class UserTypeRepository
     {
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
         /// <summary>
         /// This Method used to add User type
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -28,13 +33,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            Dispose(true);
             return isadd;
 
         }
 
         /// <summary>
         /// This Method use for update user type
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -54,6 +60,7 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
@@ -61,6 +68,7 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method Used for delete UserType (only status we change)
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -78,12 +86,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
-        /// This Method Used to get ward details by using userType id 
+        /// This Method Used to get User Type details by using userType id 
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -96,12 +106,25 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get userType list
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <returns></returns>
         public List<userType_master> GetuserTypeList()
         {
             List<userType_master> objlist = db.userType_master.ToList();
             return objlist;
+        }
+        /// <summary>
+        /// this method is used to deallocate used memory
+        /// coder: Smruti Wagh
+        /// </summary>
+        /// <param name="disposing"></param>
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
         }
 
     }

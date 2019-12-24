@@ -11,7 +11,8 @@ namespace ISWM.WEB.BusinessServices.Repository
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
-        /// This Method used to add ISWMS         
+        /// This Method used to add ISWMS
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -29,13 +30,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            Dispose(true);
             return isadd;
 
         }
 
         /// <summary>
         /// This method used for update ISWMS details
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -60,13 +62,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used for delete ISWMS (only status we change)
-        /// 
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -84,12 +87,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            Dispose(true);
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used to get ISWMS details by using ISWMS id
+        /// coder : Pranali Patil
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -102,12 +107,20 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get ISWMS list
+        /// coder : Pranali Patil
         /// </summary>
         /// <returns></returns>
         public List<ISWMS_master> GetISWMSList()
         {
             List<ISWMS_master> objlist = db.ISWMS_master.ToList();
             return objlist;
+        }
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
         }
     }
 }

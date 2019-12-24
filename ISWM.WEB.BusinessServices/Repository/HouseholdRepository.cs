@@ -6,19 +6,24 @@ using System.Threading.Tasks;
 
 namespace ISWM.WEB.BusinessServices.Repository
 {
-  public class HouseholdRepository
+    /// <summary>
+    /// Repository is for Household Master
+    /// coder: Smruti Wagh
+    /// </summary>
+    public class HouseholdRepository
     {
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
-        /// This Method used to add household        
+        /// This Method used to add household   
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public int Addhousehold(household_master obj)
         {
             int isadd = 0;
-            household_master updateObj = db.household_master.Where(w => w.latitude.ToLower() == obj.latitude.ToLower() && w.longitude.ToLower() == obj.longitude.ToLower()).FirstOrDefault();
+            household_master updateObj = db.household_master.Where(w => w.latitude == obj.latitude && w.longitude == obj.longitude).FirstOrDefault();
             if (updateObj != null)
             {
                 isadd = -1;
@@ -29,14 +34,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-
+            db.Dispose();
             return isadd;
 
         }
 
         /// <summary>
         /// This method used for update household details
-        /// </summary>
+        ///  coder:Smruti Wagh
         /// <param name="obj"></param>
         /// <returns></returns>
         public bool Modifyhousehold(household_master obj)
@@ -67,13 +72,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used for delete household (only status we change)
-        /// 
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -91,12 +97,14 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
+            db.Dispose();
             return isupdate;
 
         }
 
         /// <summary>
         /// This Method Used to get ward details by using household id
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -109,6 +117,7 @@ namespace ISWM.WEB.BusinessServices.Repository
 
         /// <summary>
         /// This Method used to get household list
+        ///  coder:Smruti Wagh
         /// </summary>
         /// <returns></returns>
         public List<household_master> GethouseholdList()
@@ -116,6 +125,17 @@ namespace ISWM.WEB.BusinessServices.Repository
             List<household_master> objlist = db.household_master.ToList();
             return objlist;
         }
-
+        /// <summary>
+        /// this method is used to deallocate used memory
+        /// coder: Smruti Wagh
+        /// </summary>
+        /// <param name="disposing"></param>
+        public void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+        }
     }
 }

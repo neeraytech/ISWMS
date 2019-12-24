@@ -32,7 +32,7 @@ namespace ISWM.WEB.BusinessServices
         public System.DateTime modified_datetime { get; set; }
         public string password { get; set; }
         public string email_id { get; set; }
-        public Nullable<decimal> contact_no { get; set; }
+        public string contact_no { get; set; }
         public string photo { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
