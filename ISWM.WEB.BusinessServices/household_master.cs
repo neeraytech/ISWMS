@@ -24,7 +24,8 @@ namespace ISWM.WEB.BusinessServices
         public int id { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
-        public string area { get; set; }
+        public int area_id { get; set; }
+        public int ward_id { get; set; }
         public int pin_code { get; set; }
         public string city { get; set; }
         public string state { get; set; }
@@ -33,7 +34,6 @@ namespace ISWM.WEB.BusinessServices
         public string household_name { get; set; }
         public string email { get; set; }
         public string contact_no { get; set; }
-        public int ward_id { get; set; }
         public System.DateTime valid_from { get; set; }
         public System.DateTime valid_to { get; set; }
         public int status { get; set; }
@@ -42,6 +42,7 @@ namespace ISWM.WEB.BusinessServices
         public int modified_by { get; set; }
         public System.DateTime modified_datetime { get; set; }
     
+        public virtual area_master area_master { get; set; }
         public virtual ward_master ward_master { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RFID_household_details> RFID_household_details { get; set; }

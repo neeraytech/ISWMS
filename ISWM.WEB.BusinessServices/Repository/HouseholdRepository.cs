@@ -52,7 +52,7 @@ namespace ISWM.WEB.BusinessServices.Repository
             {
                 updateObj.address1 = obj.address1;
                 updateObj.address2 = obj.address2;
-                updateObj.area = obj.area;
+                updateObj.area_id = obj.area_id;
                 updateObj.pin_code = obj.pin_code;
                 updateObj.city = obj.city;
                 updateObj.state = obj.state;

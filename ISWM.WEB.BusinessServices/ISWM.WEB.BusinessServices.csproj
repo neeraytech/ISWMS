@@ -137,9 +137,6 @@
     <Compile Include="user_security_access_details.cs">
       <DependentUpon>ISWMEdmx.tt</DependentUpon>
     </Compile>
-    <Compile Include="ward_master.cs">
-      <DependentUpon>ISWMEdmx.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ISWM.WEB.Common\ISWM.WEB.Common.csproj">

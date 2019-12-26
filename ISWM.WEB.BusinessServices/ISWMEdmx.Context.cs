@@ -26,6 +26,7 @@ namespace ISWM.WEB.BusinessServices
         }
     
         public virtual DbSet<actions_master> actions_master { get; set; }
+        public virtual DbSet<area_master> area_master { get; set; }
         public virtual DbSet<driver_master> driver_master { get; set; }
         public virtual DbSet<GPS_master> GPS_master { get; set; }
         public virtual DbSet<GPS_tracking_history> GPS_tracking_history { get; set; }
@@ -43,6 +44,7 @@ namespace ISWM.WEB.BusinessServices
         public virtual DbSet<user_security_access_details> user_security_access_details { get; set; }
         public virtual DbSet<userType_master> userType_master { get; set; }
         public virtual DbSet<userType_modules> userType_modules { get; set; }
+        public virtual DbSet<ward_Karyakrta_master> ward_Karyakrta_master { get; set; }
         public virtual DbSet<ward_master> ward_master { get; set; }
     }
 }

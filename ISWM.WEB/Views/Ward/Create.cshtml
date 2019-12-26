@@ -31,19 +31,13 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.Label("Select Karyakrta", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.karyakarta_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLUser, "Value", "Text"), "select", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.karyakarta_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
-            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.isActivie, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.status, new SelectList((System.Collections.IEnumerable)ViewBag.DDLStatus, "Value", "Text"), "select", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                @Html.CheckBoxFor(model => model.isActivie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.isActivie, "", new { @class = "text-danger" })
             </div>
         </div>       
 

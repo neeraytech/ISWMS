@@ -149,7 +149,7 @@ namespace ISWM.WEB.Controllers
             {
                 ward_master obj = new ward_master();
                 obj.id = id;
-                obj.status = 2;
+                obj.isActivie = false;
                 obj.modified_by = Singleton.userobject.user_id;
                 obj.modified_datetime = DateTime.Now;
                 bool isdeleted = wr.DeleteWard(obj);

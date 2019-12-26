@@ -18,7 +18,7 @@ namespace ISWM.WEB.BusinessServices
         public user_master()
         {
             this.user_security_access_details = new HashSet<user_security_access_details>();
-            this.ward_master = new HashSet<ward_master>();
+            this.ward_Karyakrta_master = new HashSet<ward_Karyakrta_master>();
         }
     
         public int user_id { get; set; }
@@ -36,14 +36,15 @@ namespace ISWM.WEB.BusinessServices
         public string photo { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
+        public Nullable<int> area_id { get; set; }
         public string city { get; set; }
         public string state { get; set; }
-        public string area { get; set; }
     
+        public virtual area_master area_master { get; set; }
         public virtual userType_master userType_master { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_security_access_details> user_security_access_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ward_master> ward_master { get; set; }
+        public virtual ICollection<ward_Karyakrta_master> ward_Karyakrta_master { get; set; }
     }
 }

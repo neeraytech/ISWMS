@@ -18,6 +18,18 @@
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="area_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="area_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="driver_master">
           <Key>
             <PropertyRef Name="id" />
@@ -61,7 +73,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
           <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="area" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="area_id" Type="int" Nullable="false" />
+          <Property Name="ward_id" Type="int" Nullable="false" />
           <Property Name="pin_code" Type="int" Nullable="false" />
           <Property Name="city" Type="nvarchar(max)" Nullable="false" />
           <Property Name="state" Type="nvarchar(max)" Nullable="false" />
@@ -70,7 +83,6 @@
           <Property Name="household_name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="contact_no" Type="nvarchar" MaxLength="13" Nullable="false" />
-          <Property Name="ward_id" Type="int" Nullable="false" />
           <Property Name="valid_from" Type="datetime" Nullable="false" />
           <Property Name="valid_to" Type="datetime" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
@@ -217,9 +229,9 @@
           <Property Name="photo" Type="nvarchar(max)" />
           <Property Name="address1" Type="nvarchar(max)" />
           <Property Name="address2" Type="nvarchar(max)" />
+          <Property Name="area_id" Type="int" />
           <Property Name="city" Type="nvarchar(max)" />
           <Property Name="state" Type="nvarchar(max)" />
-          <Property Name="area" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="user_security_access_details">
           <Key>
@@ -261,13 +273,13 @@
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="ward_master">
+        <EntityType Name="ward_Karyakrta_master">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ward_number" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ward_description" Type="nvarchar(max)" />
+          <Property Name="ward_id" Type="int" Nullable="false" />
+          <Property Name="area_id" Type="int" />
           <Property Name="karyakarta_id" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
@@ -275,7 +287,32 @@
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK_household_master_ward_master">
+        <EntityType Name="ward_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ward_number" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ward_description" Type="nvarchar(max)" />
+          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_household_master_area_master">
+          <End Role="area_master" Type="Self.area_master" Multiplicity="1" />
+          <End Role="household_master" Type="Self.household_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="household_master">
+              <PropertyRef Name="area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_household_master_ward_Master">
           <End Role="ward_master" Type="Self.ward_master" Multiplicity="1" />
           <End Role="household_master" Type="Self.household_master" Multiplicity="*" />
           <ReferentialConstraint>
@@ -383,7 +420,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_user_master_userType_master">
+        <Association Name="FK_user_master_area_master">
+          <End Role="area_master" Type="Self.area_master" Multiplicity="0..1" />
+          <End Role="user_master" Type="Self.user_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_master">
+              <PropertyRef Name="area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_master_userType_master1">
           <End Role="userType_master" Type="Self.userType_master" Multiplicity="1" />
           <End Role="user_master" Type="Self.user_master" Multiplicity="*" />
           <ReferentialConstraint>
@@ -455,20 +504,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ward_Karyakrta_master_area_master">
+          <End Role="area_master" Type="Self.area_master" Multiplicity="0..1" />
+          <End Role="ward_Karyakrta_master" Type="Self.ward_Karyakrta_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ward_Karyakrta_master">
+              <PropertyRef Name="area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ward_Karyakrta_master_ward_Master">
+          <End Role="ward_master" Type="Self.ward_master" Multiplicity="1" />
+          <End Role="ward_Karyakrta_master" Type="Self.ward_Karyakrta_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ward_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ward_Karyakrta_master">
+              <PropertyRef Name="ward_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ward_master_user_master">
           <End Role="user_master" Type="Self.user_master" Multiplicity="1" />
-          <End Role="ward_master" Type="Self.ward_master" Multiplicity="*" />
+          <End Role="ward_Karyakrta_master" Type="Self.ward_Karyakrta_master" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user_master">
               <PropertyRef Name="user_id" />
             </Principal>
-            <Dependent Role="ward_master">
+            <Dependent Role="ward_Karyakrta_master">
               <PropertyRef Name="karyakarta_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ISWM_BASE_DBModelStoreContainer">
           <EntitySet Name="actions_master" EntityType="Self.actions_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="area_master" EntityType="Self.area_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_master" EntityType="Self.driver_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GPS_master" EntityType="Self.GPS_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GPS_tracking_history" EntityType="Self.GPS_tracking_history" Schema="dbo" store:Type="Tables" />
@@ -486,8 +560,13 @@
           <EntitySet Name="user_security_access_details" EntityType="Self.user_security_access_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userType_master" EntityType="Self.userType_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userType_modules" EntityType="Self.userType_modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ward_Karyakrta_master" EntityType="Self.ward_Karyakrta_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ward_master" EntityType="Self.ward_master" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_household_master_ward_master" Association="Self.FK_household_master_ward_master">
+          <AssociationSet Name="FK_household_master_area_master" Association="Self.FK_household_master_area_master">
+            <End Role="area_master" EntitySet="area_master" />
+            <End Role="household_master" EntitySet="household_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_household_master_ward_Master" Association="Self.FK_household_master_ward_Master">
             <End Role="ward_master" EntitySet="ward_master" />
             <End Role="household_master" EntitySet="household_master" />
           </AssociationSet>
@@ -523,7 +602,11 @@
             <End Role="GPS_master" EntitySet="GPS_master" />
             <End Role="truck_master" EntitySet="truck_master" />
           </AssociationSet>
-          <AssociationSet Name="FK_user_master_userType_master" Association="Self.FK_user_master_userType_master">
+          <AssociationSet Name="FK_user_master_area_master" Association="Self.FK_user_master_area_master">
+            <End Role="area_master" EntitySet="area_master" />
+            <End Role="user_master" EntitySet="user_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_master_userType_master1" Association="Self.FK_user_master_userType_master1">
             <End Role="userType_master" EntitySet="userType_master" />
             <End Role="user_master" EntitySet="user_master" />
           </AssociationSet>
@@ -547,9 +630,17 @@
             <End Role="userType_master" EntitySet="userType_master" />
             <End Role="userType_modules" EntitySet="userType_modules" />
           </AssociationSet>
+          <AssociationSet Name="FK_ward_Karyakrta_master_area_master" Association="Self.FK_ward_Karyakrta_master_area_master">
+            <End Role="area_master" EntitySet="area_master" />
+            <End Role="ward_Karyakrta_master" EntitySet="ward_Karyakrta_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ward_Karyakrta_master_ward_Master" Association="Self.FK_ward_Karyakrta_master_ward_Master">
+            <End Role="ward_master" EntitySet="ward_master" />
+            <End Role="ward_Karyakrta_master" EntitySet="ward_Karyakrta_master" />
+          </AssociationSet>
           <AssociationSet Name="FK_ward_master_user_master" Association="Self.FK_ward_master_user_master">
             <End Role="user_master" EntitySet="user_master" />
-            <End Role="ward_master" EntitySet="ward_master" />
+            <End Role="ward_Karyakrta_master" EntitySet="ward_Karyakrta_master" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -558,6 +649,7 @@
       <Schema Namespace="ISWM_BASE_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ISWM_BASE_DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="actions_master" EntityType="ISWM_BASE_DBModel.actions_master" />
+          <EntitySet Name="area_master" EntityType="ISWM_BASE_DBModel.area_master" />
           <EntitySet Name="driver_master" EntityType="ISWM_BASE_DBModel.driver_master" />
           <EntitySet Name="GPS_master" EntityType="ISWM_BASE_DBModel.GPS_master" />
           <EntitySet Name="GPS_tracking_history" EntityType="ISWM_BASE_DBModel.GPS_tracking_history" />
@@ -575,10 +667,23 @@
           <EntitySet Name="user_security_access_details" EntityType="ISWM_BASE_DBModel.user_security_access_details" />
           <EntitySet Name="userType_master" EntityType="ISWM_BASE_DBModel.userType_master" />
           <EntitySet Name="userType_modules" EntityType="ISWM_BASE_DBModel.userType_modules" />
+          <EntitySet Name="ward_Karyakrta_master" EntityType="ISWM_BASE_DBModel.ward_Karyakrta_master" />
           <EntitySet Name="ward_master" EntityType="ISWM_BASE_DBModel.ward_master" />
           <AssociationSet Name="FK_user_security_access_details_actions_master" Association="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master">
             <End Role="actions_master" EntitySet="actions_master" />
             <End Role="user_security_access_details" EntitySet="user_security_access_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_household_master_area_master" Association="ISWM_BASE_DBModel.FK_household_master_area_master">
+            <End Role="area_master" EntitySet="area_master" />
+            <End Role="household_master" EntitySet="household_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_master_area_master" Association="ISWM_BASE_DBModel.FK_user_master_area_master">
+            <End Role="area_master" EntitySet="area_master" />
+            <End Role="user_master" EntitySet="user_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ward_Karyakrta_master_area_master" Association="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_area_master">
+            <End Role="area_master" EntitySet="area_master" />
+            <End Role="ward_Karyakrta_master" EntitySet="ward_Karyakrta_master" />
           </AssociationSet>
           <AssociationSet Name="FK_ISWMS_master_driver_master" Association="ISWM_BASE_DBModel.FK_ISWMS_master_driver_master">
             <End Role="driver_master" EntitySet="driver_master" />
@@ -588,7 +693,7 @@
             <End Role="GPS_master" EntitySet="GPS_master" />
             <End Role="truck_master" EntitySet="truck_master" />
           </AssociationSet>
-          <AssociationSet Name="FK_household_master_ward_master" Association="ISWM_BASE_DBModel.FK_household_master_ward_master">
+          <AssociationSet Name="FK_household_master_ward_Master" Association="ISWM_BASE_DBModel.FK_household_master_ward_Master">
             <End Role="ward_master" EntitySet="ward_master" />
             <End Role="household_master" EntitySet="household_master" />
           </AssociationSet>
@@ -624,7 +729,7 @@
             <End Role="route_master" EntitySet="route_master" />
             <End Role="route_household_details" EntitySet="route_household_details" />
           </AssociationSet>
-          <AssociationSet Name="FK_user_master_userType_master" Association="ISWM_BASE_DBModel.FK_user_master_userType_master">
+          <AssociationSet Name="FK_user_master_userType_master1" Association="ISWM_BASE_DBModel.FK_user_master_userType_master1">
             <End Role="userType_master" EntitySet="userType_master" />
             <End Role="user_master" EntitySet="user_master" />
           </AssociationSet>
@@ -634,11 +739,15 @@
           </AssociationSet>
           <AssociationSet Name="FK_ward_master_user_master" Association="ISWM_BASE_DBModel.FK_ward_master_user_master">
             <End Role="user_master" EntitySet="user_master" />
-            <End Role="ward_master" EntitySet="ward_master" />
+            <End Role="ward_Karyakrta_master" EntitySet="ward_Karyakrta_master" />
           </AssociationSet>
           <AssociationSet Name="FK_userType_modules_userType_master" Association="ISWM_BASE_DBModel.FK_userType_modules_userType_master">
             <End Role="userType_master" EntitySet="userType_master" />
             <End Role="userType_modules" EntitySet="userType_modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ward_Karyakrta_master_ward_Master" Association="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_ward_Master">
+            <End Role="ward_master" EntitySet="ward_master" />
+            <End Role="ward_Karyakrta_master" EntitySet="ward_Karyakrta_master" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="actions_master">
@@ -654,6 +763,21 @@
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" FromRole="actions_master" ToRole="user_security_access_details" />
+        </EntityType>
+        <EntityType Name="area_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="area_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_household_master_area_master" FromRole="area_master" ToRole="household_master" />
+          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_master_area_master" FromRole="area_master" ToRole="user_master" />
+          <NavigationProperty Name="ward_Karyakrta_master" Relationship="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_area_master" FromRole="area_master" ToRole="ward_Karyakrta_master" />
         </EntityType>
         <EntityType Name="driver_master">
           <Key>
@@ -700,7 +824,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="address1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="address2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="area" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area_id" Type="Int32" Nullable="false" />
+          <Property Name="ward_id" Type="Int32" Nullable="false" />
           <Property Name="pin_code" Type="Int32" Nullable="false" />
           <Property Name="city" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="state" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -709,7 +834,6 @@
           <Property Name="household_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="contact_no" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="ward_id" Type="Int32" Nullable="false" />
           <Property Name="valid_from" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="valid_to" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="status" Type="Int32" Nullable="false" />
@@ -717,7 +841,8 @@
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="ward_master" Relationship="ISWM_BASE_DBModel.FK_household_master_ward_master" FromRole="household_master" ToRole="ward_master" />
+          <NavigationProperty Name="area_master" Relationship="ISWM_BASE_DBModel.FK_household_master_area_master" FromRole="household_master" ToRole="area_master" />
+          <NavigationProperty Name="ward_master" Relationship="ISWM_BASE_DBModel.FK_household_master_ward_Master" FromRole="household_master" ToRole="ward_master" />
           <NavigationProperty Name="RFID_household_details" Relationship="ISWM_BASE_DBModel.FK_RFID_household_details_household_master" FromRole="household_master" ToRole="RFID_household_details" />
           <NavigationProperty Name="route_household_details" Relationship="ISWM_BASE_DBModel.FK_route_household_details_household_master" FromRole="household_master" ToRole="route_household_details" />
         </EntityType>
@@ -873,12 +998,13 @@
           <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area_id" Type="Int32" />
           <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="state" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="area" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master" FromRole="user_master" ToRole="userType_master" />
+          <NavigationProperty Name="area_master" Relationship="ISWM_BASE_DBModel.FK_user_master_area_master" FromRole="user_master" ToRole="area_master" />
+          <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master1" FromRole="user_master" ToRole="userType_master" />
           <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_master" ToRole="user_security_access_details" />
-          <NavigationProperty Name="ward_master" Relationship="ISWM_BASE_DBModel.FK_ward_master_user_master" FromRole="user_master" ToRole="ward_master" />
+          <NavigationProperty Name="ward_Karyakrta_master" Relationship="ISWM_BASE_DBModel.FK_ward_master_user_master" FromRole="user_master" ToRole="ward_Karyakrta_master" />
         </EntityType>
         <EntityType Name="user_security_access_details">
           <Key>
@@ -909,7 +1035,7 @@
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master" FromRole="userType_master" ToRole="user_master" />
+          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master1" FromRole="userType_master" ToRole="user_master" />
           <NavigationProperty Name="userType_modules" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_master" ToRole="userType_modules" />
         </EntityType>
         <EntityType Name="userType_modules">
@@ -927,6 +1053,23 @@
           <NavigationProperty Name="module_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_module_master" FromRole="userType_modules" ToRole="module_master" />
           <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_modules" ToRole="userType_master" />
         </EntityType>
+        <EntityType Name="ward_Karyakrta_master">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ward_id" Type="Int32" Nullable="false" />
+          <Property Name="area_id" Type="Int32" />
+          <Property Name="karyakarta_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="area_master" Relationship="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_area_master" FromRole="ward_Karyakrta_master" ToRole="area_master" />
+          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_ward_master_user_master" FromRole="ward_Karyakrta_master" ToRole="user_master" />
+          <NavigationProperty Name="ward_master" Relationship="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_ward_Master" FromRole="ward_Karyakrta_master" ToRole="ward_master" />
+        </EntityType>
         <EntityType Name="ward_master">
           <Key>
             <PropertyRef Name="id" />
@@ -934,14 +1077,13 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ward_number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ward_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="karyakarta_id" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="isActivie" Type="Boolean" Nullable="false" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_household_master_ward_master" FromRole="ward_master" ToRole="household_master" />
-          <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_ward_master_user_master" FromRole="ward_master" ToRole="user_master" />
+          <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_household_master_ward_Master" FromRole="ward_master" ToRole="household_master" />
+          <NavigationProperty Name="ward_Karyakrta_master" Relationship="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_ward_Master" FromRole="ward_master" ToRole="ward_Karyakrta_master" />
         </EntityType>
         <Association Name="FK_user_security_access_details_actions_master">
           <End Type="ISWM_BASE_DBModel.actions_master" Role="actions_master" Multiplicity="1" />
@@ -952,6 +1094,42 @@
             </Principal>
             <Dependent Role="user_security_access_details">
               <PropertyRef Name="action_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_household_master_area_master">
+          <End Type="ISWM_BASE_DBModel.area_master" Role="area_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.household_master" Role="household_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="household_master">
+              <PropertyRef Name="area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_master_area_master">
+          <End Type="ISWM_BASE_DBModel.area_master" Role="area_master" Multiplicity="0..1" />
+          <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_master">
+              <PropertyRef Name="area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ward_Karyakrta_master_area_master">
+          <End Type="ISWM_BASE_DBModel.area_master" Role="area_master" Multiplicity="0..1" />
+          <End Type="ISWM_BASE_DBModel.ward_Karyakrta_master" Role="ward_Karyakrta_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ward_Karyakrta_master">
+              <PropertyRef Name="area_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -979,7 +1157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_household_master_ward_master">
+        <Association Name="FK_household_master_ward_Master">
           <End Type="ISWM_BASE_DBModel.ward_master" Role="ward_master" Multiplicity="1" />
           <End Type="ISWM_BASE_DBModel.household_master" Role="household_master" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1087,7 +1265,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_user_master_userType_master">
+        <Association Name="FK_user_master_userType_master1">
           <End Type="ISWM_BASE_DBModel.userType_master" Role="userType_master" Multiplicity="1" />
           <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1113,12 +1291,12 @@
         </Association>
         <Association Name="FK_ward_master_user_master">
           <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="1" />
-          <End Type="ISWM_BASE_DBModel.ward_master" Role="ward_master" Multiplicity="*" />
+          <End Type="ISWM_BASE_DBModel.ward_Karyakrta_master" Role="ward_Karyakrta_master" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user_master">
               <PropertyRef Name="user_id" />
             </Principal>
-            <Dependent Role="ward_master">
+            <Dependent Role="ward_Karyakrta_master">
               <PropertyRef Name="karyakarta_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1132,6 +1310,18 @@
             </Principal>
             <Dependent Role="userType_modules">
               <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ward_Karyakrta_master_ward_Master">
+          <End Type="ISWM_BASE_DBModel.ward_master" Role="ward_master" Multiplicity="1" />
+          <End Type="ISWM_BASE_DBModel.ward_Karyakrta_master" Role="ward_Karyakrta_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ward_master">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ward_Karyakrta_master">
+              <PropertyRef Name="ward_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1152,6 +1342,19 @@
                 <ScalarProperty Name="module_action_desc" ColumnName="module_action_desc" />
                 <ScalarProperty Name="module_action_name" ColumnName="module_action_name" />
                 <ScalarProperty Name="module_action_id" ColumnName="module_action_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="area_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.area_master">
+              <MappingFragment StoreEntitySet="area_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="isActivie" ColumnName="isActivie" />
+                <ScalarProperty Name="area_name" ColumnName="area_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1204,7 +1407,6 @@
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="valid_to" ColumnName="valid_to" />
                 <ScalarProperty Name="valid_from" ColumnName="valid_from" />
-                <ScalarProperty Name="ward_id" ColumnName="ward_id" />
                 <ScalarProperty Name="contact_no" ColumnName="contact_no" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="household_name" ColumnName="household_name" />
@@ -1213,7 +1415,8 @@
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="pin_code" ColumnName="pin_code" />
-                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="ward_id" ColumnName="ward_id" />
+                <ScalarProperty Name="area_id" ColumnName="area_id" />
                 <ScalarProperty Name="address2" ColumnName="address2" />
                 <ScalarProperty Name="address1" ColumnName="address1" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -1351,9 +1554,9 @@
           <EntitySetMapping Name="user_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_master">
               <MappingFragment StoreEntitySet="user_master">
-                <ScalarProperty Name="area" ColumnName="area" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="area_id" ColumnName="area_id" />
                 <ScalarProperty Name="address2" ColumnName="address2" />
                 <ScalarProperty Name="address1" ColumnName="address1" />
                 <ScalarProperty Name="photo" ColumnName="photo" />
@@ -1415,6 +1618,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ward_Karyakrta_master">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_Karyakrta_master">
+              <MappingFragment StoreEntitySet="ward_Karyakrta_master">
+                <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="karyakarta_id" ColumnName="karyakarta_id" />
+                <ScalarProperty Name="area_id" ColumnName="area_id" />
+                <ScalarProperty Name="ward_id" ColumnName="ward_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ward_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_master">
               <MappingFragment StoreEntitySet="ward_master">
@@ -1422,8 +1640,7 @@
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="karyakarta_id" ColumnName="karyakarta_id" />
+                <ScalarProperty Name="isActivie" ColumnName="isActivie" />
                 <ScalarProperty Name="ward_description" ColumnName="ward_description" />
                 <ScalarProperty Name="ward_number" ColumnName="ward_number" />
                 <ScalarProperty Name="id" ColumnName="id" />

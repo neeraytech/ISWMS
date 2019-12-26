@@ -18,7 +18,7 @@ namespace ISWM.WEB.BusinessServices.Repository
         public int AddWard(ward_master obj)
         {
             int isadd = 0;
-            ward_master updateObj = db.ward_master.Where(w=>w.ward_number.ToLower()==obj.ward_number.ToLower()).FirstOrDefault();
+            ward_master updateObj = db.ward_master.Where(w => w.ward_number.ToLower() == obj.ward_number.ToLower()).FirstOrDefault();
             if (updateObj != null)
             {
                 isadd = -1;
@@ -27,7 +27,7 @@ namespace ISWM.WEB.BusinessServices.Repository
             {
                 db.ward_master.Add(obj);
                 db.SaveChanges();
-                
+
                 isadd = 1;
             }
             Dispose(true);
@@ -48,9 +48,8 @@ namespace ISWM.WEB.BusinessServices.Repository
             {
                 updateObj.ward_number = obj.ward_number;
                 updateObj.ward_description = obj.ward_description;
-                updateObj.status = obj.status;
-                updateObj.karyakarta_id = obj.karyakarta_id;
-                updateObj.modified_by = obj.modified_by;                
+                updateObj.isActivie = obj.isActivie;                
+                updateObj.modified_by = obj.modified_by;
                 updateObj.modified_datetime = obj.modified_datetime;
                 db.ward_master.Attach(updateObj);
                 db.Entry(updateObj).State = System.Data.Entity.EntityState.Modified;
@@ -74,7 +73,7 @@ namespace ISWM.WEB.BusinessServices.Repository
             ward_master updateObj = db.ward_master.Find(obj.id);
             if (updateObj != null)
             {
-                updateObj.status = obj.status;               
+                updateObj.isActivie = obj.isActivie;
                 updateObj.modified_by = obj.modified_by;
                 updateObj.modified_datetime = obj.modified_datetime;
                 db.ward_master.Attach(updateObj);
@@ -82,7 +81,7 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isupdate = true;
             }
-            Dispose(true);
+            //Dispose(true);
             return isupdate;
 
         }

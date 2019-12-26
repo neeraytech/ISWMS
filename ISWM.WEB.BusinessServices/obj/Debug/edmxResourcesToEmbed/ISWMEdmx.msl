@@ -15,6 +15,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="area_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.area_master">
+        <MappingFragment StoreEntitySet="area_master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="area_name" ColumnName="area_name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="driver_master">
       <EntityTypeMapping TypeName="ISWM_BASE_DBModel.driver_master">
         <MappingFragment StoreEntitySet="driver_master">
@@ -64,7 +76,6 @@
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="valid_to" ColumnName="valid_to" />
           <ScalarProperty Name="valid_from" ColumnName="valid_from" />
-          <ScalarProperty Name="ward_id" ColumnName="ward_id" />
           <ScalarProperty Name="contact_no" ColumnName="contact_no" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="household_name" ColumnName="household_name" />
@@ -73,7 +84,8 @@
           <ScalarProperty Name="state" ColumnName="state" />
           <ScalarProperty Name="city" ColumnName="city" />
           <ScalarProperty Name="pin_code" ColumnName="pin_code" />
-          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="ward_id" ColumnName="ward_id" />
+          <ScalarProperty Name="area_id" ColumnName="area_id" />
           <ScalarProperty Name="address2" ColumnName="address2" />
           <ScalarProperty Name="address1" ColumnName="address1" />
           <ScalarProperty Name="id" ColumnName="id" />
@@ -211,9 +223,9 @@
     <EntitySetMapping Name="user_master">
       <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_master">
         <MappingFragment StoreEntitySet="user_master">
-          <ScalarProperty Name="area" ColumnName="area" />
           <ScalarProperty Name="state" ColumnName="state" />
           <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="area_id" ColumnName="area_id" />
           <ScalarProperty Name="address2" ColumnName="address2" />
           <ScalarProperty Name="address1" ColumnName="address1" />
           <ScalarProperty Name="photo" ColumnName="photo" />
@@ -275,17 +287,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ward_master">
-      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_master">
-        <MappingFragment StoreEntitySet="ward_master">
+    <EntitySetMapping Name="ward_Karyakrta_master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_Karyakrta_master">
+        <MappingFragment StoreEntitySet="ward_Karyakrta_master">
           <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
           <ScalarProperty Name="modified_by" ColumnName="modified_by" />
           <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
           <ScalarProperty Name="created_by" ColumnName="created_by" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="karyakarta_id" ColumnName="karyakarta_id" />
+          <ScalarProperty Name="area_id" ColumnName="area_id" />
+          <ScalarProperty Name="ward_id" ColumnName="ward_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ward_Master">
+      <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_Master">
+        <MappingFragment StoreEntitySet="ward_Master">
+          <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
+          <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
           <ScalarProperty Name="ward_description" ColumnName="ward_description" />
-          <ScalarProperty Name="ward_number" ColumnName="ward_number" />
+          <ScalarProperty Name="ward_name" ColumnName="ward_name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
