@@ -1,101 +1,749 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../src/assets/js/pages/components/charts/flotcharts.js");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "../src/assets/js/pages/components/charts/flotcharts.js":
-/*!**************************************************************!*\
-  !*** ../src/assets/js/pages/components/charts/flotcharts.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
-eval("\r\n// Class definition\r\nvar KTFlotchartsDemo = function() {\r\n\r\n    // Private functions\r\n\r\n    var demo1 = function() {\r\n        var data = [];\r\n        var totalPoints = 250;\r\n\r\n        // random data generator for plot charts\r\n\r\n        function getRandomData() {\r\n            if (data.length > 0) data = data.slice(1);\r\n            // do a random walk\r\n            while (data.length < totalPoints) {\r\n                var prev = data.length > 0 ? data[data.length - 1] : 50;\r\n                var y = prev + Math.random() * 10 - 5;\r\n                if (y < 0) y = 0;\r\n                if (y > 100) y = 100;\r\n                data.push(y);\r\n            }\r\n            // zip the generated y values with the x values\r\n            var res = [];\r\n            for (var i = 0; i < data.length; ++i) {\r\n                res.push([i, data[i]]);\r\n            }\r\n\r\n            return res;\r\n        }\r\n\r\n        var d1 = [];\r\n        for (var i = 0; i < Math.PI * 2; i += 0.25)\r\n            d1.push([i, Math.sin(i)]);\r\n\r\n        var d2 = [];\r\n        for (var i = 0; i < Math.PI * 2; i += 0.25)\r\n            d2.push([i, Math.cos(i)]);\r\n\r\n        var d3 = [];\r\n        for (var i = 0; i < Math.PI * 2; i += 0.1)\r\n            d3.push([i, Math.tan(i)]);\r\n\r\n        $.plot($(\"#kt_flotcharts_1\"), [{\r\n            label: \"sin(x)\",\r\n            data: d1,\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#f6aa33'\r\n        }, {\r\n            label: \"cos(x)\",\r\n            data: d2,\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#6e4ff5'\r\n        }, {\r\n            label: \"tan(x)\",\r\n            data: d3,\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#fe3995'\r\n        }], {\r\n            series: {\r\n                lines: {\r\n                    show: true,\r\n                },\r\n                points: {\r\n                    show: true,\r\n                    fill: true,\r\n                    radius: 3,\r\n                    lineWidth: 1\r\n                }\r\n            },\r\n            xaxis: {\r\n                tickColor: \"#eee\",\r\n                ticks: [0, [Math.PI / 2, \"\\u03c0/2\"],\r\n                    [Math.PI, \"\\u03c0\"],\r\n                    [Math.PI * 3 / 2, \"3\\u03c0/2\"],\r\n                    [Math.PI * 2, \"2\\u03c0\"]\r\n                ]\r\n            },\r\n            yaxis: {\r\n                tickColor: \"#eee\",\r\n                ticks: 10,\r\n                min: -2,\r\n                max: 2\r\n            },\r\n            grid: {\r\n                borderColor: \"#eee\",\r\n                borderWidth: 1\r\n            }\r\n        });\r\n    }\r\n\r\n    var demo2 = function() {\r\n        function randValue() {\r\n            return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;\r\n        }\r\n        var pageviews = [\r\n            [1, randValue()],\r\n            [2, randValue()],\r\n            [3, 2 + randValue()],\r\n            [4, 3 + randValue()],\r\n            [5, 5 + randValue()],\r\n            [6, 10 + randValue()],\r\n            [7, 15 + randValue()],\r\n            [8, 20 + randValue()],\r\n            [9, 25 + randValue()],\r\n            [10, 30 + randValue()],\r\n            [11, 35 + randValue()],\r\n            [12, 25 + randValue()],\r\n            [13, 15 + randValue()],\r\n            [14, 20 + randValue()],\r\n            [15, 45 + randValue()],\r\n            [16, 50 + randValue()],\r\n            [17, 65 + randValue()],\r\n            [18, 70 + randValue()],\r\n            [19, 85 + randValue()],\r\n            [20, 80 + randValue()],\r\n            [21, 75 + randValue()],\r\n            [22, 80 + randValue()],\r\n            [23, 75 + randValue()],\r\n            [24, 70 + randValue()],\r\n            [25, 65 + randValue()],\r\n            [26, 75 + randValue()],\r\n            [27, 80 + randValue()],\r\n            [28, 85 + randValue()],\r\n            [29, 90 + randValue()],\r\n            [30, 95 + randValue()]\r\n        ];\r\n        var visitors = [\r\n            [1, randValue() - 5],\r\n            [2, randValue() - 5],\r\n            [3, randValue() - 5],\r\n            [4, 6 + randValue()],\r\n            [5, 5 + randValue()],\r\n            [6, 20 + randValue()],\r\n            [7, 25 + randValue()],\r\n            [8, 36 + randValue()],\r\n            [9, 26 + randValue()],\r\n            [10, 38 + randValue()],\r\n            [11, 39 + randValue()],\r\n            [12, 50 + randValue()],\r\n            [13, 51 + randValue()],\r\n            [14, 12 + randValue()],\r\n            [15, 13 + randValue()],\r\n            [16, 14 + randValue()],\r\n            [17, 15 + randValue()],\r\n            [18, 15 + randValue()],\r\n            [19, 16 + randValue()],\r\n            [20, 17 + randValue()],\r\n            [21, 18 + randValue()],\r\n            [22, 19 + randValue()],\r\n            [23, 20 + randValue()],\r\n            [24, 21 + randValue()],\r\n            [25, 14 + randValue()],\r\n            [26, 24 + randValue()],\r\n            [27, 25 + randValue()],\r\n            [28, 26 + randValue()],\r\n            [29, 27 + randValue()],\r\n            [30, 31 + randValue()]\r\n        ];\r\n\r\n        var plot = $.plot($(\"#kt_flotcharts_2\"), [{\r\n            data: pageviews,\r\n            label: \"Unique Visits\",\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#fe3995'\r\n\r\n        }, {\r\n            data: visitors,\r\n            label: \"Page Views\",\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#6e4ff5'\r\n        }], {\r\n            series: {\r\n                lines: {\r\n                    show: true,\r\n                    lineWidth: 2,\r\n                    fill: true,\r\n                    fillColor: {\r\n                        colors: [{\r\n                            opacity: 0.05\r\n                        }, {\r\n                            opacity: 0.01\r\n                        }]\r\n                    }\r\n                },\r\n                points: {\r\n                    show: true,\r\n                    radius: 3,\r\n                    lineWidth: 1\r\n                },\r\n                shadowSize: 2\r\n            },\r\n            grid: {\r\n                hoverable: true,\r\n                clickable: true,\r\n                tickColor: \"#eee\",\r\n                borderColor: \"#eee\",\r\n                borderWidth: 1\r\n            },\r\n            colors: [\"#d12610\", \"#37b7f3\", \"#52e136\"],\r\n            xaxis: {\r\n                ticks: 11,\r\n                tickDecimals: 0,\r\n                tickColor: \"#eee\",\r\n            },\r\n            yaxis: {\r\n                ticks: 11,\r\n                tickDecimals: 0,\r\n                tickColor: \"#eee\",\r\n            }\r\n        });\r\n\r\n        function showTooltip(x, y, contents) {\r\n            $('<div id=\"tooltip\">' + contents + '</div>').css({\r\n                position: 'absolute',\r\n                display: 'none',\r\n                top: y + 5,\r\n                left: x + 15,\r\n                border: '1px solid #333',\r\n                padding: '4px',\r\n                color: '#fff',\r\n                'border-radius': '3px',\r\n                'background-color': '#333',\r\n                opacity: 0.80\r\n            }).appendTo(\"body\").fadeIn(200);\r\n        }\r\n\r\n        var previousPoint = null;\r\n        $(\"#chart_2\").bind(\"plothover\", function(event, pos, item) {\r\n            $(\"#x\").text(pos.x.toFixed(2));\r\n            $(\"#y\").text(pos.y.toFixed(2));\r\n\r\n            if (item) {\r\n                if (previousPoint != item.dataIndex) {\r\n                    previousPoint = item.dataIndex;\r\n\r\n                    $(\"#tooltip\").remove();\r\n                    var x = item.datapoint[0].toFixed(2),\r\n                        y = item.datapoint[1].toFixed(2);\r\n\r\n                    showTooltip(item.pageX, item.pageY, item.series.label + \" of \" + x + \" = \" + y);\r\n                }\r\n            } else {\r\n                $(\"#tooltip\").remove();\r\n                previousPoint = null;\r\n            }\r\n        });\r\n    }\r\n\r\n    var demo3 = function() {\r\n        var sin = [],\r\n            cos = [];\r\n        for (var i = 0; i < 14; i += 0.1) {\r\n            sin.push([i, Math.sin(i)]);\r\n            cos.push([i, Math.cos(i)]);\r\n        }\r\n\r\n        var plot = $.plot($(\"#kt_flotcharts_3\"), [{\r\n            data: sin,\r\n            label: \"sin(x) = -0.00\",\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#f6aa33'\r\n        }, {\r\n            data: cos,\r\n            label: \"cos(x) = -0.00\",\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#6e4ff5'\r\n        }], {\r\n            series: {\r\n                lines: {\r\n                    show: true\r\n                }\r\n            },\r\n            crosshair: {\r\n                mode: \"x\"\r\n            },\r\n            grid: {\r\n                hoverable: true,\r\n                autoHighlight: false,\r\n                tickColor: \"#eee\",\r\n                borderColor: \"#eee\",\r\n                borderWidth: 1\r\n            },\r\n            yaxis: {\r\n                min: -1.2,\r\n                max: 1.2\r\n            }\r\n        });\r\n\r\n        var legends = $(\"#kt_flotcharts_3 .legendLabel\");\r\n        legends.each(function() {\r\n            // fix the widths so they don't jump around\r\n            $(this).css('width', $(this).width());\r\n        });\r\n\r\n        var updateLegendTimeout = null;\r\n        var latestPosition = null;\r\n\r\n        function updateLegend() {\r\n            updateLegendTimeout = null;\r\n\r\n            var pos = latestPosition;\r\n\r\n            var axes = plot.getAxes();\r\n            if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max || pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) return;\r\n\r\n            var i, j, dataset = plot.getData();\r\n            for (var i = 0; i < dataset.length; ++i) {\r\n                var series = dataset[i];\r\n\r\n                // find the nearest points, x-wise\r\n                for (j = 0; j < series.data.length; ++j)\r\n                    if (series.data[j][0] > pos.x) break;\r\n\r\n                // now interpolate\r\n                var y, p1 = series.data[j - 1],\r\n                    p2 = series.data[j];\r\n\r\n                if (p1 == null) y = p2[1];\r\n                else if (p2 == null) y = p1[1];\r\n                else y = p1[1] + (p2[1] - p1[1]) * (pos.x - p1[0]) / (p2[0] - p1[0]);\r\n\r\n                legends.eq(i).text(series.label.replace(/=.*/, \"= \" + y.toFixed(2)));\r\n            }\r\n        }\r\n\r\n        $(\"#kt_flotcharts_3\").bind(\"plothover\", function(event, pos, item) {\r\n            latestPosition = pos;\r\n            if (!updateLegendTimeout) updateLegendTimeout = setTimeout(updateLegend, 50);\r\n        });\r\n    }\r\n\r\n    var demo4 = function() {\r\n\r\n        var data = [];\r\n        var totalPoints = 250;\r\n\r\n        // random data generator for plot charts\r\n\r\n        function getRandomData() {\r\n            if (data.length > 0) data = data.slice(1);\r\n            // do a random walk\r\n            while (data.length < totalPoints) {\r\n                var prev = data.length > 0 ? data[data.length - 1] : 50;\r\n                var y = prev + Math.random() * 10 - 5;\r\n                if (y < 0) y = 0;\r\n                if (y > 100) y = 100;\r\n                data.push(y);\r\n            }\r\n            // zip the generated y values with the x values\r\n            var res = [];\r\n            for (var i = 0; i < data.length; ++i) {\r\n                res.push([i, data[i]]);\r\n            }\r\n\r\n            return res;\r\n        }\r\n\r\n        //server load\r\n        var options = {\r\n            series: {\r\n                shadowSize: 1\r\n            },\r\n            lines: {\r\n                show: true,\r\n                lineWidth: 0.5,\r\n                fill: true,\r\n                fillColor: {\r\n                    colors: [{\r\n                        opacity: 0.1\r\n                    }, {\r\n                        opacity: 1\r\n                    }]\r\n                }\r\n            },\r\n            yaxis: {\r\n                min: 0,\r\n                max: 100,\r\n                tickColor: \"#eee\",\r\n                tickFormatter: function(v) {\r\n                    return v + \"%\";\r\n                }\r\n            },\r\n            xaxis: {\r\n                show: false,\r\n            },\r\n            colors: [\"#6e4ff5\"],\r\n            grid: {\r\n                tickColor: \"#eee\",\r\n                borderWidth: 0,\r\n            }\r\n        };\r\n\r\n        var updateInterval = 30;\r\n        var plot = $.plot($(\"#kt_flotcharts_4\"), [getRandomData()], options);\r\n\r\n        function update() {\r\n            plot.setData([getRandomData()]);\r\n            plot.draw();\r\n            setTimeout(update, updateInterval);\r\n        }\r\n\r\n        update();\r\n    }\r\n\r\n    var demo5 = function() {\r\n        var d1 = [];\r\n        for (var i = 0; i <= 10; i += 1)\r\n            d1.push([i, parseInt(Math.random() * 30)]);\r\n\r\n        var d2 = [];\r\n        for (var i = 0; i <= 10; i += 1)\r\n            d2.push([i, parseInt(Math.random() * 30)]);\r\n\r\n        var d3 = [];\r\n        for (var i = 0; i <= 10; i += 1)\r\n            d3.push([i, parseInt(Math.random() * 30)]);\r\n\r\n        var stack = 0,\r\n            bars = true,\r\n            lines = false,\r\n            steps = false;\r\n\r\n        function plotWithOptions() {\r\n            $.plot($(\"#kt_flotcharts_5\"),\r\n\r\n                [{\r\n                    label: \"sales\",\r\n                    data: d1,\r\n                    lines: {\r\n                        lineWidth: 1,\r\n                    },\r\n                    shadowSize: 0,\r\n                    color: '#2abe81'\r\n                }, {\r\n                    label: \"tax\",\r\n                    data: d2,\r\n                    lines: {\r\n                        lineWidth: 1,\r\n                    },\r\n                    shadowSize: 0,\r\n                    color: '#6e4ff5'\r\n                }, {\r\n                    label: \"profit\",\r\n                    data: d3,\r\n                    lines: {\r\n                        lineWidth: 1,\r\n                    },\r\n                    shadowSize: 0,\r\n                    color: '#fe3995'\r\n                }]\r\n\r\n                , {\r\n                    series: {\r\n                        stack: stack,\r\n                        lines: {\r\n                            show: lines,\r\n                            fill: true,\r\n                            steps: steps,\r\n                            lineWidth: 0, // in pixels\r\n                        },\r\n                        bars: {\r\n                            show: bars,\r\n                            barWidth: 0.5,\r\n                            lineWidth: 0, // in pixels\r\n                            shadowSize: 0,\r\n                            align: 'center',\r\n                            fill: 0.5\r\n                        }\r\n                    },\r\n                    grid: {\r\n                        tickColor: \"#eee\",\r\n                        borderColor: \"#eee\",\r\n                        borderWidth: 1\r\n                    }\r\n                }\r\n            );\r\n        }\r\n\r\n        $(\".stackControls input\").click(function(e) {\r\n            e.preventDefault();\r\n            stack = $(this).val() == \"With stacking\" ? true : null;\r\n            plotWithOptions();\r\n        });\r\n\r\n        $(\".graphControls input\").click(function(e) {\r\n            e.preventDefault();\r\n            bars = $(this).val().indexOf(\"Bars\") != -1;\r\n            lines = $(this).val().indexOf(\"Lines\") != -1;\r\n            steps = $(this).val().indexOf(\"steps\") != -1;\r\n            plotWithOptions();\r\n        });\r\n\r\n        plotWithOptions();\r\n    }\r\n\r\n    var demo6 = function() {\r\n        // bar chart:\r\n        var data = GenerateSeries(0);\r\n\r\n        function GenerateSeries(added) {\r\n            var data = [];\r\n            var start = 100 + added;\r\n            var end = 200 + added;\r\n\r\n            for (var i = 1; i <= 20; i++) {\r\n                var d = Math.floor(Math.random() * (end - start + 1) + start);\r\n                data.push([i, d]);\r\n                start++;\r\n                end++;\r\n            }\r\n\r\n            return data;\r\n        }\r\n\r\n        var options = {\r\n            series: {\r\n                bars: {\r\n                    show: true\r\n                }\r\n            },\r\n            bars: {\r\n                barWidth: 0.8,\r\n                lineWidth: 0, // in pixels\r\n                shadowSize: 0,\r\n                align: 'left',\r\n                fill: 1\r\n            },\r\n\r\n            grid: {\r\n                tickColor: \"#eee\",\r\n                borderColor: \"#eee\",\r\n                borderWidth: 1\r\n            }\r\n        };\r\n\r\n        $.plot($(\"#kt_flotcharts_6\"), [{\r\n            data: data,\r\n            lines: {\r\n                lineWidth: 1,\r\n            },\r\n            shadowSize: 0,\r\n            color: '#6e4ff5'\r\n        }], options);\r\n    }\r\n\r\n    var demo7 = function() {\r\n        // horizontal bar chart:\r\n\r\n        var data1 = [\r\n            [10, 10],\r\n            [20, 20],\r\n            [30, 30],\r\n            [40, 40],\r\n            [50, 50]\r\n        ];\r\n\r\n        var options = {\r\n            series: {\r\n                bars: {\r\n                    show: true\r\n                }\r\n            },\r\n            bars: {\r\n                horizontal: true,\r\n                barWidth: 6,\r\n                lineWidth: 0, // in pixels\r\n                shadowSize: 0,\r\n                align: 'left',\r\n                fill: 1\r\n            },\r\n            grid: {\r\n                tickColor: \"#eee\",\r\n                borderColor: \"#eee\",\r\n                borderWidth: 1\r\n            }\r\n        };\r\n\r\n        $.plot($(\"#kt_flotcharts_7\"), [{\r\n            data: data1,\r\n            color: '#fe3995'\r\n        }], options);\r\n    }\r\n\r\n    var demo8 = function() {\r\n        var data = [];\r\n            var series = Math.floor(Math.random() * 10) + 1;\r\n            series = series < 5 ? 5 : series;\r\n\r\n            for (var i = 0; i < series; i++) {\r\n                data[i] = {\r\n                    label: \"Series\" + (i + 1),\r\n                    data: Math.floor(Math.random() * 100) + 1\r\n                };\r\n            }\r\n\r\n            $.plot($(\"#kt_flotcharts_8\"), data, {\r\n                    series: {\r\n                        pie: {\r\n                            show: true\r\n                        }\r\n                    },\r\n                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']\r\n                });\r\n    }\r\n\r\n    var demo9 = function() {\r\n         var data = [];\r\n            var series = Math.floor(Math.random() * 10) + 1;\r\n            series = series < 5 ? 5 : series;\r\n\r\n            for (var i = 0; i < series; i++) {\r\n                data[i] = {\r\n                    label: \"Series\" + (i + 1),\r\n                    data: Math.floor(Math.random() * 100) + 1\r\n                };\r\n            }\r\n\r\n            $.plot($(\"#kt_flotcharts_9\"), data, {\r\n                    series: {\r\n                        pie: {\r\n                            show: true\r\n                        }\r\n                    },\r\n                    legend: {\r\n                        show: false\r\n                    },\r\n                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']\r\n                });\r\n    }\r\n\r\n    var demo10 = function() {\r\n         var data = [];\r\n            var series = Math.floor(Math.random() * 10) + 1;\r\n            series = series < 5 ? 5 : series;\r\n\r\n            for (var i = 0; i < series; i++) {\r\n                data[i] = {\r\n                    label: \"Series\" + (i + 1),\r\n                    data: Math.floor(Math.random() * 100) + 1\r\n                };\r\n            }\r\n\r\n             $.plot($(\"#kt_flotcharts_10\"), data, {\r\n                    series: {\r\n                        pie: {\r\n                            show: true,\r\n                            radius: 1,\r\n                            label: {\r\n                                show: true,\r\n                                radius: 1,\r\n                                formatter: function(label, series) {\r\n                                    return '<div style=\"font-size:8pt;text-align:center;padding:2px;color:white;\">' + label + '<br/>' + Math.round(series.percent) + '%</div>';\r\n                                },\r\n                                background: {\r\n                                    opacity: 0.8\r\n                                }\r\n                            }\r\n                        }\r\n                    },\r\n                    legend: {\r\n                        show: false\r\n                    },\r\n                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']\r\n                });\r\n    }\r\n\r\n    var demo11 = function() {\r\n         var data = [];\r\n            var series = Math.floor(Math.random() * 10) + 1;\r\n            series = series < 5 ? 5 : series;\r\n\r\n            for (var i = 0; i < series; i++) {\r\n                data[i] = {\r\n                    label: \"Series\" + (i + 1),\r\n                    data: Math.floor(Math.random() * 100) + 1\r\n                };\r\n            }\r\n\r\n             $.plot($(\"#kt_flotcharts_11\"), data, {\r\n                    series: {\r\n                        pie: {\r\n                            show: true,\r\n                            radius: 1,\r\n                            label: {\r\n                                show: true,\r\n                                radius: 1,\r\n                                formatter: function(label, series) {\r\n                                    return '<div style=\"font-size:8pt;text-align:center;padding:2px;color:white;\">' + label + '<br/>' + Math.round(series.percent) + '%</div>';\r\n                                },\r\n                                background: {\r\n                                    opacity: 0.8\r\n                                }\r\n                            }\r\n                        }\r\n                    },\r\n                    legend: {\r\n                        show: false\r\n                    },\r\n                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']\r\n                });\r\n    }\r\n\r\n\r\n    return {\r\n        // public functions\r\n        init: function() {\r\n            // default charts\r\n            demo1();\r\n            demo2();\r\n            demo3();\r\n            demo4();\r\n            demo5();\r\n            demo6();\r\n            demo7();\r\n\r\n            // pie charts\r\n            demo8();\r\n            demo9();\r\n            demo10();\r\n            demo11();\r\n        }\r\n    };\r\n}();\r\n\r\njQuery(document).ready(function() {\r\n    KTFlotchartsDemo.init();\r\n});\n\n//# sourceURL=webpack:///../src/assets/js/pages/components/charts/flotcharts.js?");
+// Class definition
+var KTFlotchartsDemo = function() {
 
-/***/ })
+    // Private functions
 
-/******/ });
+    var demo1 = function() {
+        var data = [];
+        var totalPoints = 250;
+
+        // random data generator for plot charts
+
+        function getRandomData() {
+            if (data.length > 0) data = data.slice(1);
+            // do a random walk
+            while (data.length < totalPoints) {
+                var prev = data.length > 0 ? data[data.length - 1] : 50;
+                var y = prev + Math.random() * 10 - 5;
+                if (y < 0) y = 0;
+                if (y > 100) y = 100;
+                data.push(y);
+            }
+            // zip the generated y values with the x values
+            var res = [];
+            for (var i = 0; i < data.length; ++i) {
+                res.push([i, data[i]]);
+            }
+
+            return res;
+        }
+
+        var d1 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.25)
+            d1.push([i, Math.sin(i)]);
+
+        var d2 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.25)
+            d2.push([i, Math.cos(i)]);
+
+        var d3 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.1)
+            d3.push([i, Math.tan(i)]);
+
+        $.plot($("#kt_flotcharts_1"), [{
+            label: "sin(x)",
+            data: d1,
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#f6aa33'
+        }, {
+            label: "cos(x)",
+            data: d2,
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#6e4ff5'
+        }, {
+            label: "tan(x)",
+            data: d3,
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#fe3995'
+        }], {
+            series: {
+                lines: {
+                    show: true,
+                },
+                points: {
+                    show: true,
+                    fill: true,
+                    radius: 3,
+                    lineWidth: 1
+                }
+            },
+            xaxis: {
+                tickColor: "#eee",
+                ticks: [0, [Math.PI / 2, "\u03c0/2"],
+                    [Math.PI, "\u03c0"],
+                    [Math.PI * 3 / 2, "3\u03c0/2"],
+                    [Math.PI * 2, "2\u03c0"]
+                ]
+            },
+            yaxis: {
+                tickColor: "#eee",
+                ticks: 10,
+                min: -2,
+                max: 2
+            },
+            grid: {
+                borderColor: "#eee",
+                borderWidth: 1
+            }
+        });
+    }
+
+    var demo2 = function() {
+        function randValue() {
+            return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+        }
+        var pageviews = [
+            [1, randValue()],
+            [2, randValue()],
+            [3, 2 + randValue()],
+            [4, 3 + randValue()],
+            [5, 5 + randValue()],
+            [6, 10 + randValue()],
+            [7, 15 + randValue()],
+            [8, 20 + randValue()],
+            [9, 25 + randValue()],
+            [10, 30 + randValue()],
+            [11, 35 + randValue()],
+            [12, 25 + randValue()],
+            [13, 15 + randValue()],
+            [14, 20 + randValue()],
+            [15, 45 + randValue()],
+            [16, 50 + randValue()],
+            [17, 65 + randValue()],
+            [18, 70 + randValue()],
+            [19, 85 + randValue()],
+            [20, 80 + randValue()],
+            [21, 75 + randValue()],
+            [22, 80 + randValue()],
+            [23, 75 + randValue()],
+            [24, 70 + randValue()],
+            [25, 65 + randValue()],
+            [26, 75 + randValue()],
+            [27, 80 + randValue()],
+            [28, 85 + randValue()],
+            [29, 90 + randValue()],
+            [30, 95 + randValue()]
+        ];
+        var visitors = [
+            [1, randValue() - 5],
+            [2, randValue() - 5],
+            [3, randValue() - 5],
+            [4, 6 + randValue()],
+            [5, 5 + randValue()],
+            [6, 20 + randValue()],
+            [7, 25 + randValue()],
+            [8, 36 + randValue()],
+            [9, 26 + randValue()],
+            [10, 38 + randValue()],
+            [11, 39 + randValue()],
+            [12, 50 + randValue()],
+            [13, 51 + randValue()],
+            [14, 12 + randValue()],
+            [15, 13 + randValue()],
+            [16, 14 + randValue()],
+            [17, 15 + randValue()],
+            [18, 15 + randValue()],
+            [19, 16 + randValue()],
+            [20, 17 + randValue()],
+            [21, 18 + randValue()],
+            [22, 19 + randValue()],
+            [23, 20 + randValue()],
+            [24, 21 + randValue()],
+            [25, 14 + randValue()],
+            [26, 24 + randValue()],
+            [27, 25 + randValue()],
+            [28, 26 + randValue()],
+            [29, 27 + randValue()],
+            [30, 31 + randValue()]
+        ];
+
+        var plot = $.plot($("#kt_flotcharts_2"), [{
+            data: pageviews,
+            label: "Unique Visits",
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#fe3995'
+
+        }, {
+            data: visitors,
+            label: "Page Views",
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#6e4ff5'
+        }], {
+            series: {
+                lines: {
+                    show: true,
+                    lineWidth: 2,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0.05
+                        }, {
+                            opacity: 0.01
+                        }]
+                    }
+                },
+                points: {
+                    show: true,
+                    radius: 3,
+                    lineWidth: 1
+                },
+                shadowSize: 2
+            },
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: "#eee",
+                borderColor: "#eee",
+                borderWidth: 1
+            },
+            colors: ["#d12610", "#37b7f3", "#52e136"],
+            xaxis: {
+                ticks: 11,
+                tickDecimals: 0,
+                tickColor: "#eee",
+            },
+            yaxis: {
+                ticks: 11,
+                tickDecimals: 0,
+                tickColor: "#eee",
+            }
+        });
+
+        function showTooltip(x, y, contents) {
+            $('<div id="tooltip">' + contents + '</div>').css({
+                position: 'absolute',
+                display: 'none',
+                top: y + 5,
+                left: x + 15,
+                border: '1px solid #333',
+                padding: '4px',
+                color: '#fff',
+                'border-radius': '3px',
+                'background-color': '#333',
+                opacity: 0.80
+            }).appendTo("body").fadeIn(200);
+        }
+
+        var previousPoint = null;
+        $("#chart_2").bind("plothover", function(event, pos, item) {
+            $("#x").text(pos.x.toFixed(2));
+            $("#y").text(pos.y.toFixed(2));
+
+            if (item) {
+                if (previousPoint != item.dataIndex) {
+                    previousPoint = item.dataIndex;
+
+                    $("#tooltip").remove();
+                    var x = item.datapoint[0].toFixed(2),
+                        y = item.datapoint[1].toFixed(2);
+
+                    showTooltip(item.pageX, item.pageY, item.series.label + " of " + x + " = " + y);
+                }
+            } else {
+                $("#tooltip").remove();
+                previousPoint = null;
+            }
+        });
+    }
+
+    var demo3 = function() {
+        var sin = [],
+            cos = [];
+        for (var i = 0; i < 14; i += 0.1) {
+            sin.push([i, Math.sin(i)]);
+            cos.push([i, Math.cos(i)]);
+        }
+
+        var plot = $.plot($("#kt_flotcharts_3"), [{
+            data: sin,
+            label: "sin(x) = -0.00",
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#f6aa33'
+        }, {
+            data: cos,
+            label: "cos(x) = -0.00",
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#6e4ff5'
+        }], {
+            series: {
+                lines: {
+                    show: true
+                }
+            },
+            crosshair: {
+                mode: "x"
+            },
+            grid: {
+                hoverable: true,
+                autoHighlight: false,
+                tickColor: "#eee",
+                borderColor: "#eee",
+                borderWidth: 1
+            },
+            yaxis: {
+                min: -1.2,
+                max: 1.2
+            }
+        });
+
+        var legends = $("#kt_flotcharts_3 .legendLabel");
+        legends.each(function() {
+            // fix the widths so they don't jump around
+            $(this).css('width', $(this).width());
+        });
+
+        var updateLegendTimeout = null;
+        var latestPosition = null;
+
+        function updateLegend() {
+            updateLegendTimeout = null;
+
+            var pos = latestPosition;
+
+            var axes = plot.getAxes();
+            if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max || pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) return;
+
+            var i, j, dataset = plot.getData();
+            for (var i = 0; i < dataset.length; ++i) {
+                var series = dataset[i];
+
+                // find the nearest points, x-wise
+                for (j = 0; j < series.data.length; ++j)
+                    if (series.data[j][0] > pos.x) break;
+
+                // now interpolate
+                var y, p1 = series.data[j - 1],
+                    p2 = series.data[j];
+
+                if (p1 == null) y = p2[1];
+                else if (p2 == null) y = p1[1];
+                else y = p1[1] + (p2[1] - p1[1]) * (pos.x - p1[0]) / (p2[0] - p1[0]);
+
+                legends.eq(i).text(series.label.replace(/=.*/, "= " + y.toFixed(2)));
+            }
+        }
+
+        $("#kt_flotcharts_3").bind("plothover", function(event, pos, item) {
+            latestPosition = pos;
+            if (!updateLegendTimeout) updateLegendTimeout = setTimeout(updateLegend, 50);
+        });
+    }
+
+    var demo4 = function() {
+
+        var data = [];
+        var totalPoints = 250;
+
+        // random data generator for plot charts
+
+        function getRandomData() {
+            if (data.length > 0) data = data.slice(1);
+            // do a random walk
+            while (data.length < totalPoints) {
+                var prev = data.length > 0 ? data[data.length - 1] : 50;
+                var y = prev + Math.random() * 10 - 5;
+                if (y < 0) y = 0;
+                if (y > 100) y = 100;
+                data.push(y);
+            }
+            // zip the generated y values with the x values
+            var res = [];
+            for (var i = 0; i < data.length; ++i) {
+                res.push([i, data[i]]);
+            }
+
+            return res;
+        }
+
+        //server load
+        var options = {
+            series: {
+                shadowSize: 1
+            },
+            lines: {
+                show: true,
+                lineWidth: 0.5,
+                fill: true,
+                fillColor: {
+                    colors: [{
+                        opacity: 0.1
+                    }, {
+                        opacity: 1
+                    }]
+                }
+            },
+            yaxis: {
+                min: 0,
+                max: 100,
+                tickColor: "#eee",
+                tickFormatter: function(v) {
+                    return v + "%";
+                }
+            },
+            xaxis: {
+                show: false,
+            },
+            colors: ["#6e4ff5"],
+            grid: {
+                tickColor: "#eee",
+                borderWidth: 0,
+            }
+        };
+
+        var updateInterval = 30;
+        var plot = $.plot($("#kt_flotcharts_4"), [getRandomData()], options);
+
+        function update() {
+            plot.setData([getRandomData()]);
+            plot.draw();
+            setTimeout(update, updateInterval);
+        }
+
+        update();
+    }
+
+    var demo5 = function() {
+        var d1 = [];
+        for (var i = 0; i <= 10; i += 1)
+            d1.push([i, parseInt(Math.random() * 30)]);
+
+        var d2 = [];
+        for (var i = 0; i <= 10; i += 1)
+            d2.push([i, parseInt(Math.random() * 30)]);
+
+        var d3 = [];
+        for (var i = 0; i <= 10; i += 1)
+            d3.push([i, parseInt(Math.random() * 30)]);
+
+        var stack = 0,
+            bars = true,
+            lines = false,
+            steps = false;
+
+        function plotWithOptions() {
+            $.plot($("#kt_flotcharts_5"),
+
+                [{
+                    label: "sales",
+                    data: d1,
+                    lines: {
+                        lineWidth: 1,
+                    },
+                    shadowSize: 0,
+                    color: '#2abe81'
+                }, {
+                    label: "tax",
+                    data: d2,
+                    lines: {
+                        lineWidth: 1,
+                    },
+                    shadowSize: 0,
+                    color: '#6e4ff5'
+                }, {
+                    label: "profit",
+                    data: d3,
+                    lines: {
+                        lineWidth: 1,
+                    },
+                    shadowSize: 0,
+                    color: '#fe3995'
+                }]
+
+                , {
+                    series: {
+                        stack: stack,
+                        lines: {
+                            show: lines,
+                            fill: true,
+                            steps: steps,
+                            lineWidth: 0, // in pixels
+                        },
+                        bars: {
+                            show: bars,
+                            barWidth: 0.5,
+                            lineWidth: 0, // in pixels
+                            shadowSize: 0,
+                            align: 'center',
+                            fill: 0.5
+                        }
+                    },
+                    grid: {
+                        tickColor: "#eee",
+                        borderColor: "#eee",
+                        borderWidth: 1
+                    }
+                }
+            );
+        }
+
+        $(".stackControls input").click(function(e) {
+            e.preventDefault();
+            stack = $(this).val() == "With stacking" ? true : null;
+            plotWithOptions();
+        });
+
+        $(".graphControls input").click(function(e) {
+            e.preventDefault();
+            bars = $(this).val().indexOf("Bars") != -1;
+            lines = $(this).val().indexOf("Lines") != -1;
+            steps = $(this).val().indexOf("steps") != -1;
+            plotWithOptions();
+        });
+
+        plotWithOptions();
+    }
+
+    var demo6 = function() {
+        // bar chart:
+        var data = GenerateSeries(0);
+
+        function GenerateSeries(added) {
+            var data = [];
+            var start = 100 + added;
+            var end = 200 + added;
+
+            for (var i = 1; i <= 20; i++) {
+                var d = Math.floor(Math.random() * (end - start + 1) + start);
+                data.push([i, d]);
+                start++;
+                end++;
+            }
+
+            return data;
+        }
+
+        var options = {
+            series: {
+                bars: {
+                    show: true
+                }
+            },
+            bars: {
+                barWidth: 0.8,
+                lineWidth: 0, // in pixels
+                shadowSize: 0,
+                align: 'left',
+                fill: 1
+            },
+
+            grid: {
+                tickColor: "#eee",
+                borderColor: "#eee",
+                borderWidth: 1
+            }
+        };
+
+        $.plot($("#kt_flotcharts_6"), [{
+            data: data,
+            lines: {
+                lineWidth: 1,
+            },
+            shadowSize: 0,
+            color: '#6e4ff5'
+        }], options);
+    }
+
+    var demo7 = function() {
+        // horizontal bar chart:
+
+        var data1 = [
+            [10, 10],
+            [20, 20],
+            [30, 30],
+            [40, 40],
+            [50, 50]
+        ];
+
+        var options = {
+            series: {
+                bars: {
+                    show: true
+                }
+            },
+            bars: {
+                horizontal: true,
+                barWidth: 6,
+                lineWidth: 0, // in pixels
+                shadowSize: 0,
+                align: 'left',
+                fill: 1
+            },
+            grid: {
+                tickColor: "#eee",
+                borderColor: "#eee",
+                borderWidth: 1
+            }
+        };
+
+        $.plot($("#kt_flotcharts_7"), [{
+            data: data1,
+            color: '#fe3995'
+        }], options);
+    }
+
+    var demo8 = function() {
+        var data = [];
+            var series = Math.floor(Math.random() * 10) + 1;
+            series = series < 5 ? 5 : series;
+
+            for (var i = 0; i < series; i++) {
+                data[i] = {
+                    label: "Series" + (i + 1),
+                    data: Math.floor(Math.random() * 100) + 1
+                };
+            }
+
+            $.plot($("#kt_flotcharts_8"), data, {
+                    series: {
+                        pie: {
+                            show: true
+                        }
+                    },
+                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']
+                });
+    }
+
+    var demo9 = function() {
+         var data = [];
+            var series = Math.floor(Math.random() * 10) + 1;
+            series = series < 5 ? 5 : series;
+
+            for (var i = 0; i < series; i++) {
+                data[i] = {
+                    label: "Series" + (i + 1),
+                    data: Math.floor(Math.random() * 100) + 1
+                };
+            }
+
+            $.plot($("#kt_flotcharts_9"), data, {
+                    series: {
+                        pie: {
+                            show: true
+                        }
+                    },
+                    legend: {
+                        show: false
+                    },
+                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']
+                });
+    }
+
+    var demo10 = function() {
+         var data = [];
+            var series = Math.floor(Math.random() * 10) + 1;
+            series = series < 5 ? 5 : series;
+
+            for (var i = 0; i < series; i++) {
+                data[i] = {
+                    label: "Series" + (i + 1),
+                    data: Math.floor(Math.random() * 100) + 1
+                };
+            }
+
+             $.plot($("#kt_flotcharts_10"), data, {
+                    series: {
+                        pie: {
+                            show: true,
+                            radius: 1,
+                            label: {
+                                show: true,
+                                radius: 1,
+                                formatter: function(label, series) {
+                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+                                },
+                                background: {
+                                    opacity: 0.8
+                                }
+                            }
+                        }
+                    },
+                    legend: {
+                        show: false
+                    },
+                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']
+                });
+    }
+
+    var demo11 = function() {
+         var data = [];
+            var series = Math.floor(Math.random() * 10) + 1;
+            series = series < 5 ? 5 : series;
+
+            for (var i = 0; i < series; i++) {
+                data[i] = {
+                    label: "Series" + (i + 1),
+                    data: Math.floor(Math.random() * 100) + 1
+                };
+            }
+
+             $.plot($("#kt_flotcharts_11"), data, {
+                    series: {
+                        pie: {
+                            show: true,
+                            radius: 1,
+                            label: {
+                                show: true,
+                                radius: 1,
+                                formatter: function(label, series) {
+                                    return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+                                },
+                                background: {
+                                    opacity: 0.8
+                                }
+                            }
+                        }
+                    },
+                    legend: {
+                        show: false
+                    },
+                    colors: ['#fe3995', '#f6aa33', '#6e4ff5', '#2abe81', '#c7d2e7']
+                });
+    }
+
+
+    return {
+        // public functions
+        init: function() {
+            // default charts
+            demo1();
+            demo2();
+            demo3();
+            demo4();
+            demo5();
+            demo6();
+            demo7();
+
+            // pie charts
+            demo8();
+            demo9();
+            demo10();
+            demo11();
+        }
+    };
+}();
+
+jQuery(document).ready(function() {
+    KTFlotchartsDemo.init();
+});
