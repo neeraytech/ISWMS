@@ -19,6 +19,18 @@ Also having the info related GPS
 All data is accessible By Admin
 User data &  all master tables will be stored in ISWMS_Master. 
 
+There is an different types of Master's .
+that includes all the entities
+
+ward master
+RFID Scanner Master 
+GPS Master
+Route Master
+Driver Master
+Route Household Details
+Truck Master 
+ISWMS Master
+ISWMs Details
 
 All the DB calculations are stored in actions_Master
 & All Fields are stored in module_master 
