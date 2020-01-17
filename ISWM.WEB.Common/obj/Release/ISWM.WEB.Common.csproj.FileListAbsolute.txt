@@ -1,0 +1,11 @@
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Release\ISWM.WEB.Common.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Release\ISWM.WEB.Common.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Release\ISWM.WEB.Models.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Release\Newtonsoft.Json.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Release\ISWM.WEB.Models.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Release\Newtonsoft.Json.xml
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Release\ISWM.WEB.Common.csprojAssemblyReference.cache
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Release\ISWM.WEB.Common.csproj.CoreCompileInputs.cache
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Release\ISWM.WEB.Common.csproj.CopyComplete
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Release\ISWM.WEB.Common.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Release\ISWM.WEB.Common.pdb

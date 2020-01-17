@@ -176,3 +176,14 @@ F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\obj\Debu
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\obj\Debug\ISWM.WEB.csproj.CopyComplete
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\obj\Debug\ISWM.WEB.dll
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\obj\Debug\ISWM.WEB.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\ISWM.WEB.AutoScheduler.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Quartz.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Common.Logging.Core.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Common.Logging.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\ISWM.WEB.AutoScheduler.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Quartz.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Quartz.xml
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Common.Logging.Core.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Common.Logging.Core.xml
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Common.Logging.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB\bin\Common.Logging.xml

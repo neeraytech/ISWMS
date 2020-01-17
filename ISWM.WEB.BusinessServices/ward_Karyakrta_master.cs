@@ -16,7 +16,7 @@ namespace ISWM.WEB.BusinessServices
     {
         public int id { get; set; }
         public int ward_id { get; set; }
-        public Nullable<int> area_id { get; set; }
+        public int area_id { get; set; }
         public int karyakarta_id { get; set; }
         public int status { get; set; }
         public int created_by { get; set; }

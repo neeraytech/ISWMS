@@ -1,0 +1,74 @@
+﻿@model ISWM.WEB.BusinessServices.ward_master
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="add_new_institute_type">Add / Update Ward Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <!--begin::Form-->
+
+        <form class="kt-form" id="myForm">
+            @Html.HiddenFor(model => model.id)
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label class="col-form-label">Ward Number<span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.ward_number, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @pattern = @"^(?![\s.]+$)[a-zA-Z0-9\s.]*$", @title = "Please Enter Valid Ward Number" } })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Ward Description</label>
+                    @Html.EditorFor(model => model.ward_description, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Status<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.status, new SelectList((System.Collections.IEnumerable)ViewBag.DDLStatus, "Value", "Text"), "-- select --", new { @class = "form-control", @required = "Required", @title = "Please select Status" })
+                </div>
+            </div>
+        </form>
+        <!--end::Form-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#add_new_info').modal('hide');$('#toast_error').toast('show');">Close</button>
+        <button type="button" class="btn btn-primary" id="btnSubmit">Save Info</button>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            if ($("#myForm").valid()) {
+                //  $("#loaderDiv").show();
+
+                var myformdata = $("#myForm").serialize();
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Ward/Index",
+                    data: myformdata,
+                    success: function () {
+                        // $("#loaderDiv").hide();
+                        $("#add_new_info").modal("hide");
+                        window.location.href = "/Ward/Index";
+
+                    }
+
+                });
+            }
+            else {
+                return false;
+            }
+        })
+
+    })
+
+
+</script>

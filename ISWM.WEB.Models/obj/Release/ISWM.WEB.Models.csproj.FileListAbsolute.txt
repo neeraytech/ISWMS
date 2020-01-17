@@ -1,0 +1,6 @@
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\bin\Release\ISWM.WEB.Models.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\bin\Release\ISWM.WEB.Models.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\obj\Release\ISWM.WEB.Models.csprojAssemblyReference.cache
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\obj\Release\ISWM.WEB.Models.csproj.CoreCompileInputs.cache
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\obj\Release\ISWM.WEB.Models.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Models\obj\Release\ISWM.WEB.Models.pdb

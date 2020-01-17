@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ISWM.WEB.Common.CommonServices;
+using ISWM.WEB.Models.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ namespace ISWM.WEB.BusinessServices.Repository
     /// </summary>
     public class ModuleRepository
     {
+        GCommon gcm = new GCommon();
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
@@ -20,7 +23,7 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public int Addmodule(module_master obj)
+        public async Task<int> Addmodule(module_master obj)
         {
             int isadd = 0;
             module_master updateObj = db.module_master.Where(w => w.module_name.ToLower() == obj.module_name.ToLower()).FirstOrDefault();
@@ -34,7 +37,7 @@ namespace ISWM.WEB.BusinessServices.Repository
                 db.SaveChanges();
                 isadd = 1;
             }
-            db.Dispose();
+            Dispose(true);
             return isadd;
            
         }
@@ -45,23 +48,46 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool Modifymodule(module_master obj)
+        public async Task<int> Modifymodule(module_master obj)
         {
             bool isupdate = false;
-            module_master updateObj = db.module_master.Find(obj.module_id);
-            if (updateObj != null)
+            int isadd = 0;
+            module_master findobj = db.module_master.Where(w => w.module_name.ToLower() == obj.module_name.ToLower()).FirstOrDefault();
+            if (findobj != null)
             {
-                updateObj.module_name = obj.module_name;
-                updateObj.isActivie = obj.isActivie;
-                updateObj.modified_by = obj.modified_by;
-                updateObj.modified_datetime = obj.modified_datetime;
-                db.module_master.Attach(updateObj);
-                db.Entry(updateObj).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                if (findobj.module_id == obj.module_id)
+                {
+                    isupdate = true;
+                }
+                else
+                {
+                    isadd = -1;
+                }
+            }
+            else
+            {
                 isupdate = true;
             }
-            db.Dispose();
-            return isupdate;
+
+            if(isupdate)
+            {
+                module_master updateObj = db.module_master.Find(obj.module_id);
+                if (updateObj != null)
+                {
+                    updateObj.module_name = obj.module_name;
+                    updateObj.status = obj.status;
+                    updateObj.modified_by = obj.modified_by;
+                    updateObj.modified_datetime = obj.modified_datetime;
+                    db.module_master.Attach(updateObj);
+                    db.Entry(updateObj).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    isadd = 1;
+                }
+            }
+
+           
+            Dispose(true);
+            return isadd;
          
         }
 
@@ -71,21 +97,21 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool Deletemodule(module_master obj)
+        public async Task<int> Deletemodule(module_master obj)
         {
-            bool isupdate = false;
+           int isupdate = 0;
             module_master updateObj = db.module_master.Find(obj.module_id);
             if (updateObj != null)
             {
-                updateObj.isActivie = obj.isActivie;
+                updateObj.status = obj.status;
                 updateObj.modified_by = obj.modified_by;
                 updateObj.modified_datetime = obj.modified_datetime;
                 db.module_master.Attach(updateObj);
                 db.Entry(updateObj).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                isupdate = true;
+                isupdate =  obj.status;
             }
-            db.Dispose();
+            Dispose(true);
             return isupdate;
            
         }
@@ -96,7 +122,7 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public module_master GetmoduleByID(int module_id)
+        public async Task<module_master> GetmoduleByID(int module_id)
         {
             module_master updateObj = db.module_master.Find(module_id);
             return updateObj;
@@ -104,15 +130,57 @@ namespace ISWM.WEB.BusinessServices.Repository
         }
 
         /// <summary>
+        /// This Method used to get Module list
+        /// coder : Pranali Patil
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<module_master>> GetModuleList(int? statusid)
+        {
+            List<module_master> objlist = db.module_master.ToList();
+            if (statusid > 0)
+            {
+                objlist = objlist.Where(w => w.status == statusid).ToList();
+            }
+            return objlist;
+        }
+
+        /// <summary>
         /// This Method used to get module list
         ///  coder:Smruti Wagh
         /// </summary>
         /// <returns></returns>
-        public List<module_master> GetmoduleList()
+        public async Task<List<Module_Module>> GetViewModuleTypeList(string sort)
         {
-            List<module_master> objlist = db.module_master.ToList();
+            List<Module_Module> objlist = new List<Module_Module>();
+
+            List<module_master> list = db.module_master.ToList();
+           
+            if (list.Count > 0)
+            {
+                if (sort.ToLower() == "desc")
+                {
+                    list = list.OrderByDescending(o => o.modified_datetime).ToList();
+                }
+
+                int i = 1;
+                foreach (var item in list)
+                {
+                    Module_Module obj = new Module_Module();
+                    obj.srno = i;
+                    obj.id = item.module_id;
+                    obj.module_name = item.module_name;
+                    
+                    obj.status_id = item.status;
+                    obj = gcm.GetStatusDetails(obj);
+                    objlist.Add(obj);
+                    i++;
+                }
+            }
+
             return objlist;
         }
+
+
         /// <summary>
         /// this method is used to deallocate used memory
         /// coder: Smruti Wagh

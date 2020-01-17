@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ISWM.WEB.BusinessServices;
 using ISWM.WEB.BusinessServices.SingletonCS;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -34,12 +35,72 @@ namespace ISWM.WEB.Controllers
         /// <returns></returns>
         // GET: HouseHold
 
-        public ActionResult Index()
+        public async Task<ActionResult>Index()
         {
             try
             {
-                var list = hr.GethouseholdList();
-                return View(list);
+                if (Session["User_id"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                    else if ((Convert.ToInt32(Session["UserTypeID"]) != 1 && Convert.ToInt32(Session["UserTypeID"]) != 6 && Convert.ToInt32(Session["UserTypeID"]) != 3))
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                var list =await hr.GetViewhouseholdList("desc", Convert.ToInt32(Session["User_id"]), Convert.ToInt32(Session["UserTypeID"]));
+                ViewBag.HouseholdList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+
+                return View();
             }
             catch (Exception er)
             {
@@ -49,152 +110,100 @@ namespace ISWM.WEB.Controllers
             }
             
         }
-
         /// <summary>
-        /// this method is use for create View for household 
-        /// coder : Smruti Wagh
-        /// </summary>
-        /// <returns></returns>
-
-        // GET: HouseHold/Create
-        public ActionResult Create()
-        {
-            try
-            {
-                ViewBag.PageHeader = "Add Ward";
-                //for Ward dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetWardDDL();
-                ViewBag.DDLWard = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error: " + ex.Message);                
-            }
-            return View();
-        }
-        /// <summary>
-        /// this method is use for save created household 
-        /// coder : Smruti Wagh
+        /// This method used to perform Insert Updte Delete operations is 0 it performs insert operation else perform modify operation
+        /// coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        // POST: HouseHold/Create
         [HttpPost]
-        public ActionResult Create(household_master obj)
+        public async Task<ActionResult> Index(household_master obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                int isadd = hr.Addhousehold(obj);
-                if (isadd == 1)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetWardDDL();
-                    ViewBag.DDLWard = list;
 
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
+                obj.modified_datetime = DateTime.Now;
+                if (obj.id > 0)
+                {
+                    // TODO: Update insert logic here
+                    int isUpdate =await hr.Modifyhousehold(obj);
+                    TempData["MessageCode"] = isUpdate;
                     return View();
                 }
-                
-            }
-            catch (Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetWardDDL();
-                ViewBag.DDLWard = list;
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-                return View();
-            }
-        }
-        /// <summary>
-        /// this method is use for edit View for household 
-        /// coder : Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: HouseHold/Edit/5
-        public ActionResult Edit(int id)
-        {
-            try
-            {
-                //for  dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetWardDDL();
-                ViewBag.DDLWard = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-
-                var obj = hr.GethouseholdByID(id);
-                return View(obj);
-            }
-            catch (Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                //throw;
-            }
-            return View();
-        }
-        /// <summary>
-        /// this method is use for save edited household 
-        /// coder : Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        // POST: HouseHold/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, household_master obj)
-        {
-            try
-            {
-                // TODO: Add update logic here
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = hr.Modifyhousehold(obj);
-                if (isUpdate)
+                else
                 {
-                    return RedirectToAction("Index");
 
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;
+                    int isadd =await hr.Addhousehold(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
+                }
+            }
+            catch (Exception er)
+            {
+                log.Error("Error: " + er.Message);
+                return View();
+                //  throw;
+            }
+
+        }
+
+        /// <summary>
+        /// This method is used to perform Add Update with partial view.
+        /// coder:Smruti Wagh
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> AddEditModel(int id)
+        {
+            try
+            {
+                List<SelectListItem> list = new List<SelectListItem>();
+                //for Status dropdown              
+                list = await cm.GetStatusDDL();
+                ViewBag.DDLStatus = list;
+                //for ward drpdown               
+                list =await cm.GetWardDDL(1);
+                ViewBag.DDLWard = list;
+                //for Area Dropdown
+                list = await cm.GetAreaDDL(1);
+                ViewBag.DDLArea = list;
+
+                var obj =await hr.GethouseholdByID(id);
+                if (obj != null)
+                {
+                    if(obj.id>0)
+                    {
+                        ViewBag.FromDate = Convert.ToDateTime(obj.valid_from).ToString("dd-MMM-yyyy");
+                        ViewBag.ToDate = Convert.ToDateTime(obj.valid_to).ToString("dd-MMM-yyyy");
+                    }
+                    else
+                    {
+
+                        ViewBag.FromDate = "";
+                        ViewBag.ToDate = "";
+
+                    }
+                    
                 }
                 else
                 {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetWardDDL();
-                    ViewBag.DDLWard = list;
-
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
-                    return View(obj);
+                    ViewBag.FromDate = "";
+                    ViewBag.ToDate = "";
                 }
-                   
+                return PartialView("AddEditModel", obj);
+
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
-                return View(obj);
+                return RedirectToAction("Index");
             }
         }
+       
         /// <summary>
         /// this method is use for delete household(status change to inactive) 
         /// coder : Smruti Wagh
@@ -202,17 +211,18 @@ namespace ISWM.WEB.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: HouseHold/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id,int status)
         {
 
             try
             {
                 household_master obj = new household_master();
                 obj.id = id;
-                obj.status = 2;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = hr.Deletehousehold(obj);
+                int isdeleted =await hr.Deletehousehold(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception er)

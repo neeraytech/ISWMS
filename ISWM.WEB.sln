@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISWM.WEB.Common", "ISWM.WEB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISWM.WEB.Models", "ISWM.WEB.Models\ISWM.WEB.Models.csproj", "{411A9E98-0BA1-44F3-8376-44C476078059}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISWM.WEB.AutoScheduler", "ISWM.WEB.AutoScheduler\ISWM.WEB.AutoScheduler.csproj", "{FAD3BFCF-D990-4E48-A00E-8F192DCA66BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{411A9E98-0BA1-44F3-8376-44C476078059}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411A9E98-0BA1-44F3-8376-44C476078059}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{411A9E98-0BA1-44F3-8376-44C476078059}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAD3BFCF-D990-4E48-A00E-8F192DCA66BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAD3BFCF-D990-4E48-A00E-8F192DCA66BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAD3BFCF-D990-4E48-A00E-8F192DCA66BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAD3BFCF-D990-4E48-A00E-8F192DCA66BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

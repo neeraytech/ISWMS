@@ -1,0 +1,77 @@
+﻿@model ISWM.WEB.BusinessServices.truck_master
+<!--
+This is partial view for Truck
+coder : Pranali Patil
+-->
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="add_new_institute_type">Add / Update Truck Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <!--begin::Form-->
+
+        <form class="kt-form" id="myForm">
+            @Html.HiddenFor(model => model.id)
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label class="col-form-label">Truck Number <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.truck_no, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @required = "Required", @title = "Please Enter Truck No", @pattern = @"^(?![\s.]+$)[a-zA-Z0-9\s.]*$" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">GPS Id<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.GPS_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLGps, "Value", "Text"), "-- select --", new { @class = "form-control", @required = "Required", @title = "Please Select Gps" })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Status<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.status, new SelectList((System.Collections.IEnumerable)ViewBag.DDLStatus, "Value", "Text"), "-- select --", new { @class = "form-control", @required = "Required", @title = "Please Select Status" })
+                </div>
+            </div>
+        </form>
+        <!--end::Form-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#add_new_info').modal('hide');$('#toast_error').toast('show');">Close</button>
+        <button type="button" class="btn btn-primary" id="btnSubmit">Save Info</button>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            if ($("#myForm").valid()) {
+            //  $("#loaderDiv").show();
+
+            var myformdata = $("#myForm").serialize();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Truck/Index",
+                data: myformdata,
+                success: function () {
+                    // $("#loaderDiv").hide();
+                    $("#add_new_info").modal("hide");
+                    window.location.href = "/Truck/Index";
+                }
+            });
+        }
+             else {
+                return false;
+            } 
+
+        })
+
+    })
+
+
+</script>

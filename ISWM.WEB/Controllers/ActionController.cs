@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ISWM.WEB.BusinessServices;
 using ISWM.WEB.BusinessServices.SingletonCS;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -30,12 +31,69 @@ namespace ISWM.WEB.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: Action
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var list = ar.GetActionList();
-                return View(list);
+                if (Session["User_id"] != null && Session["UserTypeID"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0" || Session["UserTypeID"].ToString() != "1")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                    
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                var list = await ar.GetViewActionList("desc");
+                ViewBag.ActionList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+
+                return View();
             }
             catch (Exception er)
             {
@@ -44,116 +102,47 @@ namespace ISWM.WEB.Controllers
                 //  throw;
             }            
         }
-
         /// <summary>
-        /// This method used to create view for Actions
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <returns></returns>
-
-        // GET: Action/Create
-        public ActionResult Create()
-        {
-            try
-            {
-                return View();
-            }
-            catch(Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                return View();
-            }
-           
-        }
-        /// <summary>
-        /// This method used save cteated Actions
-        /// coder: Smruti Wagh
+        /// This method used to create Action post method
+        /// coder: Kailas Ajabe
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        // POST: Action/Create
         [HttpPost]
-        public ActionResult Create(actions_master obj)
+        public async Task<ActionResult> Index(actions_master obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
+
+                obj.modified_by = Convert.ToInt32( Session["User_id"] );
                 obj.modified_datetime = DateTime.Now;
-                int isadd = ar.AddActions_master(obj);
-                if (isadd == 1)
+                if (obj.module_action_id > 0)
                 {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
+                    // TODO: Update insert logic here
+                    int isUpdate = await ar.Modifyactions_master(obj);
+                    TempData["MessageCode"] = isUpdate;
                     return View();
                 }
-                
-            }
-            catch(Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                return View();
-            }
-        }
-        /// <summary>
-        /// This method used to Edit view for Actions
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: Action/Edit/5
-        public ActionResult Edit(int id)
-        {
-            try
-            {
-                var obj = ar.GetActionByID(id);
-                return View(obj);
-            }
-            catch(Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                return View();
-            }
-           
-        }
-        /// <summary>
-        /// This method used to save edited Actions
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        // POST: Action/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, actions_master obj)
-        {
-            try
-            {
-                // TODO: Add update logic here
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = ar.Modifyactions_master(obj);
-                if (isUpdate)
-                {
-                    return RedirectToAction("Index");
-
-                }
                 else
                 {
-                    return View(obj);
+
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;
+                    int isadd = await ar.AddActions_master(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
                 }
-                
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
-                return View(obj);
+                return View();
+                //  throw;
             }
+
         }
+            
         /// <summary>
         /// This method used to delete Actions
         /// coder: Smruti Wagh
@@ -161,16 +150,17 @@ namespace ISWM.WEB.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: Action/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id,int status)
         {
             try
             {
                 actions_master obj = new actions_master();
                 obj.module_action_id = id;
-                obj.isActivie = false;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = ar.DeleteAction(obj);
+                int isdeleted = await ar.DeleteAction(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception er)
@@ -180,7 +170,33 @@ namespace ISWM.WEB.Controllers
             }
            
         }
+        /// <summary>
+        /// This method used to create Action AddEdit Partial view
+        /// coder: Kailas Ajabe
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> AddEditModel(int id)
+        {
+            try
+            {
+                List<SelectListItem> list = new List<SelectListItem>();
+                //for Status dropdown              
+                list =await cm.GetStatusDDL();
+                ViewBag.DDLStatus = list;
 
-        
+                var obj = await ar.GetActionByID(id);
+                return PartialView("AddEditModel", obj);
+
+            }
+            catch (Exception er)
+            {
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
+            }
+        }
+
+
+
     }
 }

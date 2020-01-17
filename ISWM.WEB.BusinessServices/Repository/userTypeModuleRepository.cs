@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ISWM.WEB.Common.CommonServices;
+using ISWM.WEB.Models.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ namespace ISWM.WEB.BusinessServices.Repository
     /// </summary>
     public class userTypeModuleRepository
     {
+        GCommon gcm = new GCommon();
         private ISWM_BASE_DBEntities db = new ISWM_BASE_DBEntities();
 
         /// <summary>
@@ -20,7 +23,7 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public int AdduserType_modules(userType_modules obj)
+        public async Task<int> AdduserType_modules(userType_modules obj)
         {
             int isadd = 0;
             userType_modules updateObj = db.userType_modules.Where(w => w.user_type_id == obj.user_type_id && w.module_id == obj.module_id).FirstOrDefault();
@@ -45,24 +48,48 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool ModifyuserType_modules(userType_modules obj)
+        public async Task<int> ModifyuserType_modules(userType_modules obj)
         {
             bool isupdate = false;
-            userType_modules updateObj = db.userType_modules.Find(obj.id);
-            if (updateObj != null)
+
+            int isadd = 0;
+            userType_modules FindObj = db.userType_modules.Where(w => w.user_type_id == obj.user_type_id && w.module_id == obj.module_id).FirstOrDefault();
+            if (FindObj != null)
             {
-                updateObj.user_type_id = obj.user_type_id;
-                updateObj.module_id = obj.module_id;
-                updateObj.isActivie = obj.isActivie;
-                updateObj.modified_by = obj.modified_by;
-                updateObj.modified_datetime = obj.modified_datetime;
-                db.userType_modules.Attach(updateObj);
-                db.Entry(updateObj).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                isupdate = true;
+                if (FindObj.id == obj.id)
+                {
+                    isupdate = true;
+                }
+                else
+                {
+                    isadd = -1;
+                }
             }
+            else
+            {
+                isupdate = true;
+
+            }
+            if(isupdate)
+            {
+                userType_modules updateObj = db.userType_modules.Find(obj.id);
+                if (updateObj != null)
+                {
+                    updateObj.user_type_id = obj.user_type_id;
+                    updateObj.module_id = obj.module_id;
+                    updateObj.status = obj.status;
+                    updateObj.modified_by = obj.modified_by;
+                    updateObj.modified_datetime = obj.modified_datetime;
+                    db.userType_modules.Attach(updateObj);
+                    db.Entry(updateObj).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    isadd = 1;
+                }
+            }
+
+           
             db.Dispose();
-            return isupdate;
+            return isadd;
 
         }
 
@@ -72,19 +99,19 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool DeleteUserTypeModules(userType_modules obj)
+        public async Task<int> DeleteUserTypeModules(userType_modules obj)
         {
-            bool isupdate = false;
+            int isupdate = 0;
             userType_modules updateObj = db.userType_modules.Find(obj.id);
             if (updateObj != null)
             {
-                updateObj.isActivie = obj.isActivie;
+                updateObj.status = obj.status;
                 updateObj.modified_by = obj.modified_by;
                 updateObj.modified_datetime = obj.modified_datetime;
                 db.userType_modules.Attach(updateObj);
                 db.Entry(updateObj).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                isupdate = true;
+                isupdate = obj.status;
             }
             db.Dispose();
             return isupdate;
@@ -97,7 +124,7 @@ namespace ISWM.WEB.BusinessServices.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public userType_modules GetuserType_modulesByID(int id)
+        public async Task<userType_modules> GetuserType_modulesByID(int id)
         {
             userType_modules updateObj = db.userType_modules.Find(id);
             return updateObj;
@@ -109,10 +136,47 @@ namespace ISWM.WEB.BusinessServices.Repository
         ///  coder:Smruti Wagh
         /// </summary>
         /// <returns></returns>
-        public List<userType_modules> GetuserType_modulesList()
+        public async Task<List<userType_modules>> GetuserType_modulesList()
         {
             List<userType_modules> objlist = db.userType_modules.ToList();
             return objlist;
+        }
+        /// <summary>
+        /// This Method used to get View user type module list
+        /// Coder:Smruti Wagh
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<UserTypeModuleModel>> GetViewUserTypeModuleList(string sort)
+        {
+
+            List<UserTypeModuleModel> objlist = new List<UserTypeModuleModel>();
+            List<userType_modules> list = db.userType_modules.ToList();
+            if (list.Count > 0)
+            {
+                if (sort.ToLower() == "desc")
+                {
+                    list = list.OrderByDescending(o => o.modified_datetime).ToList();
+                }
+
+                int i = 1;
+                foreach (var item in list)
+                {
+                    UserTypeModuleModel obj = new UserTypeModuleModel();
+                    obj.srno = i;
+                    obj.id = item.id;
+                    obj.user_type_id = item.user_type_id;
+                    obj.module_id = item.module_id;
+                    obj.module = item.module_master.module_name;
+                    obj.user_type = item.userType_master.user_type;
+                    obj.status_id = item.status;
+                    obj = gcm.GetStatusDetails(obj);
+                    objlist.Add(obj);
+                    i++;
+                }
+            }
+
+            return objlist;
+
         }
         /// <summary>
         /// this method is used to deallocate used memory

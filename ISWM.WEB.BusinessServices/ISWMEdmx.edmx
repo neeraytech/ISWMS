@@ -12,11 +12,12 @@
           <Property Name="module_action_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="module_action_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="module_action_desc" Type="nvarchar" MaxLength="200" />
-          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="isActivie" Type="bit" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="area_master">
           <Key>
@@ -24,11 +25,12 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="area_name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="isActivie" Type="bit" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="driver_master">
           <Key>
@@ -75,13 +77,13 @@
           <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
           <Property Name="area_id" Type="int" Nullable="false" />
           <Property Name="ward_id" Type="int" Nullable="false" />
-          <Property Name="pin_code" Type="int" Nullable="false" />
+          <Property Name="pin_code" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="city" Type="nvarchar(max)" Nullable="false" />
           <Property Name="state" Type="nvarchar(max)" Nullable="false" />
           <Property Name="latitude" Type="nvarchar(max)" Nullable="false" />
           <Property Name="longitude" Type="nvarchar(max)" Nullable="false" />
           <Property Name="household_name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar(max)" />
           <Property Name="contact_no" Type="nvarchar" MaxLength="13" Nullable="false" />
           <Property Name="valid_from" Type="datetime" Nullable="false" />
           <Property Name="valid_to" Type="datetime" Nullable="false" />
@@ -128,11 +130,12 @@
           </Key>
           <Property Name="module_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="module_name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="isActivie" Type="bit" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RFID_household_details">
           <Key>
@@ -147,6 +150,16 @@
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RFID_scanner_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RFID_Scanner_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RFID_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Punching_date_time" Type="datetime" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RFID_scanner_master">
           <Key>
@@ -210,6 +223,20 @@
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="truck_tracking_history">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="truck_number" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="status" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="latitude" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="longitude" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="speed" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Ignition" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="packetdatetime" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="created_datetime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="user_master">
           <Key>
             <PropertyRef Name="user_id" />
@@ -218,20 +245,22 @@
           <Property Name="user_name" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="user_type" Type="int" Nullable="false" />
-          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="isActive" Type="bit" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
           <Property Name="password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="email_id" Type="nvarchar(max)" />
-          <Property Name="contact_no" Type="nvarchar" MaxLength="13" />
+          <Property Name="contact_no" Type="nvarchar" MaxLength="13" Nullable="false" />
           <Property Name="photo" Type="nvarchar(max)" />
-          <Property Name="address1" Type="nvarchar(max)" />
-          <Property Name="address2" Type="nvarchar(max)" />
-          <Property Name="area_id" Type="int" />
-          <Property Name="city" Type="nvarchar(max)" />
-          <Property Name="state" Type="nvarchar(max)" />
+          <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="area_id" Type="int" Nullable="false" />
+          <Property Name="city" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="state" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="pin_code" Type="nvarchar" MaxLength="6" Nullable="false" />
         </EntityType>
         <EntityType Name="user_security_access_details">
           <Key>
@@ -246,6 +275,7 @@
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="userType_master">
           <Key>
@@ -253,12 +283,13 @@
           </Key>
           <Property Name="user_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_type" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="user_type_desc" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="user_type_desc" Type="nvarchar" MaxLength="100" />
+          <Property Name="isActivie" Type="bit" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="userType_modules">
           <Key>
@@ -267,11 +298,12 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_type_id" Type="int" Nullable="false" />
           <Property Name="module_id" Type="int" Nullable="false" />
-          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="isActivie" Type="bit" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ward_Karyakrta_master">
           <Key>
@@ -279,7 +311,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ward_id" Type="int" Nullable="false" />
-          <Property Name="area_id" Type="int" />
+          <Property Name="area_id" Type="int" Nullable="false" />
           <Property Name="karyakarta_id" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
@@ -294,11 +326,12 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ward_number" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ward_description" Type="nvarchar(max)" />
-          <Property Name="isActivie" Type="bit" Nullable="false" />
+          <Property Name="isActivie" Type="bit" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_datetime" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_datetime" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_household_master_area_master">
           <End Role="area_master" Type="Self.area_master" Multiplicity="1" />
@@ -421,7 +454,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_master_area_master">
-          <End Role="area_master" Type="Self.area_master" Multiplicity="0..1" />
+          <End Role="area_master" Type="Self.area_master" Multiplicity="1" />
           <End Role="user_master" Type="Self.user_master" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="area_master">
@@ -505,7 +538,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ward_Karyakrta_master_area_master">
-          <End Role="area_master" Type="Self.area_master" Multiplicity="0..1" />
+          <End Role="area_master" Type="Self.area_master" Multiplicity="1" />
           <End Role="ward_Karyakrta_master" Type="Self.ward_Karyakrta_master" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="area_master">
@@ -551,11 +584,13 @@
           <EntitySet Name="ISWMS_master" EntityType="Self.ISWMS_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="module_master" EntityType="Self.module_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RFID_household_details" EntityType="Self.RFID_household_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFID_scanner_history" EntityType="Self.RFID_scanner_history" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RFID_scanner_master" EntityType="Self.RFID_scanner_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="route_household_details" EntityType="Self.route_household_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="route_master" EntityType="Self.route_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="truck_master" EntityType="Self.truck_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="truck_tracking_history" EntityType="Self.truck_tracking_history" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_master" EntityType="Self.user_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_security_access_details" EntityType="Self.user_security_access_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userType_master" EntityType="Self.userType_master" Schema="dbo" store:Type="Tables" />
@@ -658,11 +693,13 @@
           <EntitySet Name="ISWMS_master" EntityType="ISWM_BASE_DBModel.ISWMS_master" />
           <EntitySet Name="module_master" EntityType="ISWM_BASE_DBModel.module_master" />
           <EntitySet Name="RFID_household_details" EntityType="ISWM_BASE_DBModel.RFID_household_details" />
+          <EntitySet Name="RFID_scanner_history" EntityType="ISWM_BASE_DBModel.RFID_scanner_history" />
           <EntitySet Name="RFID_scanner_master" EntityType="ISWM_BASE_DBModel.RFID_scanner_master" />
           <EntitySet Name="route_household_details" EntityType="ISWM_BASE_DBModel.route_household_details" />
           <EntitySet Name="route_master" EntityType="ISWM_BASE_DBModel.route_master" />
           <EntitySet Name="sysdiagrams" EntityType="ISWM_BASE_DBModel.sysdiagram" />
           <EntitySet Name="truck_master" EntityType="ISWM_BASE_DBModel.truck_master" />
+          <EntitySet Name="truck_tracking_history" EntityType="ISWM_BASE_DBModel.truck_tracking_history" />
           <EntitySet Name="user_master" EntityType="ISWM_BASE_DBModel.user_master" />
           <EntitySet Name="user_security_access_details" EntityType="ISWM_BASE_DBModel.user_security_access_details" />
           <EntitySet Name="userType_master" EntityType="ISWM_BASE_DBModel.userType_master" />
@@ -757,11 +794,12 @@
           <Property Name="module_action_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="module_action_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="module_action_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="isActivie" Type="Boolean" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" FromRole="actions_master" ToRole="user_security_access_details" />
         </EntityType>
         <EntityType Name="area_master">
@@ -770,11 +808,12 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="area_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="isActivie" Type="Boolean" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_household_master_area_master" FromRole="area_master" ToRole="household_master" />
           <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_master_area_master" FromRole="area_master" ToRole="user_master" />
           <NavigationProperty Name="ward_Karyakrta_master" Relationship="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_area_master" FromRole="area_master" ToRole="ward_Karyakrta_master" />
@@ -826,13 +865,13 @@
           <Property Name="address2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="area_id" Type="Int32" Nullable="false" />
           <Property Name="ward_id" Type="Int32" Nullable="false" />
-          <Property Name="pin_code" Type="Int32" Nullable="false" />
+          <Property Name="pin_code" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="city" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="state" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="latitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="longitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="household_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="contact_no" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
           <Property Name="valid_from" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="valid_to" Type="DateTime" Nullable="false" Precision="3" />
@@ -887,11 +926,12 @@
           </Key>
           <Property Name="module_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="module_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="isActivie" Type="Boolean" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_module_master" FromRole="module_master" ToRole="user_security_access_details" />
           <NavigationProperty Name="userType_modules" Relationship="ISWM_BASE_DBModel.FK_userType_modules_module_master" FromRole="module_master" ToRole="userType_modules" />
         </EntityType>
@@ -909,6 +949,16 @@
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_RFID_household_details_household_master" FromRole="RFID_household_details" ToRole="household_master" />
+        </EntityType>
+        <EntityType Name="RFID_scanner_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RFID_Scanner_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RFID_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Punching_date_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="RFID_scanner_master">
           <Key>
@@ -979,6 +1029,20 @@
           <NavigationProperty Name="GPS_master" Relationship="ISWM_BASE_DBModel.FK_truck_master_GPS_master" FromRole="truck_master" ToRole="GPS_master" />
           <NavigationProperty Name="ISWMS_master" Relationship="ISWM_BASE_DBModel.FK_ISWMS_master_truck_master" FromRole="truck_master" ToRole="ISWMS_master" />
         </EntityType>
+        <EntityType Name="truck_tracking_history">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="truck_number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="longitude" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="speed" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ignition" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="packetdatetime" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="user_master">
           <Key>
             <PropertyRef Name="user_id" />
@@ -987,20 +1051,22 @@
           <Property Name="user_name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="user_type" Type="Int32" Nullable="false" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="email_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="contact_no" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
           <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="area_id" Type="Int32" />
-          <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="state" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="area_id" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="pin_code" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="area_master" Relationship="ISWM_BASE_DBModel.FK_user_master_area_master" FromRole="user_master" ToRole="area_master" />
           <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master1" FromRole="user_master" ToRole="userType_master" />
           <NavigationProperty Name="user_security_access_details" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_master" ToRole="user_security_access_details" />
@@ -1019,6 +1085,7 @@
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="actions_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_actions_master" FromRole="user_security_access_details" ToRole="actions_master" />
           <NavigationProperty Name="module_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_module_master" FromRole="user_security_access_details" ToRole="module_master" />
           <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_security_access_details_user_master" FromRole="user_security_access_details" ToRole="user_master" />
@@ -1029,12 +1096,13 @@
           </Key>
           <Property Name="user_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="user_type_desc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="user_type_desc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="isActivie" Type="Boolean" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="user_master" Relationship="ISWM_BASE_DBModel.FK_user_master_userType_master1" FromRole="userType_master" ToRole="user_master" />
           <NavigationProperty Name="userType_modules" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_master" ToRole="userType_modules" />
         </EntityType>
@@ -1045,11 +1113,12 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_type_id" Type="Int32" Nullable="false" />
           <Property Name="module_id" Type="Int32" Nullable="false" />
-          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="isActivie" Type="Boolean" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="module_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_module_master" FromRole="userType_modules" ToRole="module_master" />
           <NavigationProperty Name="userType_master" Relationship="ISWM_BASE_DBModel.FK_userType_modules_userType_master" FromRole="userType_modules" ToRole="userType_master" />
         </EntityType>
@@ -1059,7 +1128,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ward_id" Type="Int32" Nullable="false" />
-          <Property Name="area_id" Type="Int32" />
+          <Property Name="area_id" Type="Int32" Nullable="false" />
           <Property Name="karyakarta_id" Type="Int32" Nullable="false" />
           <Property Name="status" Type="Int32" Nullable="false" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
@@ -1077,11 +1146,12 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ward_number" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ward_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="isActivie" Type="Boolean" Nullable="false" />
+          <Property Name="isActivie" Type="Boolean" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="household_master" Relationship="ISWM_BASE_DBModel.FK_household_master_ward_Master" FromRole="ward_master" ToRole="household_master" />
           <NavigationProperty Name="ward_Karyakrta_master" Relationship="ISWM_BASE_DBModel.FK_ward_Karyakrta_master_ward_Master" FromRole="ward_master" ToRole="ward_Karyakrta_master" />
         </EntityType>
@@ -1110,7 +1180,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_master_area_master">
-          <End Type="ISWM_BASE_DBModel.area_master" Role="area_master" Multiplicity="0..1" />
+          <End Type="ISWM_BASE_DBModel.area_master" Role="area_master" Multiplicity="1" />
           <End Type="ISWM_BASE_DBModel.user_master" Role="user_master" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="area_master">
@@ -1122,7 +1192,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ward_Karyakrta_master_area_master">
-          <End Type="ISWM_BASE_DBModel.area_master" Role="area_master" Multiplicity="0..1" />
+          <End Type="ISWM_BASE_DBModel.area_master" Role="area_master" Multiplicity="1" />
           <End Type="ISWM_BASE_DBModel.ward_Karyakrta_master" Role="ward_Karyakrta_master" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="area_master">
@@ -1334,6 +1404,7 @@
           <EntitySetMapping Name="actions_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.actions_master">
               <MappingFragment StoreEntitySet="actions_master">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
@@ -1348,6 +1419,7 @@
           <EntitySetMapping Name="area_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.area_master">
               <MappingFragment StoreEntitySet="area_master">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
@@ -1459,6 +1531,7 @@
           <EntitySetMapping Name="module_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.module_master">
               <MappingFragment StoreEntitySet="module_master">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
@@ -1480,6 +1553,17 @@
                 <ScalarProperty Name="household_id" ColumnName="household_id" />
                 <ScalarProperty Name="RFID_description" ColumnName="RFID_description" />
                 <ScalarProperty Name="RFID" ColumnName="RFID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFID_scanner_history">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.RFID_scanner_history">
+              <MappingFragment StoreEntitySet="RFID_scanner_history">
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="Punching_date_time" ColumnName="Punching_date_time" />
+                <ScalarProperty Name="RFID_number" ColumnName="RFID_number" />
+                <ScalarProperty Name="RFID_Scanner_Name" ColumnName="RFID_Scanner_Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1551,9 +1635,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="truck_tracking_history">
+            <EntityTypeMapping TypeName="ISWM_BASE_DBModel.truck_tracking_history">
+              <MappingFragment StoreEntitySet="truck_tracking_history">
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="packetdatetime" ColumnName="packetdatetime" />
+                <ScalarProperty Name="Ignition" ColumnName="Ignition" />
+                <ScalarProperty Name="speed" ColumnName="speed" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="truck_number" ColumnName="truck_number" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="user_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_master">
               <MappingFragment StoreEntitySet="user_master">
+                <ScalarProperty Name="pin_code" ColumnName="pin_code" />
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="area_id" ColumnName="area_id" />
@@ -1578,6 +1679,7 @@
           <EntitySetMapping Name="user_security_access_details">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.user_security_access_details">
               <MappingFragment StoreEntitySet="user_security_access_details">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
@@ -1593,6 +1695,7 @@
           <EntitySetMapping Name="userType_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.userType_master">
               <MappingFragment StoreEntitySet="userType_master">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
@@ -1607,6 +1710,7 @@
           <EntitySetMapping Name="userType_modules">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.userType_modules">
               <MappingFragment StoreEntitySet="userType_modules">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
@@ -1636,6 +1740,7 @@
           <EntitySetMapping Name="ward_master">
             <EntityTypeMapping TypeName="ISWM_BASE_DBModel.ward_master">
               <MappingFragment StoreEntitySet="ward_master">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="modified_datetime" ColumnName="modified_datetime" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />

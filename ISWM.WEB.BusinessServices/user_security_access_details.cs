@@ -23,6 +23,7 @@ namespace ISWM.WEB.BusinessServices
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }
         public System.DateTime modified_datetime { get; set; }
+        public int status { get; set; }
     
         public virtual actions_master actions_master { get; set; }
         public virtual module_master module_master { get; set; }

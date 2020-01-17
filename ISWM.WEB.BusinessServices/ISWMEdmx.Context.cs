@@ -35,11 +35,13 @@ namespace ISWM.WEB.BusinessServices
         public virtual DbSet<ISWMS_master> ISWMS_master { get; set; }
         public virtual DbSet<module_master> module_master { get; set; }
         public virtual DbSet<RFID_household_details> RFID_household_details { get; set; }
+        public virtual DbSet<RFID_scanner_history> RFID_scanner_history { get; set; }
         public virtual DbSet<RFID_scanner_master> RFID_scanner_master { get; set; }
         public virtual DbSet<route_household_details> route_household_details { get; set; }
         public virtual DbSet<route_master> route_master { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<truck_master> truck_master { get; set; }
+        public virtual DbSet<truck_tracking_history> truck_tracking_history { get; set; }
         public virtual DbSet<user_master> user_master { get; set; }
         public virtual DbSet<user_security_access_details> user_security_access_details { get; set; }
         public virtual DbSet<userType_master> userType_master { get; set; }

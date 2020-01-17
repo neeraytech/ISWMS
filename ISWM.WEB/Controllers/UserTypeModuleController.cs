@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ISWM.WEB.BusinessServices;
 using ISWM.WEB.BusinessServices.SingletonCS;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -29,12 +30,68 @@ namespace ISWM.WEB.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: UserTypeModule
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var list = utm.GetuserType_modulesList();
-                return View(list);
+                if (Session["User_id"] != null && Session["UserTypeID"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0" || Session["UserTypeID"].ToString() != "1")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+
+                var list =await utm.GetViewUserTypeModuleList("desc");
+                ViewBag.UserTypeModuleList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+                return View();
             }
             catch (Exception er)
             {
@@ -44,170 +101,81 @@ namespace ISWM.WEB.Controllers
             }
             
         }
-
         /// <summary>
-        ///  This method used to create User Type Module
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <returns></returns>
-        // GET: UserTypeModule/Create
-        public ActionResult Create()
-        {
-            try
-            {
-                ViewBag.PageHeader = "Add Ward";
-                //for module dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetModuleDDL();
-                ViewBag.DDLModule = list;
-
-                //for userType dropdown              
-                list = cm.GetUserTypeDDL();
-                ViewBag.DDLUserType = list;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error: " + ex.Message);
-                // throw;
-            }
-
-            return View();
-        }
-        /// <summary>
-        ///  This method used to save created value of User Type Module
+        /// This method used to perform Insert Updte Delete operations is 0 it performs insert operation else perform modify operation
         /// coder: Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        // POST: UserTypeModule/Create
         [HttpPost]
-        public ActionResult Create(userType_modules obj)
+        public async Task<ActionResult> Index(userType_modules obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                int isadd = utm.AdduserType_modules(obj);
-                if (isadd == 1)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetModuleDDL();
-                    ViewBag.DDLModule = list;
 
-                    //for userType dropdown              
-                    list = cm.GetUserTypeDDL();
-                    ViewBag.DDLUserType = list;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
+                obj.modified_datetime = DateTime.Now;
+                if (obj.id > 0)
+                {
+                    // TODO: Update insert logic here
+                    int isUpdate =await utm.ModifyuserType_modules(obj);
+                    TempData["MessageCode"] = isUpdate;
                     return View();
                 }
-                
+                else
+                {
+
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;
+                    int isadd =await utm.AdduserType_modules(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
+                }
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
+                return View();
+                //  throw;
+            }
+
+        }
+
+        /// <summary>
+        /// this method is used to perform Add Update with partial view
+        /// coder: Smruti Wagh
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> AddEditModel(int id)
+        {
+            try
+            {
                 List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetModuleDDL();
+                //for Status dropdown              
+                list = await cm.GetStatusDDL();
+                ViewBag.DDLStatus = list;
+                //for module drop down
+                list = await cm.GetModuleDDL(1);
                 ViewBag.DDLModule = list;
 
                 //for userType dropdown              
-                list = cm.GetUserTypeDDL();
-                ViewBag.DDLUserType = list;
-                return View();
-            }
-        }
-        /// <summary>
-        ///  This method used to edit User Type Module
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: UserTypeModule/Edit/5
-        public ActionResult Edit(int id)
-        {
-            try
-            {
-                //for module dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetModuleDDL();
-                ViewBag.DDLModule = list;
-
-                //for module dropdown              
-                list = cm.GetUserTypeDDL();
+                list = await cm.GetUserTypeDDL(1);
                 ViewBag.DDLUserType = list;
 
-                var obj = utm.GetuserType_modulesByID(id);
-               
-                return View(obj);
+                var obj =await utm.GetuserType_modulesByID(id);
+                return PartialView("AddEditModel", obj);
+
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
-                //for module dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetModuleDDL();
-                ViewBag.DDLModule = list;
-
-                //for module dropdown              
-                list = cm.GetUserTypeDDL();
-                ViewBag.DDLUserType = list;
-                return View();
-            }
-            
-        }
-        /// <summary>
-        ///  This method used Save edited value of User Type Module
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        // POST: UserTypeModule/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, userType_modules obj)
-        {
-            try
-            {
-                // TODO: Add update logic here
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = utm.ModifyuserType_modules(obj);
-                if (isUpdate )
-                {
-                    return RedirectToAction("Index");
-                   
-                }
-                else
-                {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetModuleDDL();
-                    ViewBag.DDLModule = list;
-
-                    //for module dropdown              
-                    list = cm.GetUserTypeDDL();
-                    ViewBag.DDLUserType = list;
-                    return View(obj);
-                }
-                
-            }
-            catch (Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetModuleDDL();
-                ViewBag.DDLModule = list;
-
-                //for module dropdown              
-                list = cm.GetUserTypeDDL();
-                ViewBag.DDLUserType = list;
-                return View(obj);
+                return RedirectToAction("Index");
             }
         }
+
+
         /// <summary>
         ///  This method used to delete User Type Module
         /// coder: Smruti Wagh
@@ -215,16 +183,17 @@ namespace ISWM.WEB.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: UserTypeModule/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id, int status)
         {
             try
             {
                 userType_modules obj = new userType_modules();
                 obj.id = id;
-                obj.isActivie = false;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = utm.DeleteUserTypeModules(obj);
+                int isdeleted =await utm.DeleteUserTypeModules(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception er)
@@ -232,6 +201,7 @@ namespace ISWM.WEB.Controllers
                 log.Error("Error: " + er.Message);
                 return RedirectToAction("Index");
             }
-        }               
+        }
+       
     }
 }

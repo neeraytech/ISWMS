@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ISWM.WEB.BusinessServices;
 using ISWM.WEB.BusinessServices.SingletonCS;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -27,12 +28,72 @@ namespace ISWM.WEB.Controllers
         /// This method used to show Route Household list
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var list = rd.GetRouteHouseholdDetailsList();
-                return View(list);
+
+                if (Session["User_id"] != null && Session["UserTypeID"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                    else if ((Session["UserTypeID"] .ToString()!= "1" && Session["UserTypeID"].ToString() != "7"))
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                var list =await rd.GetViewRouteHouseholdDTypeList("desc", Convert.ToInt32(Session["User_id"]), Convert.ToInt32(Session["UserTypeID"]));
+                ViewBag.RouteHouseholdList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+                    return View();
             }
             catch (Exception er)
             {
@@ -42,231 +103,96 @@ namespace ISWM.WEB.Controllers
             }
             
         }
-
-        // GET: RouteHouseholdDetail/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: RouteHouseholdDetail/Create
         /// <summary>
-        /// This method used to create Route Household 
-        /// coder : Pranali Patil
-        /// </summary>
-        public ActionResult Create()
-        {
-            ViewBag.PageHeader = "Add Route household details";
-            try
-            {
-                //for Route dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetRouteDDL();
-                ViewBag.DDLRoute = list;
-
-                //for Route dropdown
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLRouteHouse = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error: " + ex.Message);
-                
-            }
-
-            return View();
-        }
-
-        // POST: RouteHouseholdDetail/Create
-        /// <summary>
-        /// This method used to save Route Household 
+        /// This method used to perform insert update delete operation if 0 its perform insert operation else perform modify operation
         /// coder : Pranali Patil
         /// </summary>
         [HttpPost]
-        public ActionResult Create(route_household_details obj)
+        public async Task<ActionResult> Index(route_household_details obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
+
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                int isadd = rd.AddRouteHouseholdDetails(obj);
-                if (isadd == 1)
+                if (obj.id > 0)
                 {
-                    return RedirectToAction("Index");
+                    // TODO: Update insert logic here
+                    int isUpdate =await rd.ModifyRouteHouseholdDetails(obj);
+                    TempData["MessageCode"] = isUpdate;
+                    return View();
                 }
                 else
                 {
-                    //for Route dropdown
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetRouteDDL();
-                    ViewBag.DDLRoute = list;
-
-                    //for Route dropdown
-                    list = cm.GetHouseholdDDL();
-                    ViewBag.DDLRouteHouse = list;
-
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
-                    return View();
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;
+                    int isadd =await rd.AddRouteHouseholdDetails(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View(obj);
                 }
-
-            }
-            catch(Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                //for Route dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetRouteDDL();
-                ViewBag.DDLRoute = list;
-
-                //for Route dropdown
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLRouteHouse = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-                return View();
-            }
-        }
-
-        // GET: RouteHouseholdDetail/Edit/5
-        /// <summary>
-        /// This method used to edit Route Household
-        /// coder : Pranali Patil
-        /// </summary>
-        public ActionResult Edit(int id)
-        {
-            try
-            {
-
-                //for Route dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-
-                list = cm.GetRouteDDL();
-                ViewBag.DDLRoute = list;
-
-                //for Route Household dropdown
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLRouteHouse = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-
-                var obj = rd.GetRouteHouseholdDetailsByID(id);
-                return View(obj);
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
-                
+                return View();                
             }
-
-            return View();
         }
 
-        // POST: RouteHouseholdDetail/Edit/5
         /// <summary>
-        /// This method used to update Route Household 
+        /// This method used to AddEdit Route Household
         /// coder : Pranali Patil
         /// </summary>
-        [HttpPost]
-        public ActionResult Edit(int id, route_household_details obj)
+        public async Task<ActionResult> AddEditModel(int id)
         {
             try
             {
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = rd.ModifyRouteHouseholdDetails(obj);
-                if (isUpdate)
-                {
-                    return RedirectToAction("Index");
-
-                }
-                else
-                {
-                    //for Route dropdown
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetRouteDDL();
-                    ViewBag.DDLRoute = list;
-
-                    //for Route dropdown
-                    list = cm.GetHouseholdDDL();
-                    ViewBag.DDLRouteHouse = list;
-
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
-                    return View(obj);
-                }
-                
-            }
-            catch
-            {
-                //for Route dropdown
                 List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetRouteDDL();
+                //for Route dropdown
+                list =await cm.GetRouteDDL(1);
                 ViewBag.DDLRoute = list;
 
-                //for Route dropdown
-                list = cm.GetHouseholdDDL();
+                //for Household dropdown
+                list =await cm.GetHouseholdDDL(1);
                 ViewBag.DDLRouteHouse = list;
 
                 //for Status dropdown              
-                list = cm.GetStatusDDL();
+                list =await cm.GetStatusDDL();
                 ViewBag.DDLStatus = list;
-                return View();
+
+                var obj =await rd.GetRouteHouseholdDetailsByID(id);
+                return PartialView("AddEditModel", obj);
             }
-        }
+            catch (Exception er)
+            {
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
+            }
+        }      
 
         // GET: RouteHouseholdDetail/Delete/5
         /// <summary>
         /// This method used to delete Route Household
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id, int status)
         {
             try
             {
                 route_household_details obj = new route_household_details();
                 obj.id = id;
-                obj.status = 2;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = rd.DeleteRouteHouseholdDetails(obj);
+                int isdeleted =await rd.DeleteRouteHouseholdDetails(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 log.Error("Error: " + ex.Message);
-                return RedirectToAction("Index");
-                
+                return RedirectToAction("Index");                
             }
-        }
-
-        // POST: RouteHouseholdDetail/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        }      
     }
 }

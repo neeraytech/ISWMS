@@ -131,20 +131,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="CommonCode\CommonCS.cs" />
     <Compile Include="Controllers\ActionController.cs" />
+    <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\GPSController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseHoldController.cs" />
+    <Compile Include="Controllers\ISWMSController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\RFIDhouseholdDetailsController.cs" />
     <Compile Include="Controllers\RFIDScannerController.cs" />
+    <Compile Include="Controllers\RFIDScannerPunchingController.cs" />
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\RouteHouseholdDetailController.cs" />
     <Compile Include="Controllers\TruckController.cs" />
+    <Compile Include="Controllers\TruckTrackingHistoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserSecurityAccessController.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Controllers\UserTypeModuleController.cs" />
     <Compile Include="Controllers\WardController.cs" />
+    <Compile Include="Controllers\WardKaryakartaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1161,6 +1168,7 @@
     <Content Include="assets\sass\pages\wizards\wizard-v3.scss" />
     <Content Include="assets\sass\style.scss" />
     <Content Include="assets\sass\_config.scss" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1188,50 +1196,47 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Ward\Create.cshtml" />
     <Content Include="Views\Ward\Index.cshtml" />
-    <Content Include="Views\Ward\Edit.cshtml" />
-    <Content Include="Views\Action\Create.cshtml" />
-    <Content Include="Views\Action\Edit.cshtml" />
     <Content Include="Views\Action\Index.cshtml" />
-    <Content Include="Views\HouseHold\Create.cshtml" />
-    <Content Include="Views\HouseHold\Edit.cshtml" />
     <Content Include="Views\HouseHold\Index.cshtml" />
-    <Content Include="Views\Module\Create.cshtml" />
-    <Content Include="Views\Module\Edit.cshtml" />
     <Content Include="Views\Module\Index.cshtml" />
-    <Content Include="Views\RFIDhouseholdDetails\Create.cshtml" />
-    <Content Include="Views\RFIDhouseholdDetails\Edit.cshtml" />
     <Content Include="Views\RFIDhouseholdDetails\Index.cshtml" />
-    <Content Include="Views\UserTypeModule\Create.cshtml" />
-    <Content Include="Views\UserTypeModule\Edit.cshtml" />
     <Content Include="Views\UserTypeModule\Index.cshtml" />
-    <Content Include="Views\UserType\Create.cshtml" />
-    <Content Include="Views\UserType\Edit.cshtml" />
     <Content Include="Views\UserType\Index.cshtml" />
-    <Content Include="Views\Driver\Create.cshtml" />
-    <Content Include="Views\Driver\Edit.cshtml" />
     <Content Include="Views\Driver\Index.cshtml" />
-    <Content Include="Views\GPS\Create.cshtml" />
-    <Content Include="Views\GPS\Edit.cshtml" />
     <Content Include="Views\GPS\Index.cshtml" />
-    <Content Include="Views\RFIDScanner\Create.cshtml" />
-    <Content Include="Views\RFIDScanner\Edit.cshtml" />
     <Content Include="Views\RFIDScanner\Index.cshtml" />
-    <Content Include="Views\RouteHouseholdDetail\Create.cshtml" />
-    <Content Include="Views\RouteHouseholdDetail\Edit.cshtml" />
     <Content Include="Views\RouteHouseholdDetail\Index.cshtml" />
-    <Content Include="Views\Route\Create.cshtml" />
-    <Content Include="Views\Route\Edit.cshtml" />
     <Content Include="Views\Route\Index.cshtml" />
-    <Content Include="Views\Truck\Create.cshtml" />
-    <Content Include="Views\Truck\Edit.cshtml" />
     <Content Include="Views\Truck\Index.cshtml" />
+    <Content Include="Views\UserType\AddEditModel.cshtml" />
+    <Content Include="Views\Ward\AddEditModel.cshtml" />
+    <Content Include="Views\HouseHold\AddEditModel.cshtml" />
+    <Content Include="Views\Action\AddEditModel.cshtml" />
+    <Content Include="Views\GPS\AddEditModel.cshtml" />
+    <Content Include="Views\Module\AddEditModel.cshtml" />
+    <Content Include="Views\Driver\AddEditModel.cshtml" />
+    <Content Include="Views\RFIDScanner\AddEditModel.cshtml" />
+    <Content Include="Views\RouteHouseholdDetail\AddEditModel.cshtml" />
+    <Content Include="Views\Route\AddEditModel.cshtml" />
+    <Content Include="Views\Truck\AddEditModel.cshtml" />
+    <Content Include="Views\RFIDhouseholdDetails\AddEditModel.cshtml" />
+    <Content Include="Views\UserTypeModule\AddEditModel.cshtml" />
+    <Content Include="Views\WardKaryakarta\AddEditModel.cshtml" />
+    <Content Include="Views\WardKaryakarta\Index.cshtml" />
+    <Content Include="Views\Area\Index.cshtml" />
+    <Content Include="Views\Area\AddEditModel.cshtml" />
+    <Content Include="Views\User\AddEditModel.cshtml" />
+    <Content Include="Views\ISWMS\AddEditModel.cshtml" />
+    <Content Include="Views\ISWMS\Index.cshtml" />
+    <Content Include="Views\UserSecurityAccess\AddEditModel.cshtml" />
+    <Content Include="Views\UserSecurityAccess\Index.cshtml" />
+    <Content Include="Views\TruckTrackingHistory\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\RFIDScannerPunching\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1251,6 +1256,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ISWM.WEB.AutoScheduler\ISWM.WEB.AutoScheduler.csproj">
+      <Project>{fad3bfcf-d990-4e48-a00e-8f192dca66be}</Project>
+      <Name>ISWM.WEB.AutoScheduler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ISWM.WEB.BusinessServices\ISWM.WEB.BusinessServices.csproj">
       <Project>{e826d595-f461-48d8-af3c-a115b8a310ec}</Project>
       <Name>ISWM.WEB.BusinessServices</Name>

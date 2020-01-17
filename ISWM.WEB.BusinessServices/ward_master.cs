@@ -24,11 +24,12 @@ namespace ISWM.WEB.BusinessServices
         public int id { get; set; }
         public string ward_number { get; set; }
         public string ward_description { get; set; }
-        public bool isActivie { get; set; }
+        public Nullable<bool> isActivie { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }
         public System.DateTime modified_datetime { get; set; }
+        public int status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<household_master> household_master { get; set; }

@@ -16,3 +16,5 @@ F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\o
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.csproj.CopyComplete
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.dll
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\obj\Debug\ISWM.WEB.Common.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Debug\Newtonsoft.Json.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Common\bin\Debug\Newtonsoft.Json.xml

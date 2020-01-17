@@ -26,7 +26,7 @@ namespace ISWM.WEB.BusinessServices
         public string address2 { get; set; }
         public int area_id { get; set; }
         public int ward_id { get; set; }
-        public int pin_code { get; set; }
+        public string pin_code { get; set; }
         public string city { get; set; }
         public string state { get; set; }
         public string latitude { get; set; }

@@ -25,7 +25,7 @@ namespace ISWM.WEB.BusinessServices
         public string user_name { get; set; }
         public string name { get; set; }
         public int user_type { get; set; }
-        public bool isActive { get; set; }
+        public Nullable<bool> isActive { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }
@@ -36,9 +36,11 @@ namespace ISWM.WEB.BusinessServices
         public string photo { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
-        public Nullable<int> area_id { get; set; }
+        public int area_id { get; set; }
         public string city { get; set; }
         public string state { get; set; }
+        public int status { get; set; }
+        public string pin_code { get; set; }
     
         public virtual area_master area_master { get; set; }
         public virtual userType_master userType_master { get; set; }

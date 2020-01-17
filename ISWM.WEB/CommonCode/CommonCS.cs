@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,13 +19,18 @@ namespace ISWM.WEB.CommonCode
         WardRepository wr = new WardRepository();
         GpsRepository gr = new GpsRepository();
         RouteRepository rr = new RouteRepository();
-        public List<SelectListItem> GetUserTypeDDL()
+        AreaRepository ar = new AreaRepository();
+        DriverRepository dr = new DriverRepository();
+        TruckRepository tr = new TruckRepository();
+        RFIDScannerRepository rsr = new RFIDScannerRepository();
+        ActionRepository acr = new ActionRepository();
+        public async Task<List<SelectListItem>> GetUserTypeDDL(int? statusid)
         {
 
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                var obl = ur.GetUserType();
+                var obl = await ur.GetUserType(statusid);
                 foreach (var item in obl)
                 {
                     SelectListItem ob = new SelectListItem();
@@ -42,35 +48,35 @@ namespace ISWM.WEB.CommonCode
             return objlist;
         }
 
-        public List<SelectListItem> GetUserDDL(int typeid)
+        public async Task<List<SelectListItem>> GetUserDDL(int? statusid)
         {
 
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                var obl = ur.GetUserListByType(typeid);
+                var obl = await ur.GetUserListByType(statusid);
                 foreach (var item in obl)
                 {
                     SelectListItem ob = new SelectListItem();
                     ob.Value = item.user_id.ToString();
-                    ob.Text = item.name+"-"+item.area+"-"+item.contact_no;
+                    ob.Text = item.name + "-" + item.area_master.area_name + "-" + item.contact_no;
                     objlist.Add(ob);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex);
                 //throw;
             }
 
             return objlist;
-        }       
+        }
 
         /// <summary>
         /// this method is use to drop down for status
         /// </summary>
-        /// <returns></returns>
-        public List<SelectListItem> GetStatusDDL()
+        /// <returns></returns>.
+        public async Task<List<SelectListItem>> GetStatusDDL()
         {
 
             List<SelectListItem> objlist = new List<SelectListItem>();
@@ -101,13 +107,13 @@ namespace ISWM.WEB.CommonCode
         /// coder: Smruti Wagh
         /// </summary>
         /// <returns></returns>
-        public List<SelectListItem> GetModuleDDL()
+        public async Task<List<SelectListItem>> GetModuleDDL(int? statusid)
         {
 
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                var obl = mr.GetmoduleList();
+                var obl = await mr.GetModuleList(statusid);
                 foreach (var item in obl)
                 {
                     SelectListItem ob = new SelectListItem();
@@ -129,18 +135,18 @@ namespace ISWM.WEB.CommonCode
         /// coder : smruti Wagh
         /// </summary>
         /// <returns></returns>
-        public List<SelectListItem> GetWardDDL()
+        public async Task<List<SelectListItem>> GetWardDDL(int? statusid)
         {
 
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                var obl = wr.GetWardList();
+                var obl = await wr.GetWardList(statusid);
                 foreach (var item in obl)
                 {
                     SelectListItem ob = new SelectListItem();
                     ob.Value = item.id.ToString();
-                    ob.Text = item.ward_number + "-" + item.ward_description;
+                    ob.Text = item.ward_number;
                     objlist.Add(ob);
                 }
             }
@@ -153,23 +159,47 @@ namespace ISWM.WEB.CommonCode
             return objlist;
         }
 
+        public async Task<List<SelectListItem>> GetAreaDDL(int? statusid)
+        {
+            List<SelectListItem> objlist = new List<SelectListItem>();
+            try
+            {
+                var obl = await ar.GetAreaList(statusid);
+                foreach (var item in obl)
+                {
+                    SelectListItem ob = new SelectListItem();
+                    ob.Value = item.id.ToString();
+                    ob.Text = item.area_name;
+                    objlist.Add(ob);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return objlist;
+        }
+
+
         /// <summary>
         /// this method is used drop down list for household details 
         /// coder: Smruti Wagh
         /// </summary>
         /// <returns></returns>
-        public List<SelectListItem> GetHouseholdDDL()
+        public async Task<List<SelectListItem>> GetHouseholdDDL(int? statusid)
         {
 
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                var obl = hr.GethouseholdList();
+                var obl =await hr.GethouseholdList(statusid);
                 foreach (var item in obl)
                 {
                     SelectListItem ob = new SelectListItem();
                     ob.Value = item.id.ToString();
-                    ob.Text = item.household_name + "-" + item.ward_master.ward_number + "-" + item.ward_master.ward_description + "-" + item.area + "-(Lat: " + item.latitude + ", Long:" + item.longitude + ")";
+                    ob.Text = item.household_name + "-" + item.ward_master.ward_number + "-" + item.area_master.area_name + "-(Lat: " + item.latitude + ", Long:" + item.longitude + ")";
                     objlist.Add(ob);
                 }
             }
@@ -186,12 +216,12 @@ namespace ISWM.WEB.CommonCode
         /// This method used for get GPS dropdown list
         /// </summary>
 
-        public List<SelectListItem> GetGpsDDL()
+        public async Task<List<SelectListItem>> GetGpsDDL(int? statusid)
         {
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                var obl = gr.GetGpsList();
+                var obl =await gr.GetGpsList(statusid);
                 foreach (var item in obl)
                 {
                     SelectListItem ob = new SelectListItem();
@@ -213,17 +243,126 @@ namespace ISWM.WEB.CommonCode
         /// <summary>
         /// This method used for get Route dropdown list
         /// </summary>
-        public List<SelectListItem> GetRouteDDL()
+        public async Task<List<SelectListItem>> GetRouteDDL(int? statusid)
         {
             List<SelectListItem> objlist = new List<SelectListItem>();
             try
             {
-                var obl = rr.GetRouteList();
+                var obl = await rr.GetRouteList(statusid);
                 foreach (var item in obl)
                 {
                     SelectListItem ob = new SelectListItem();
                     ob.Value = item.id.ToString();
                     ob.Text = item.route_name;
+                    objlist.Add(ob);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return objlist;
+        }
+
+        /// <summary>
+        /// This method used for get Driver dropdown list
+        /// coder:Smruti Wagh
+        /// </summary>
+        public async Task<List<SelectListItem>> GetDriverDDL(int? statusid)
+        {
+            List<SelectListItem> objlist = new List<SelectListItem>();
+            try
+            {
+                var obl = await dr.GetDriverList(statusid);
+                foreach (var item in obl)
+                {
+                    SelectListItem ob = new SelectListItem();
+                    ob.Value = item.id.ToString();
+                    ob.Text = item.name + "-" + item.contact_no;
+                    objlist.Add(ob);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return objlist;
+        }
+        /// <summary>
+        /// This method used for get Truck dropdown list
+        /// coder:Smruti Wagh
+        /// </summary>
+        public async Task<List<SelectListItem>> GetTruckDDL(int? statusid)
+        {
+            List<SelectListItem> objlist = new List<SelectListItem>();
+            try
+            {
+                var obl = await tr.GetTruckList(statusid);
+                foreach (var item in obl)
+                {
+                    SelectListItem ob = new SelectListItem();
+                    ob.Value = item.id.ToString();
+                    ob.Text = item.truck_no;
+                    objlist.Add(ob);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return objlist;
+        }
+        /// <summary>
+        /// This method used for get Scanner dropdown list
+        /// coder:Smruti Wagh
+        /// </summary>
+        public async Task<List<SelectListItem>> GetScannerDDL(int? statusid)
+        {
+            List<SelectListItem> objlist = new List<SelectListItem>();
+            try
+            {
+                var obl = await rsr.GetRFIDScannerList(statusid);
+                foreach (var item in obl)
+                {
+                    SelectListItem ob = new SelectListItem();
+                    ob.Value = item.id.ToString();
+                    ob.Text = item.scanner_id;
+                    objlist.Add(ob);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
+
+            return objlist;
+        }
+
+
+        /// <summary>
+        /// this method is used to drop down for action 
+        /// coder: Smruti Wagh
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<SelectListItem>> GetActionDDL(int? statusid)
+        {
+
+            List<SelectListItem> objlist = new List<SelectListItem>();
+            try
+            {
+                var obl = await acr.GetActionList(statusid);
+                foreach (var item in obl)
+                {
+                    SelectListItem ob = new SelectListItem();
+                    ob.Value = item.module_action_id.ToString();
+                    ob.Text = item.module_action_name;
                     objlist.Add(ob);
                 }
             }

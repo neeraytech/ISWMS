@@ -62,9 +62,9 @@ namespace ISWM.WEB.BusinessServices.SingletonCS
         /// <param name="moduleid"></param>
         /// <param name="actionid"></param>
         /// <returns></returns>
-        public bool IsModuleActionAccess( int moduleid,int actionid)
+        public int IsModuleActionAccess( int moduleid,int actionid)
         {
-            bool isFind = false;
+            int isFind = 0;
             if (User_Security_Access_List != null)
             {
                 if (User_Security_Access_List.Count > 0)
@@ -73,7 +73,7 @@ namespace ISWM.WEB.BusinessServices.SingletonCS
                     var find = User_Security_Access_List.Where(w => w.module_id == moduleid && w.action_id == actionid).FirstOrDefault();
                     if (find != null)
                     {
-                        isFind = find.hasAccess;
+                        isFind = find.status_id;
                     }
                 }
 

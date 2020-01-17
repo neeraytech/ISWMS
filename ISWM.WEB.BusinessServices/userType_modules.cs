@@ -17,11 +17,12 @@ namespace ISWM.WEB.BusinessServices
         public int id { get; set; }
         public int user_type_id { get; set; }
         public int module_id { get; set; }
-        public bool isActivie { get; set; }
+        public Nullable<bool> isActivie { get; set; }
         public int created_by { get; set; }
         public System.DateTime created_datetime { get; set; }
         public int modified_by { get; set; }
         public System.DateTime modified_datetime { get; set; }
+        public int status { get; set; }
     
         public virtual module_master module_master { get; set; }
         public virtual userType_master userType_master { get; set; }

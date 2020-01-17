@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ISWM.WEB.BusinessServices;
 using ISWM.WEB.BusinessServices.SingletonCS;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -27,158 +28,137 @@ namespace ISWM.WEB.Controllers
         /// This method used to show RFID Scanner list
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var list = rs.GetRFIDScannerList();
-                return View(list);
+                if (Session["User_id"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                    else if ((Convert.ToInt32(Session["UserTypeID"]) != 1 && Convert.ToInt32(Session["UserTypeID"]) != 7))
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                var list =await rs.GetViewRFIDScannerList("desc", Convert.ToInt32(Session["User_id"]), Convert.ToInt32(Session["UserTypeID"]));
+                ViewBag.RFIDScannerList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+                return View();
+            }
+            catch (Exception er)
+            {
+                log.Error("Error: " + er.Message);
+                return View();               
+            }           
+        }
+
+        /// <summary>
+        /// This method used to perform insert update delete operation if 0 its perform insert operation else perform modify operation
+        /// coder : Pranali Patil
+        /// </summary>
+        [HttpPost]
+        public async Task<ActionResult> Index(RFID_scanner_master obj)
+        {
+            try
+            {
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
+                obj.modified_datetime = DateTime.Now;
+                if (obj.id > 0)
+                {
+                    // TODO: Update insert logic here
+                    int isUpdate =await rs.ModifyRFIDScanner(obj);
+                    TempData["MessageCode"] = isUpdate;
+                    return View();
+                }
+                else
+                {
+
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;
+                    int isadd =await rs.AddRFIDScanner(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
+                }
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
                 return View();
-               
+                //  throw;
             }
-           
         }
 
-        // GET: RFID/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: RFID/Create
         /// <summary>
-        /// This method used to create RFID Scanner
+        /// This method used to AddEdit RFID Scanner 
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Create()
+        public async Task<ActionResult> AddEditModel(int id)
         {
-            ViewBag.PageHeader = "Add RFID Scanner";
             try
             {
-                
                 List<SelectListItem> list = new List<SelectListItem>();
                 //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error: " + ex.Message);
-                
-            }
-
-            return View();
-        }
-
-        // POST: RFID/Create
-        /// <summary>
-        /// This method used to save RFID Scanner
-        /// coder : Pranali Patil
-        /// </summary>
-        [HttpPost]
-        public ActionResult Create(RFID_scanner_master obj)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                obj.password = obj.password; //gcm.ComputeSha256Hash(obj.password);
-                int isadd = rs.AddRFIDScanner(obj);
-                if (isadd == 1)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
-                    return View();
-                }
-
-            }
-            catch(Exception ex)
-            {
-                log.Error("Error: " + ex.Message);
-                List<SelectListItem> list = new List<SelectListItem>();
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-                return View();
-            }
-        }
-
-        // GET: RFID/Edit/5
-        /// <summary>
-        /// This method used to edit RFID Scanner
-        /// coder : Pranali Patil
-        /// </summary>
-        public ActionResult Edit(int id)
-        {
-            try
-            {
-               List<SelectListItem> list = new List<SelectListItem>();
- 
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
+                list =await cm.GetStatusDDL();
                 ViewBag.DDLStatus = list;
 
-                var obj = rs.GetRFIDScannerByID(id);
-                return View(obj);
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error: " + ex.Message);
-                
-            }
+                var obj =await rs.GetRFIDScannerByID(id);
+                return PartialView("AddEditModel", obj);
 
-            return View();
-        }
-
-        // POST: RFID/Edit/5
-        /// <summary>
-        /// This method used to update RFID Scanner
-        /// coder : Pranali Patil
-        /// </summary>
-        [HttpPost]
-        public ActionResult Edit(int id, RFID_scanner_master obj)
-        {
-            try
-            {
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = rs.ModifyRFIDScanner(obj);
-                if (isUpdate)
-                {
-                    return RedirectToAction("Index");
-
-                }
-                else
-                {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
-                    return View(obj);
-                }
-               
             }
-            catch(Exception ex)
+            catch (Exception er)
             {
-                log.Error("Error: " + ex.Message);
-                List<SelectListItem> list = new List<SelectListItem>();
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-                return View();
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
             }
         }
 
@@ -187,41 +167,24 @@ namespace ISWM.WEB.Controllers
         /// This method used to Delete RFID Scanner
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id,int status)
         {
             try
             {
                 RFID_scanner_master obj = new RFID_scanner_master();
                 obj.id = id;
-                obj.status = 2;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = rs.DeleteRFIDScanner(obj);
+                int isdeleted =await rs.DeleteRFIDScanner(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
                 return RedirectToAction("Index");
-               
-            }
-  
-        }
-
-        // POST: RFID/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            }  
+        }      
     }
 }

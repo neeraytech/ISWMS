@@ -9,6 +9,7 @@ using log4net;
 using ISWM.WEB.Common.CommonServices;
 using ISWM.WEB.CommonCode;
 using ISWM.WEB.BusinessServices.Repository;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -28,12 +29,70 @@ namespace ISWM.WEB.Controllers
         /// coder: Smruti Wagh
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var list = mr.GetmoduleList();
-                return View(list);
+
+                if (Session["User_id"] != null && Session["UserTypeID"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0" || Session["UserTypeID"].ToString() != "1")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                var list =await mr.GetViewModuleTypeList("desc");
+
+                ViewBag.ModuleList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+
+                return View();
             }
             catch (Exception er)
             {
@@ -42,139 +101,65 @@ namespace ISWM.WEB.Controllers
                 
             }            
         }
-
         /// <summary>
-        /// This method used to create Module
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <returns></returns>
-
-        // GET: Module/Create
-        public ActionResult Create()
-        {
-            try {
-                return View();
-            }
-            catch (Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                return View();
-            }
-        }
-        /// <summary>
-        /// This method used to save created Module
-        /// coder: Smruti Wagh
+        /// This used to create module(post)
+        /// Coder: Kailas Ajabe
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        // POST: Module/Create
         [HttpPost]
-        public ActionResult Create(module_master obj)
+        public async Task<ActionResult> Index(module_master obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
+
+                obj.modified_by = Singleton.userobject.user_id; ;
                 obj.modified_datetime = DateTime.Now;
-                int isadd = mr.Addmodule(obj);
-                if (isadd == 1)
+                if (obj.module_id> 0)
                 {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
+                    // TODO: Update insert logic here
+                    int isUpdate =await mr.Modifymodule(obj);
+                    TempData["MessageCode"] = isUpdate;
                     return View();
                 }
-               
-            }
-            catch( Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                return View();
-            }
-        }
-        /// <summary>
-        /// This method used to save Edited Module
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: Module/Edit/5
-        public ActionResult Edit(int id)
-        {
-            try
-            {
-
-                var obj = mr.GetmoduleByID(id);
-                if(obj!=null)
-                {
-                    return View(obj);
-                }
                 else
                 {
-                    return RedirectToAction("Index");
+
+                    // TODO: Add insert logic here
+                    obj.created_by = Singleton.userobject.user_id; ;
+                    obj.created_datetime = DateTime.Now;
+                    int isadd =await mr.Addmodule(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
                 }
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
                 return View();
+                //  throw;
             }
-           
-        }
-        /// <summary>
-        /// This method used to save Edited Module
-        /// coder: Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        // POST: Module/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, module_master obj)
-        {
-            try
-            {
-                // TODO: Add update logic here
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = mr.Modifymodule(obj);
-                if (isUpdate)
-                {
-                    return RedirectToAction("Index");
 
-                }
-                else
-                {
-                    return View(obj);
-                }
-                
-            }
-            catch (Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                return View();
-            }
         }
+        
         /// <summary>
         /// This method used to Delete Module(change only status)
-        /// coder: Smruti Wagh
+        /// coder: Kailas Ajabe
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: Module/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id, int status)
         {
             try
             {
                 module_master obj = new module_master();
                 obj.module_id = id;
-                obj.isActivie = false;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Singleton.userobject.user_id; ;
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = mr.Deletemodule(obj);
+                int isdeleted =await mr.Deletemodule(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception er)
@@ -183,7 +168,33 @@ namespace ISWM.WEB.Controllers
                 return RedirectToAction("Index");
             }           
         }
+        /// <summary>
+        /// This method used to create module AddEdit Partial view
+        /// coder: Kailas Ajabe
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> AddEditModel(int id)
+        {
+            try
+            {
+                List<SelectListItem> list = new List<SelectListItem>();
+                //for Status dropdown              
+                list =await cm.GetStatusDDL();
+                ViewBag.DDLStatus = list;
 
-      
+                var obj =await mr.GetmoduleByID(id);
+                return PartialView("AddEditModel", obj);
+
+            }
+            catch (Exception er)
+            {
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
+            }
+        }
+
+
+
     }
 }

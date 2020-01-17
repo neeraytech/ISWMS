@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ISWM.WEB.BusinessServices;
 using ISWM.WEB.BusinessServices.SingletonCS;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -28,188 +29,147 @@ namespace ISWM.WEB.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: RFIDhouseholdDetails
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var list = rhd.GetRHDList();
-                return View(list);
+                if (Session["User_id"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                    else if ((Convert.ToInt32(Session["UserTypeID"]) != 1 && Convert.ToInt32(Session["UserTypeID"]) != 6 && Convert.ToInt32(Session["UserTypeID"]) != 3))
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                var list =await rhd.GetViewRFIDHouseholdList("desc", Convert.ToInt32(Session["User_id"]), Convert.ToInt32(Session["UserTypeID"]));
+                ViewBag.RFID_household_detailsList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null; ;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+                return View();
             }
             catch (Exception er)
             {
-                log.Error("Error: " + er.Message);
-                return View();
-               
+                log.Error("Error: " + er.Message);             
+                return View();               
             }
            
         }
-
         /// <summary>
-        /// This method is use to create RFID households
-        /// coder:Smruti Wagh
-        /// </summary>
-        /// <returns></returns>
-
-        // GET: RFIDhouseholdDetails/Create
-        public ActionResult Create()
-        {
-
-            ViewBag.PageHeader = "Add RFID";
-            try
-            {
-                //for household dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLhousehold = list;
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error: " + ex.Message);
-                
-            }
-
-
-            return View();
-        }
-        /// <summary>
-        /// This method is use to save createD RFID households
+        /// This method used to perform Insert Updte Delete operations is 0 it performs insert operation else perform modify operation
         /// coder:Smruti Wagh
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        // POST: RFIDhouseholdDetails/Create
         [HttpPost]
-        public ActionResult Create(RFID_household_details obj)
+        public async Task<ActionResult> Index(RFID_household_details obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
+
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                int isadd = rhd.AddRHD(obj);
-                if (isadd==1)
+                if (obj.id > 0)
                 {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    //for household dropdown
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetHouseholdDDL();
-                    ViewBag.DDLhousehold = list;
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
+                    // TODO: Update insert logic here
+                    int isUpdate =await rhd.ModifyRHD(obj);
+                    TempData["MessageCode"] = isUpdate;
                     return View();
                 }
-                
-            }
-            catch (Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                //for household dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLhousehold = list;
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-                return View();
-            }
-        }
-        /// <summary>
-        /// This method is use to Edit RFID households
-        /// coder:Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: RFIDhouseholdDetails/Edit/5
-        public ActionResult Edit(int id)
-        {
-            try
-            {
-                //for Household dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLhousehold = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-
-                var obj = rhd.GetRHDByID(id);
-                return View(obj);
-            }
-            catch (Exception er)
-            {
-                log.Error("Error: " + er.Message);
-                //for Household dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLhousehold = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-                return View();
-            }
-           
-        }
-        /// <summary>
-        /// This method is use to save edited RFID households
-        /// coder:Smruti Wagh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        // POST: RFIDhouseholdDetails/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, RFID_household_details obj)
-        {
-            try
-            {
-                // TODO: Add update logic here
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = rhd.ModifyRHD(obj);
-                if (isUpdate)
-                {
-                    return RedirectToAction("Index");
-
-                }
                 else
                 {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    list = cm.GetHouseholdDDL();
-                    ViewBag.DDLhousehold = list;
 
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
-                    return View(obj);
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;
+                    int isadd =await rhd.AddRHD(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
                 }
-               
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
-                //for Household dropdown
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetHouseholdDDL();
-                ViewBag.DDLhousehold = list;
-
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
                 return View();
+                //  throw;
+            }
+
+        }
+        /// <summary>
+        /// This method is used to Add Update with Partial view.
+        /// coder:Smruti Wagh
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult> AddEditModel(int id)
+        {
+            try
+            {
+                List<SelectListItem> list = new List<SelectListItem>();
+                //for Status dropdown              
+                list =await cm.GetStatusDDL();
+                ViewBag.DDLStatus = list;
+                //for household dropdown
+                list =await cm.GetHouseholdDDL(1);
+                ViewBag.DDLhousehold = list;
+                var obj =await rhd.GetRHDByID(id);
+                return PartialView("AddEditModel", obj);
+
+            }
+            catch (Exception er)
+            {
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
             }
         }
+       
         /// <summary>
         /// This method is use to delete RFID households
         /// coder:Smruti Wagh
@@ -217,26 +177,24 @@ namespace ISWM.WEB.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: RFIDhouseholdDetails/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id,int status)
         {
             try
             {
                 RFID_household_details obj = new RFID_household_details();
                 obj.id = id;
-                obj.status = 2;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = rhd.DeleteRHD(obj);
+                int isdeleted =await rhd.DeleteRHD(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception er)
             {
                 log.Error("Error: " + er.Message);
                 return RedirectToAction("Index");
-            }
-            
-        }
-
-       
+            }            
+        }       
     }
 }

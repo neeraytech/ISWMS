@@ -1,0 +1,187 @@
+﻿@model ISWM.WEB.BusinessServices.household_master
+<!--coder:Smruti Wagh
+Household partial view for add and update-->
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="add_new_institute_type">Add / Update Household Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+       
+        <!--begin::Form-->
+
+        <form class="kt-form" id="myForm">
+
+            @Html.HiddenFor(model => model.id)
+            <div class="form-group row">
+
+                <div class="col-sm-6">
+                    <label class="col-form-label">Ward No. <span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.ward_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLWard, "Value", "Text"), "Select", new { @class = "form-control", @required = "Required", @title = "Please Select Ward" })
+
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Area <span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.area_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLArea, "Value", "Text"), "Select", new { @class = "form-control", @required = "Required", @title = "Please Select Area" })
+
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Address1 <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.address1, new { htmlAttributes = new { @class = "form-control", @required = "Required", @pattern = @"^(?![\s.]+$)[.0-9a-zA-Z\s,-/']+$", @title = "Please Enter Address1" } })
+
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Address2 <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.address2, new { htmlAttributes = new { @class = "form-control", @required = "Required", @pattern = @"^(?![\s.]+$)[.0-9a-zA-Z\s,-/']+$", @title = "Please Enter Address2" } })
+
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-form-label">City <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @required = "Required", @title = "Please Enter City" } })
+
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-form-label">Pincode <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.pin_code, new { htmlAttributes = new { @class = "form-control", @required = "Required", @title = "Please Enter Valid Pincode", @pattern = "^[1-9][0-9]{5}$", @maxlength = "6", @type = "text" } })
+
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-form-label">State <span class="kt-font-danger">*</span></label>
+
+                    @Html.EditorFor(model => model.state, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @required = "Required", @title = "Please Enter State" } })
+
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Latitude <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.latitude, new { htmlAttributes = new { @class = "form-control", @required = "Required", @title = "Please Enter Latitude", @pattern = @"^(\-?\d+(\.\d+)?)$" } })
+
+                </div>
+                <div class="col -sm-6">
+                    <label class="col-form-label">Longitude <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.longitude, new { htmlAttributes = new { @class = "form-control", @required = "Required", @title = "Please Enter Longitude", @pattern = @"^(\-?\d+(\.\d+)?)$" } })
+
+                </div>
+
+            </div>
+
+            <div class="kt-separator kt-separator--border-dashed"></div>
+
+            <div class="form-group row mt-3">
+
+                <div class="col-sm-12">
+                    <label class="col-form-label">Contact Person Name <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.household_name, new { htmlAttributes = new { @class = "form-control", @required = "Required", @pattern = @"^(?![\s.]+$)[a-zA-Z\s.]*$", @title = "Please Enter Contact Person Name" } })
+
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Mobile No. <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.contact_no, new { htmlAttributes = new { @class = "form-control", @required = "Required", @maxlength = "10", @title = "Please Enter Valid Mobile No", @pattern = @"^[789]\d{9}$" } })
+
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Email ID</label>
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control",@pattern = @"[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,4}" } })
+                </div>
+            </div>
+
+            <div class="kt-separator kt-separator--border-dashed"></div>
+
+            <div class="form-group row mt-3">
+
+
+                <div class="col-sm-6">
+
+                    <label class="col-form-label">Valid From <span class="kt-font-danger">*</span></label>
+                    <div class='input-group date'>
+                        @Html.EditorFor(model => model.valid_from, new { htmlAttributes = new { @class = "form-control date", @id = "txtFromDate", @type = "text", @required = "Required", @title = "Please Enter Valid From Date", @Value = ViewBag.FromDate } })                        
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <label class="col-form-label">Valid To <span class="kt-font-danger">*</span></label>
+                    <div class='input-group date'>
+                        @Html.EditorFor(model => model.valid_to, new { htmlAttributes = new { @class = "form-control date", @id = "txtToDate", @type = "text", @required = "Required", @title = "Please Enter Valid To Date", @Value = ViewBag.ToDate } })                        
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Status <span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.status, new SelectList((System.Collections.IEnumerable)ViewBag.DDLStatus, "Value", "Text"), "Select", new { @class = "form-control", @required = "Required", @title = "Please Select Status" })                  
+                </div>
+                <div class="col-sm-12">
+                    <div id="messages" class="hidden">
+                        <div id="messages_content"></div>
+                        <div class="alert-close">
+                            @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close"></i></span>
+                </button>*@
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </form>
+        <!--end::Form-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#add_new_info').modal('hide');$('#toast_error').toast('show');">Close</button>
+
+        <button type="button" class="btn btn-primary" id="btnSubmit">Save Info</button>
+    </div>
+    
+</div>
+<script src="../../assets/js/pages/components/forms/widgets/bootstrap-daterangepicker.js"></script>
+<script src="../../assets/js/pages/components/forms/widgets/bootstrap-datepicker.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#txtFromDate").datepicker({
+            clearBtn: true,
+            todayHighlight: true,  
+            format: 'dd-M-yyyy'                          
+            });
+
+        $("#txtToDate").datepicker({
+            clearBtn: true,
+            todayHighlight: true, 
+            format: 'dd-M-yyyy'
+        });
+
+        $("#btnSubmit").click(function () {
+
+            if ($("#myForm").valid()) {
+                var startdate = $("#txtFromDate").val();
+                var enddate = $("#txtToDate").val();
+                if (Date.parse(startdate) < Date.parse(enddate)) {
+                    var myformdata = $("#myForm").serialize();    
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/HouseHold/Index",
+                        data: myformdata,
+                        success: function () {
+                            // $("#loaderDiv").hide();
+                            $("#add_new_info").modal("hide");
+                            window.location.href = "/HouseHold/Index";
+                        }
+                    });
+                }
+                else {                    
+                    $('#messages').removeClass('hidden').addClass('alert alert-solid-danger alert-bold fade show');
+                    $('#messages_content').html('Valid To Date Should Be Greater Than Valid From Date');          
+                }
+                          
+            }
+            else {
+                
+                return false;
+            }
+
+        })
+    })
+</script>

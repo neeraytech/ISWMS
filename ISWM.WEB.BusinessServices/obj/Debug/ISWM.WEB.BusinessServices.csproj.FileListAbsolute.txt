@@ -30,3 +30,5 @@ F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.Business
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.BusinessServices\obj\Debug\ISWM.WEB.BusinessServices.csproj.CopyComplete
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.BusinessServices\obj\Debug\ISWM.WEB.BusinessServices.dll
 F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.BusinessServices\obj\Debug\ISWM.WEB.BusinessServices.pdb
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.BusinessServices\bin\Debug\Newtonsoft.Json.dll
+F:\OfficialMatters\Projects\SWM\Source\GithubCode\source\ISWMS\ISWM.WEB.BusinessServices\bin\Debug\Newtonsoft.Json.xml

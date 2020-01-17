@@ -41,10 +41,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ActionModule.cs" />
+    <Compile Include="Models\AreaModule.cs" />
+    <Compile Include="Models\DashboardModule.cs" />
+    <Compile Include="Models\DriverModule.cs" />
+    <Compile Include="Models\GPSModule.cs" />
+    <Compile Include="Models\GPS_API_Module.cs" />
+    <Compile Include="Models\HouseholdModel.cs" />
+    <Compile Include="Models\ISWMSModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Module_Module.cs" />
+    <Compile Include="Models\RFIDHouseholdModel.cs" />
+    <Compile Include="Models\RFIDPunchingDetailsModel.cs" />
+    <Compile Include="Models\RFIDScannerModule.cs" />
+    <Compile Include="Models\RFIDScannerPunchingModel.cs" />
     <Compile Include="Models\RootObject.cs" />
+    <Compile Include="Models\RouteHouseHoldDModule.cs" />
+    <Compile Include="Models\RouteModule.cs" />
     <Compile Include="Models\StatusModel.cs" />
+    <Compile Include="Models\TruckModule.cs" />
+    <Compile Include="Models\TruckTrackingHistoryModule.cs" />
+    <Compile Include="Models\UserModule.cs" />
     <Compile Include="Models\UserSecurityAccessModel.cs" />
+    <Compile Include="Models\UserTypeModule.cs" />
+    <Compile Include="Models\UserTypeModuleModel.cs" />
+    <Compile Include="Models\WardKarykartaModel.cs" />
+    <Compile Include="Models\WardModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

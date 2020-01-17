@@ -1,0 +1,73 @@
+﻿@model ISWM.WEB.BusinessServices.actions_master
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="add_new_institute_type">Add / Update Actions Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <!--begin::Form-->
+
+        <form class="kt-form" id="myForm">
+            @Html.HiddenFor(model => model.module_action_id)
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label class="col-form-label">Module Action Name <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.module_action_name, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @pattern = @"^(?![\s.]+$)[a-zA-Z\s.]*$", @title = "Please Enter Module Action Name" } })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Action Description</label>
+                    @Html.EditorFor(model => model.module_action_desc, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Status<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.status, new SelectList((System.Collections.IEnumerable)ViewBag.DDLStatus, "Value", "Text"), "-- select --", new { @class = "form-control", @required = "Required", @title = "Please Select Status" })
+                </div>
+            </div>
+        </form>
+        <!--end::Form-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#add_new_info').modal('hide');$('#toast_error').toast('show');">Close</button>
+        <button type="button" class="btn btn-primary" id="btnSubmit">Save Info</button>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            if ($("#myForm").valid()) {
+              
+                var myformdata = $("#myForm").serialize();
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Action/Index",
+                    data: myformdata,
+                    success: function () {
+                        // $("#loaderDiv").hide();
+                        $("#add_new_info").modal("hide");
+                        window.location.href = "/Action/Index";
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        })
+    })
+</script>
+
+
+
+

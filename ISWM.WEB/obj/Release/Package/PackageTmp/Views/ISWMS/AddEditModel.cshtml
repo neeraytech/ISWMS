@@ -1,0 +1,133 @@
+﻿@model ISWM.WEB.BusinessServices.ISWMS_master
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="add_new_institute_type">Add / Update ISWMS Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <!--begin::Form-->
+
+        <form class="kt-form" id="myForm">
+            @Html.HiddenFor(model => model.id)
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label class="col-form-label">Route<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.route_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLRoute, "Value", "Text"), "select", new { @class = "form-control", @required = "Required", @title = "Please Select Route" })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Driver<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.driver_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLDriver, "Value", "Text"), "Select", new { @class = "form-control", @required = "Required", @title = "Please Select Driver" })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Truck<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.truck_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLTruck, "Value", "Text"), "Select", new { @class = "form-control", @required = "Required", @title = "Please Select Truck" })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Scanner<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.scanner_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLScanner, "Value", "Text"), "Select", new { @class = "form-control", @required = "Required", @title = "Please Select Scanner" })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Date<span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.date,new { htmlAttributes = new { @class = "form-control date", @id = "date", @type = "text", @required = "Required", @title = "Please Select Date", @Value = ViewBag.sDate }})
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Expected Start Time<span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.expected_start_time, new { htmlAttributes = new { @class = "form-control", @id = "time1", @type = "time", @required = "Required", @title = "Please Select Valid Start Date" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Expected End Time<span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.expected_end_time, new { htmlAttributes = new { @class = "form-control", @id = "time2", @type = "time", @required = "Required", @title = "Please Select Valid End Date" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Status<span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.status, new SelectList((System.Collections.IEnumerable)ViewBag.DDLStatus, "Value", "Text"), "Select", new { @class = "form-control", @required = "Required", @title = "Please select Status" })
+                </div>
+
+                <div class="col-sm-12">
+                    <div id="messages" class="hidden">
+                        <div id="messages_content"></div>
+                        <div class="alert-close">
+                            @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="la la-close"></i></span>
+                    </button>*@
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <!--end::Form-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#add_new_info').modal('hide');$('#toast_error').toast('show');">Close</button>
+        <button type="button" class="btn btn-primary" id="btnSubmit">Save Info</button>
+    </div>
+
+</div>
+<script src="../../assets/js/pages/components/forms/widgets/bootstrap-datepicker.js"></script>
+<script>
+
+    $(document).ready(function () {      
+    
+        $("#date").datepicker({
+            clearBtn: true,
+            todayHighlight: true,
+            format: 'dd-M-yyyy'
+        });
+        
+        //$("#first_date").text(first_date);
+       
+        $("#btnSubmit").click(function () {
+
+            if ($("#myForm").valid()) {
+                var start_time = $("#time1").val();
+
+                //end time
+                var end_time = $("#time2").val();
+
+                //convert both time into timestamp
+                var stt = new Date("November 13, 2013 " + start_time);
+                stt = stt.getTime();
+
+                var endt = new Date("November 13, 2013 " + end_time);
+                endt = endt.getTime();
+
+                //by this you can see time stamp value in console via firebug
+                console.log("Time1: " + stt + " Time2: " + endt);
+
+                if (stt < endt) {
+                    // $('#myForm').submit();
+                    var myformdata = $("#myForm").serialize();
+
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/ISWMS/Index",
+                        data: myformdata,
+                        success: function () {
+                            // $("#loaderDiv").hide();
+                            $("#add_new_info").modal("hide");
+                            window.location.href = "/ISWMS/Index";
+                        }
+                    });
+                }
+                else
+                {
+                    $('#messages').removeClass('hidden').addClass('alert alert-solid-danger alert-bold fade show');
+                    $('#messages_content').html('Expected End Time Should Be Greater Than Expected Start Time'); 
+                }
+            }
+            else {
+                return false;
+            }
+
+        })
+    })
+</script>
+
+

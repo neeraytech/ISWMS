@@ -7,6 +7,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,13 +20,72 @@ namespace ISWM.WEB.Controllers
         CommonCS cm = new CommonCS();
         GCommon gcm = new GCommon();
         // GET: User
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
-            {
-                ViewBag.PageHeader = "System User List";               
-                var list = ur.GetUserList(true);
-                return View(list);                
+            {  
+                if (Session["User_id"] != null && Session["UserTypeID"] != null)
+                {
+                    if (Session["User_id"].ToString() == "0")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                    else if ((Session["UserTypeID"].ToString() != "1" && Session["UserTypeID"].ToString() != "3"))
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+
+                var list =await ur.GetViewUserList("desc", Convert.ToInt32(Session["User_id"]), Convert.ToInt32(Session["UserTypeID"]));
+                ViewBag.UserList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+                return View();
             }
             catch (Exception ex)
             {
@@ -36,122 +96,75 @@ namespace ISWM.WEB.Controllers
            
         }
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: User/Create
-        public ActionResult Create()
-        {
-           
-            try
-            {
-                ViewBag.PageHeader = "Add User";
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetUserTypeDDL();
-                ViewBag.DDLUserType = list;
-            }
-            catch (Exception ex)
-            {
-
-               // throw;
-            }
-            return View();
-        }
-
-        // POST: User/Create
         [HttpPost]
-        public ActionResult Create(user_master obj)
+        public async Task<ActionResult> Index(user_master obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                try
+
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
+                obj.modified_datetime = DateTime.Now;
+                if (obj.user_id > 0)
                 {
-                    ViewBag.PageHeader = "Add User";
-                    obj.created_by = Singleton.userobject.user_id; 
-                    obj.created_datetime = DateTime.Now;
-                    obj.modified_by = Singleton.userobject.user_id;
-                    obj.modified_datetime = DateTime.Now;
-                    obj.password = gcm.ComputeSha256Hash(obj.password);
-                    int isAdd = ur.AddUser(obj);
-                    if(isAdd==1)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        return View();
-                    }
-                }
-                catch (Exception ex)
-                {
+                    int isUpdate =await ur.ModifyUser(obj);
+                    TempData["MessageCode"] = isUpdate;
                     return View();
-                    // throw;
                 }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {            
-            try
-            {
-                ViewBag.PageHeader = "Modify User";
-                List<SelectListItem> list = new List<SelectListItem>();
-                list = cm.GetUserTypeDDL();
-                ViewBag.DDLUserType = list;
-
-                var finduser = ur.GetUserByID(id);
-                if(finduser!=null)
+                else
                 {
-                    return View(finduser);
+
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;                    
+                    obj.password = gcm.ComputeSha256Hash(obj.password);
+                    int isadd =await ur.AddUser(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
                 }
-
             }
-            catch (Exception)
+            catch (Exception er)
             {
-
-               // throw;
+                log.Error("Error: " + er.Message);
+                return View();
+                //  throw;
             }
-            return View();
+           
         }
 
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id,user_master obj)
+
+        public async Task<ActionResult> AddEditModel(int id)
         {
             try
             {
-                // TODO: Edit update logic here
-                ViewBag.PageHeader = "Modify User";
-                if (ModelState.IsValid)
+                List<SelectListItem> list = new List<SelectListItem>();
+                list = await cm.GetUserTypeDDL(1);
+                ViewBag.DDLUserType = list;
+                if(Convert.ToInt32(Session["UserTypeID"]) != 1)
                 {
-                    obj.modified_by = 1;
-                    obj.modified_datetime = DateTime.Now;
-                    bool isupdate = ur.ModifyUser(obj);
-                    if (isupdate)
-                    {
-                        return RedirectToAction("Index");
-                    }
+                    ViewBag.DDLUserType = list.Where(w=>w.Value=="6").ToList();
                 }
-                return RedirectToAction("Index");
+
+                list = await cm.GetStatusDDL();
+                ViewBag.DDLStatus = list;
+
+                //for Area Dropdown
+                list = await cm.GetAreaDDL(1);
+                ViewBag.DDLArea = list;
+
+                var obj =await ur.GetUserByID(id);
+                ViewBag.User_id = obj.user_id;
+                return PartialView("AddEditModel", obj);
+
             }
-            catch (Exception ex)
+            catch (Exception er)
             {
-                return View();
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
             }
         }
 
         // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id,int status)
         {
             try
             {
@@ -159,37 +172,23 @@ namespace ISWM.WEB.Controllers
                 {
                     user_master obj = new user_master();
                     obj.user_id = id;
-                    obj.modified_by = 1;
+                    obj.status = status;
+                    obj.modified_by = Convert.ToInt32(Session["User_id"]);
                     obj.modified_datetime = DateTime.Now;
-                    bool isdelete = ur.DeleteUser(obj);
-                    if (isdelete)
-                    {
-                        return RedirectToAction("Index");
-                    }
+                    int isdeleted =await ur.DeleteUser(obj);
+                    TempData["DeleteMessageCode"] = isdeleted;
+                    return RedirectToAction("Index");
                 }
             }
-            catch (Exception ex)
+            catch (Exception er)
             {
 
-                throw;
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
             }
             return View();
         }
 
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

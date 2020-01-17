@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISWM.WEB.AutoScheduler.ISWM_Scheduled_Task;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,7 @@ namespace ISWM.WEB
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             log4net.Config.XmlConfigurator.Configure();
+            JobScheduler.Start();
         }
     }
 }

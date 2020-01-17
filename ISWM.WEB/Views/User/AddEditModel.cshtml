@@ -1,0 +1,151 @@
+﻿@model ISWM.WEB.BusinessServices.user_master
+<!--
+This is partial view for User
+coder : Dhananjay Powar
+-->
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="add_new_institute_type">Add / Update User Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <!--begin::Form-->
+
+        <form class="kt-form" id="myForm">
+            @Html.HiddenFor(model => model.user_id)
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="col-form-label">User Name <span class="kt-font-danger">*</span></label>
+                    @if (ViewBag.User_id > 0)
+                    {
+                        @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @title = "Please Enter User Name", @readonly = "readonly" } })
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @pattern = @"^(?![\s.]+$)[a-zA-Z0-9\s.]*$", @title = "Please Enter User Name" } })
+                    }
+
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">User Type <span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.user_type, new SelectList((System.Collections.IEnumerable)ViewBag.DDLUserType, "Value", "Text"), "-- select --", new { @class = "form-control", @required = "Required", @title = "Please select User Type" })
+                </div>
+                @if (ViewBag.User_id == 0)
+                {
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Password <span class="kt-font-danger">*</span></label>
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @maxlength = "8", @pattern = @"(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$", @type = "password", @id = "password", @required = "Required", @title = "Please Enter Valid Password" } })
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="col-form-label">confirm  Password <span class="kt-font-danger">* </span></label><span id='message'></span>
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @maxlength = "8", @pattern = @"(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$", @type = "password", @id = "confirmPassword", @required = "Required", @title = "Please Enter Valid Confirm Password" } })
+                    </div>
+                }
+                <div class="col-sm-12">
+                    <label class="col-form-label">Full Name <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @pattern = @"^(?![\s.]+$)[a-zA-Z\s.]*$", @title = "Please Enter Name" } })
+                </div>
+               
+
+                <div class="col -sm-6">
+                    <label class="col-form-label">Mobile No. <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.contact_no, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @pattern = @"^[789]\d{9}$", @required = "Required", @title = "Please Enter Valid Mobile Number" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Email ID</label>
+                    @Html.EditorFor(model => model.email_id, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @pattern = @"[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,4}", @title = "Please Enter Valid Email" } })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Address1 <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.address1, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @pattern = @"^(?![\s.]+$)[.0-9a-zA-Z\s,-/']+$", @title = "Please Enter Address1" } })
+                </div>
+                <div class="col-sm-12">
+                    <label class="col-form-label">Address2 <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.address2, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @pattern = @"^(?![\s.]+$)[.0-9a-zA-Z\s,-/']+$", @title = "Please Enter Address2" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Area <span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.area_id, new SelectList((System.Collections.IEnumerable)ViewBag.DDLArea, "Value", "Text"), "-- select --", new { @class = "form-control", @required = "Required", @title = "Please Select Area" })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">City <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @title = "Please Enter City", @readonly = "readonly" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Pincode <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.pin_code, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "6", @pattern = "^[1-9][0-9]{5}$", @required = "Required", @title = "Please Enter Valid Pincode" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">State <span class="kt-font-danger">*</span></label>
+                    @Html.EditorFor(model => model.state, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "100", @required = "Required", @title = "Please Enter State", @readonly = "readonly" } })
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label">Status <span class="kt-font-danger">*</span></label>
+                    @Html.DropDownListFor(model => model.status, new SelectList((System.Collections.IEnumerable)ViewBag.DDLStatus, "Value", "Text"), "-- select --", new { @class = "form-control", @required = "Required", @title = "Please select Status" })
+                </div>
+
+            </div>
+        </form>
+        <!--end::Form-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#add_new_info').modal('hide');$('#toast_error').toast('show');">Close</button>
+        <button type="button" class="btn btn-primary" id="btnSubmit">Save Info</button>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#password, #confirmPassword').on('keyup', function () {
+            if ($('#password').val() == $('#confirmPassword').val()) {
+                $('#message').html('Matching').css('color', 'green');
+            } else
+                $('#message').html('Not Matching').css('color', 'red');
+        });
+
+        $("#btnSubmit").click(function () {
+            if ($("#myForm").valid()) {
+                //  $("#loaderDiv").show(); 
+
+                if ($('#password').val() == $('#confirmPassword').val()) {
+                    var myformdata = $("#myForm").serialize();
+
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/User/Index",
+                        data: myformdata,
+                        success: function () {
+                            // $("#loaderDiv").hide();
+                            $("#add_new_info").modal("hide");
+                            window.location.href = "/User/Index";
+
+                        }
+
+                    });
+                }
+                else {
+                    $('#message').html('Not Matching').css('color', 'red');
+                    return false;
+                }
+                               
+            }
+            else {
+                return false;
+            }     
+            })
+
+    })
+
+
+</script>
+
+

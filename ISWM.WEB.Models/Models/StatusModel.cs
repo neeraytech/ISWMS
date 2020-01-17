@@ -10,5 +10,7 @@ namespace ISWM.WEB.Models.Models
     {
         public int id { get; set; }
         public string statusVal { get; set; }
+        public string cssclass { get; set; }
+        
     }
 }

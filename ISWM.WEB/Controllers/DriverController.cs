@@ -9,6 +9,7 @@ using ISWM.WEB.CommonCode;
 using ISWM.WEB.Common.CommonServices;
 using ISWM.WEB.BusinessServices.Repository;
 using ISWM.WEB.BusinessServices.SingletonCS;
+using System.Threading.Tasks;
 
 namespace ISWM.WEB.Controllers
 {
@@ -27,12 +28,72 @@ namespace ISWM.WEB.Controllers
         /// This method used to show Driver list
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var list = dr.GetDriverList();
-                return View(list);
+                if (Session["User_id"] != null )
+                {
+                    if (Session["User_id"].ToString() == "0")
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                    else if ((Convert.ToInt32(Session["UserTypeID"]) != 1 && Convert.ToInt32(Session["UserTypeID"]) != 7))
+                    {
+                        return RedirectToAction("Index", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                var list =await dr.GetViewDriverList("desc", Convert.ToInt32(Session["User_id"]), Convert.ToInt32(Session["UserTypeID"]));
+                ViewBag.DriverList = list;
+                if (TempData["MessageCode"] != null)
+                {
+                    ViewBag.MessageCode = TempData["MessageCode"];
+                    if (ViewBag.MessageCode == 1)
+                    {
+                        ViewBag.MessageTxt = "Data updated successfully.";
+                    }
+                    else if (ViewBag.MessageCode == -1)
+                    {
+                        ViewBag.MessageTxt = "Data already available.";
+                    }
+                    else
+                    {
+                        ViewBag.MessageTxt = "Some error occurred while updating data.";
+                    }
+                    TempData["MessageCode"] = null;
+                }
+                else
+                {
+                    if (TempData["DeleteMessageCode"] != null)
+                    {
+                        ViewBag.MessageCode = TempData["DeleteMessageCode"];
+                        if (ViewBag.MessageCode == 1)
+                        {
+                            ViewBag.MessageTxt = "Data Activate Successfully.";
+                        }
+                        else if (ViewBag.MessageCode == 2)
+                        {
+                            ViewBag.MessageCode = 1;
+                            ViewBag.MessageTxt = "Data Inactivate Successfully.";
+                        }
+                        else
+                        {
+                            ViewBag.MessageTxt = "Some error occurred while deleting data.";
+                        }
+                        TempData["DeleteMessageCode"] = null;
+                    }
+                    else
+                    {
+                        ViewBag.MessageCode = null;
+                    }
+                }
+
+                return View();
             }
             catch (Exception er)
             {
@@ -43,149 +104,66 @@ namespace ISWM.WEB.Controllers
             
         }
 
-        // GET: Driver/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Driver/Create
         /// <summary>
-        /// This method used to create driver
-        /// coder : Pranali Patil
-        /// </summary>
-        public ActionResult Create()
-        {
-            ViewBag.PageHeader = "Add Driver";
-            try
-            {
-                List<SelectListItem> list = new List<SelectListItem>();
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error: " + ex.Message);
-                
-            }
-
-
-            return View();
-        }
-
-        // POST: Driver/Create
-        /// <summary>
-        /// This method used to save Driver
+        /// This method used to perform insert update delete operation if 0 its perform insert operation else perform modify operation
         /// coder : Pranali Patil
         /// </summary>
         [HttpPost]
-        public ActionResult Create(driver_master obj)
+        public async Task<ActionResult> Index(driver_master obj)
         {
             try
             {
-                // TODO: Add insert logic here
-                obj.created_by = Singleton.userobject.user_id;
-                obj.created_datetime = DateTime.Now;
-                obj.modified_by = Singleton.userobject.user_id;
+
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                int isadd = dr.AddDriver(obj);
-                if (isadd == 1)
+                if (obj.id > 0)
                 {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
+                    // TODO: Update insert logic here
+                    int isUpdate = await dr.ModifyDriver(obj);
+                    TempData["MessageCode"] = isUpdate;
                     return View();
                 }
+                else
+                {
 
+                    // TODO: Add insert logic here
+                    obj.created_by = Convert.ToInt32(Session["User_id"]);
+                    obj.created_datetime = DateTime.Now;
+                    int isadd = await dr.AddDriver(obj);
+                    TempData["MessageCode"] = isadd;
+                    return View();
+                }
             }
-            catch(Exception ex)
+            catch (Exception er)
             {
-                log.Error("Error: " + ex.Message);
-                List<SelectListItem> list = new List<SelectListItem>();
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
+                log.Error("Error: " + er.Message);
                 return View();
+                //  throw;
             }
+
         }
 
-        // GET: Driver/Edit/5
         /// <summary>
-        /// This method used to edit driver
+        /// This method used to AddEdit Driver 
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> AddEditModel(int id)
         {
             try
             {
-
                 List<SelectListItem> list = new List<SelectListItem>();
                 //for Status dropdown              
-                list = cm.GetStatusDDL();
+                list =await cm.GetStatusDDL();
                 ViewBag.DDLStatus = list;
-                var obj = dr.GetDriverByID(id);
-                if(obj!=null)
-                {                    
-                    return View(obj);
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
-               
+
+                var obj = await dr.GetDriverByID(id);
+                return PartialView("AddEditModel", obj);
+
             }
-            catch (Exception ex)
+            catch (Exception er)
             {
-                log.Error("Error: " + ex.Message);
-                return View();
-            }
-
-
-            
-        }
-
-        // POST: Driver/Edit/5
-        /// <summary>
-        /// This method used to save updated driver 
-        /// coder : Pranali Patil
-        /// </summary>
-        [HttpPost]
-        public ActionResult Edit(int id, driver_master obj)
-        {
-            try
-            {
-                obj.modified_by = Singleton.userobject.user_id;
-                obj.modified_datetime = DateTime.Now;
-                bool isUpdate = dr.ModifyDriver(obj);
-                if (isUpdate)
-                {
-                    return RedirectToAction("Index");
-
-                }
-
-                else
-                {
-                    List<SelectListItem> list = new List<SelectListItem>();
-                    //for Status dropdown              
-                    list = cm.GetStatusDDL();
-                    ViewBag.DDLStatus = list;
-                    return View(obj);
-                }
-            }
-            catch (Exception ex) 
-            {
-                log.Error("Error: "+ex.Message);
-                List<SelectListItem> list = new List<SelectListItem>();
-                //for Status dropdown              
-                list = cm.GetStatusDDL();
-                ViewBag.DDLStatus = list;
-                return View();
+                log.Error("Error: " + er.Message);
+                return RedirectToAction("Index");
             }
         }
 
@@ -194,16 +172,17 @@ namespace ISWM.WEB.Controllers
         /// This method used to Delete Driver
         /// coder : Pranali Patil
         /// </summary>
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id,int status)
         {
             try
             {
                 driver_master obj = new driver_master();
                 obj.id = id;
-                obj.status = 2;
-                obj.modified_by = Singleton.userobject.user_id;
+                obj.status = status;
+                obj.modified_by = Convert.ToInt32(Session["User_id"]);
                 obj.modified_datetime = DateTime.Now;
-                bool isdeleted = dr.DeleteDriver(obj);
+                int isdeleted = await dr.DeleteDriver(obj);
+                TempData["DeleteMessageCode"] = isdeleted;
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -211,24 +190,8 @@ namespace ISWM.WEB.Controllers
                 log.Error("Error: " + ex.Message);
                 return RedirectToAction("Index");
             }
-
-            
         }
 
-        // POST: Driver/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
     }
 }
